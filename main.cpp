@@ -14,7 +14,7 @@ int main()
 
     if (!snareBuffer.loadFromFile("data/snare.wav")) {
         std::cout << "[ERROR] Cannot load data/snare.wav" << std::endl;
-        return 1;
+         return 1;
     }
 
     if (!hihatBuffer.loadFromFile("data/hihat.wav")) {
@@ -26,6 +26,10 @@ int main()
     kickSound.setBuffer(kickBuffer);
     snareSound.setBuffer(snareBuffer);
     hihatSound.setBuffer(hihatBuffer);
+
+    sf::CircleShape circle(50);
+    circle.setFillColor(sf::Color(0, 200, 0));
+    circle.setPosition(200, 200);
 
     while (App.isOpen())
     {
@@ -46,13 +50,17 @@ int main()
                     snareSound.play();
                     break;
 
-                case 2:
+                case 4:
                     hihatSound.play();
                     break;
+
+                default: {}
                 }
             }
         }
-        App.clear(sf::Color(0,0,255));
+
+        App.clear(sf::Color(0, 0, 0));
+        App.draw(circle);
         App.display();
     }
  
