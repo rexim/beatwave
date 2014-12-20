@@ -12,8 +12,6 @@ int main()
         {
             if (Event.type == sf::Event::Closed)
                 App.close();
-            else if (Event.type == sf::Event::) {
-            }
 
         }
         App.clear(sf::Color(0,0,255));
