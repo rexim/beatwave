@@ -186,6 +186,16 @@ int main()
                     break;
 
                 case 2:
+                    state.radius = 70.0f;
+                    state.r = 0.0f;
+                    state.g = 0.0f;
+                    state.b = 255.0f;
+
+                    if (transition != NULL) {
+                        delete transition;
+                    }
+                    transition = new Transition(state, 300, normalState);
+
                     hihatSound.play();
                     break;
 
