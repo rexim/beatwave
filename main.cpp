@@ -102,6 +102,8 @@ int main()
                     state.g = 0.0f;
                     state.b = 0.0f;
 
+                    targetState.x += 50.0f;
+
                     if (transition != NULL) {
                         delete transition;
                     }
