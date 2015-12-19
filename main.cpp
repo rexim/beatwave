@@ -5,72 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-struct State {
-    float x, y, radius, r, g, b, a;
-
-    State(float x, float y, float radius,
-          float r, float g, float b, float a):
-        x(x), y(y), radius(radius),
-        r(r), g(g), b(b), a(a)
-    {}
-};
-
-State operator+(const State &s1,
-                const State &s2)
-{
-    return State(s1.x + s2.x,
-                 s1.y + s2.y,
-                 s1.radius + s2.radius,
-                 s1.r + s2.r,
-                 s1.g + s2.g,
-                 s1.b + s2.b,
-                 s1.a + s2.a);
-}
-
-State operator-(const State &s1,
-                const State &s2)
-{
-    return State(s1.x - s2.x,
-                 s1.y - s2.y,
-                 s1.radius - s2.radius,
-                 s1.r - s2.r,
-                 s1.g - s2.g,
-                 s1.b - s2.b,
-                 s1.a - s2.a);
-}
-
-State operator*(const State &state, const float factor)
-{
-    return State(state.x * factor,
-                 state.y * factor,
-                 state.radius * factor,
-                 state.r * factor,
-                 state.g * factor,
-                 state.b * factor,
-                 state.a * factor);
-}
-
-sf::CircleShape stateToCircle(const State &state)
-{
-    sf::CircleShape circle(state.radius);
-    circle.setFillColor(sf::Color(state.r, state.g, state.b, state.a));
-    circle.setPosition(state.x - state.radius / 2.0f, state.y - state.radius / 2.0f);
-    return circle;
-}
-
-std::ostream &operator<<(std::ostream &os, const State &state)
-{
-    os << "("
-       << state.x << ", "
-       << state.y << ", "
-       << state.radius << ", "
-       << state.r << ", "
-       << state.g << ", "
-       << state.b << ", "
-       << state.a
-       << ")";
-    return os;
-}
+#include "./state.hpp"
 
 struct Transition
 {
@@ -139,9 +74,13 @@ int main()
     snareSound.setBuffer(snareBuffer);
     hihatSound.setBuffer(hihatBuffer);
 
-    const State normalState(200.0f, 200.0f, 50.0f, 255.0f, 255.0f, 255.0f, 255.0f);
+    State targetState(200.0f, 200.0f, 50.0f, 255.0f, 255.0f, 255.0f, 255.0f);
+
     Transition *transition = NULL;
+    Transition *moveTransition = NULL;
+
     State state(200.0f, 200.0f, 50.0f, 255.0f, 255.0f, 255.0f, 255.0f);
+
     sf::Clock clock;
 
     while (App.isOpen())
@@ -157,16 +96,18 @@ int main()
                 // std::cout << "JoystickButtonEvent: " << Event.joystickButton.button << std::endl;
 
                 switch (Event.joystickButton.button) {
-                case 0:
+                case 0:         // kick
                     state.radius = 70.0f;
                     state.r = 255.0f;
                     state.g = 0.0f;
                     state.b = 0.0f;
 
+                    targetState.x += 50.0f;
+
                     if (transition != NULL) {
                         delete transition;
                     }
-                    transition = new Transition(state, 300, normalState);
+                    transition = new Transition(state, 300, targetState);
 
                     kickSound.play();
                     break;
@@ -180,7 +121,7 @@ int main()
                     if (transition != NULL) {
                         delete transition;
                     }
-                    transition = new Transition(state, 300, normalState);
+                    transition = new Transition(state, 300, targetState);
 
                     snareSound.play();
                     break;
@@ -194,7 +135,7 @@ int main()
                     if (transition != NULL) {
                         delete transition;
                     }
-                    transition = new Transition(state, 300, normalState);
+                    transition = new Transition(state, 300, targetState);
 
                     hihatSound.play();
                     break;

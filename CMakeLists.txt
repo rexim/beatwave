@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.6)
 project(beatwave)
 
-add_executable(beatwave main.cpp)
+add_executable(beatwave main.cpp state.hpp)
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
 
