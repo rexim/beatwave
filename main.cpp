@@ -185,7 +185,7 @@ int main()
                     snareSound.play();
                     break;
 
-                case 4:
+                case 2:
                     hihatSound.play();
                     break;
 
