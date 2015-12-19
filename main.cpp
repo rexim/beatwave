@@ -74,9 +74,13 @@ int main()
     snareSound.setBuffer(snareBuffer);
     hihatSound.setBuffer(hihatBuffer);
 
-    const State normalState(200.0f, 200.0f, 50.0f, 255.0f, 255.0f, 255.0f, 255.0f);
+    State targetState(200.0f, 200.0f, 50.0f, 255.0f, 255.0f, 255.0f, 255.0f);
+
     Transition *transition = NULL;
+    Transition *moveTransition = NULL;
+
     State state(200.0f, 200.0f, 50.0f, 255.0f, 255.0f, 255.0f, 255.0f);
+
     sf::Clock clock;
 
     while (App.isOpen())
@@ -92,7 +96,7 @@ int main()
                 // std::cout << "JoystickButtonEvent: " << Event.joystickButton.button << std::endl;
 
                 switch (Event.joystickButton.button) {
-                case 0:
+                case 0:         // kick
                     state.radius = 70.0f;
                     state.r = 255.0f;
                     state.g = 0.0f;
@@ -101,7 +105,7 @@ int main()
                     if (transition != NULL) {
                         delete transition;
                     }
-                    transition = new Transition(state, 300, normalState);
+                    transition = new Transition(state, 300, targetState);
 
                     kickSound.play();
                     break;
@@ -115,7 +119,7 @@ int main()
                     if (transition != NULL) {
                         delete transition;
                     }
-                    transition = new Transition(state, 300, normalState);
+                    transition = new Transition(state, 300, targetState);
 
                     snareSound.play();
                     break;
@@ -129,7 +133,7 @@ int main()
                     if (transition != NULL) {
                         delete transition;
                     }
-                    transition = new Transition(state, 300, normalState);
+                    transition = new Transition(state, 300, targetState);
 
                     hihatSound.play();
                     break;
