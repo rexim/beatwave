@@ -40,4 +40,20 @@ private:
     const T finalState;
 };
 
+template <typename T>
+Animation<T> *moveTo(const T &initialState, sf::Int32 transitionTime, const T &finalState)
+{
+    return new LinearTransition<T>(initialState, 
+                                   transitionTime, 
+                                   finalState);
+}
+
+template <typename T>
+Animation<T> *moveBy(const T &initialState, sf::Int32 transitionTime, const T &deltaState)
+{
+    return new LinearTransition<T>(initialState, 
+                                   transitionTime, 
+                                   initialState + deltaState);
+}
+
 #endif  // LINEARTRANSITION_HPP_
