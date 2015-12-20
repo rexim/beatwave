@@ -15,14 +15,6 @@ public:
         m_transition(nullptr)
     {}
 
-    ~Animated()
-    {
-        if (m_transition != nullptr) {
-            delete m_transition;
-            m_transition = nullptr;
-        }
-    }
-
     T value() const
     {
         return value;
