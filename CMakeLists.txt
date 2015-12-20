@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 2.6)
 project(beatwave)
 
+if(CMAKE_COMPILER_IS_GNUCXX)
+    add_definitions(-std=gnu++0x)
+endif()
+
 set(HPPS
   state.hpp
 )
