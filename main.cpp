@@ -50,9 +50,20 @@ private:
     const State finalState;
 };
 
+sf::CircleShape playerToCircle(const Player &player)
+{
+    sf::CircleShape circle(player.radius.value());
+    circle.setFillColor(player.color.value());
+    circle.setPosition(player.position.value());
+    return circle;
+}
+
+
 int main()
 {
-    Player player;
+    Player player(sf::Vector2<float>(200.0f, 200.0f),
+                  50.0f,
+                  sf::Color(255.0f, 255.0f, 255.0f));
 
     sf::RenderWindow App(sf::VideoMode(800, 600, 32), "Hello World - SFML");
     sf::SoundBuffer kickBuffer, snareBuffer, hihatBuffer;

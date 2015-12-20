@@ -17,7 +17,7 @@ public:
 
     T value() const
     {
-        return value;
+        return m_value;
     }
 
     void stop()
