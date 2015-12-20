@@ -23,12 +23,12 @@ public:
         }
     }
 
-    T getValue() const
+    T value() const
     {
         return value;
     }
 
-    void setTransition(Transition<T> *transition)
+    void animate(Transition<T> *transition)
     {
         m_transition = transition;
     }
