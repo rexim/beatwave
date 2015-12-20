@@ -2,7 +2,7 @@
 #define ANIMATED_HPP_
 
 #include <memory>
-#include "./transition.hpp"
+#include "./animation.hpp"
 
 template <typename T>
 class Animated
@@ -12,7 +12,7 @@ public:
 
     Animated(const T &value):
         m_value(value),
-        m_transition(nullptr)
+        m_animation(nullptr)
     {}
 
     T value() const
@@ -22,24 +22,24 @@ public:
 
     void stop()
     {
-        m_transition.reset();
+        m_animation.reset();
     }
 
-    void animate(Transition<T> *transition)
+    void animate(Animation<T> *animation)
     {
-        m_transition = transition;
+        m_animation = animation;
     }
 
     void tick(sf::Int32 deltaTime)
     {
-        if (m_transition != nullptr && !m_transition->isFinished()) {
-            m_value = m_transition->nextState(deltaTime);
+        if (m_animation != nullptr && !m_animation->isFinished()) {
+            m_value = m_animation->nextState(deltaTime);
         }
     }
 
 private:
     T m_value;
-    std::unique_ptr<Transition<T>> m_transition;
+    std::unique_ptr<Animation<T>> m_animation;
 };
 
 #endif  // ANIMATED_HPP_

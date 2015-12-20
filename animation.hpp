@@ -1,13 +1,13 @@
-#ifndef TRANSITION_HPP_
-#define TRANSITION_HPP_
+#ifndef ANIMATION_HPP_
+#define ANIMATION_HPP_
 
 template <typename State>
-class Transition
+class Animation
 {
 public:
-    virtual ~Transition() = default;
+    virtual ~Animation() = default;
     virtual State nextState(const sf::Int32 deltaTime) = 0;
     virtual bool isFinished() const = 0;
 };
 
-#endif  // TRANSITION_HPP_
+#endif  // ANIMATION_HPP_

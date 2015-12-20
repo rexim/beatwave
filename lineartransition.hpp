@@ -1,10 +1,10 @@
 #ifndef LINEARTRANSITION_HPP_
 #define LINEARTRANSITION_HPP_
 
-#include "./transition.hpp"
+#include "./animation.hpp"
 
 template <typename T>
-class LinearTransition: public Transition<T>
+class LinearTransition: public Animation<T>
 {
 public:
     LinearTransition(const T &initialState,
