@@ -3,24 +3,24 @@
 
 #include "./transition.hpp"
 
-template <typename State>
-class LinearTransition: public Transition<State>
+template <typename T>
+class LinearTransition: public Transition<T>
 {
 public:
-    LinearTransition(const State &initialState,
+    LinearTransition(const T &initialState,
                sf::Int32 transitionTime,
-               const State &finalState):
+               const T &finalState):
         currentState(initialState),
         timeLeft(transitionTime),
         finalState(finalState)
     {}
 
-    State nextState(const sf::Int32 deltaTime) override
+    T nextState(const sf::Int32 deltaTime) override
     {
         if (deltaTime < timeLeft) {
-            State deltaState = (finalState - currentState) * ((deltaTime + .0) / timeLeft);
+            T deltaT = (finalState - currentState) * ((deltaTime + .0) / timeLeft);
 
-            currentState = currentState + deltaState;
+            currentState = currentState + deltaT;
         } else {
             currentState = finalState;
         }
@@ -35,9 +35,9 @@ public:
     }
 
 private:
-    State currentState;
+    T currentState;
     sf::Int32 timeLeft;
-    const State finalState;
+    const T finalState;
 };
 
 #endif  // LINEARTRANSITION_HPP_
