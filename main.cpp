@@ -6,6 +6,7 @@
 #include <SFML/Audio.hpp>
 
 #include "./state.hpp"
+#include "./player.hpp"
 
 struct Transition
 {
@@ -51,6 +52,8 @@ private:
 
 int main()
 {
+    Player player;
+
     sf::RenderWindow App(sf::VideoMode(800, 600, 32), "Hello World - SFML");
     sf::SoundBuffer kickBuffer, snareBuffer, hihatBuffer;
 
