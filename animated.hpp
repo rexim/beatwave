@@ -20,6 +20,11 @@ public:
         return value;
     }
 
+    void stop()
+    {
+        m_transition.reset();
+    }
+
     void animate(Transition<T> *transition)
     {
         m_transition = transition;
