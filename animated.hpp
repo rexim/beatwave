@@ -1,6 +1,7 @@
 #ifndef ANIMATED_HPP_
 #define ANIMATED_HPP_
 
+#include <memory>
 #include "./transition.hpp"
 
 template <typename T>
@@ -29,29 +30,19 @@ public:
 
     void setTransition(Transition<T> *transition)
     {
-        if (m_transition != nullptr) {
-            delete m_transition;
-            m_transition = nullptr;
-        }
-
         m_transition = transition;
     }
 
     void tick(sf::Int32 deltaTime)
     {
-        if (m_transition != nullptr) {
-            if (!m_transition.isFinished()) {
-                m_value = m_transition->nextState(deltaTime);
-            } else {
-                delete m_transition;
-                m_transition = nullptr;
-            }
+        if (m_transition != nullptr && !m_transition->isFinished()) {
+            m_value = m_transition->nextState(deltaTime);
         }
     }
 
 private:
     T m_value;
-    Transition<T> *m_transition;
+    std::unique_ptr<Transition<T>> m_transition;
 };
 
 #endif  // ANIMATED_HPP_
