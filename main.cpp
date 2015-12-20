@@ -5,50 +5,23 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-#include "./state.hpp"
 #include "./player.hpp"
+#include "./lineartransition.hpp"
 
-struct Transition
+sf::Color operator-(const sf::Color &c1, const sf::Color &c2)
 {
-public:
-    Transition(const State &initialState,
-               sf::Int32 transitionTime,
-               const State &finalState):
-        currentState(initialState),
-        timeLeft(transitionTime),
-        finalState(finalState)
-    {}
+    return sf::Color(c1.r - c2.r, 
+                     c1.g - c2.g, 
+                     c1.b - c2.b, 
+                     c1.a - c2.a);
+}
 
-    State nextState(const sf::Int32 deltaTime)
-    {
-        std::cout << timeLeft << std::endl;
-        if (deltaTime < timeLeft) {
-            State deltaState = (finalState - currentState) * ((deltaTime + .0) / timeLeft);
-
-            currentState = currentState + deltaState;
-        } else {
-            currentState = finalState;
-        }
-
-        timeLeft -= deltaTime;
-        return currentState;
-    }
-
-    bool isFinished() const
-    {
-        return timeLeft <= 0.0f;
-    }
-
-    sf::Int32 getTimeLeft() const
-    {
-        return timeLeft;
-    }
-
-private:
-    State currentState;
-    sf::Int32 timeLeft;
-    const State finalState;
-};
+sf::Color operator*(const sf::Color &color, float f)
+{
+    return sf::Color(color.r * f,
+                     color.g * f,
+                     color.b * f);
+}
 
 sf::CircleShape playerToCircle(const Player &player)
 {
@@ -58,13 +31,8 @@ sf::CircleShape playerToCircle(const Player &player)
     return circle;
 }
 
-
 int main()
 {
-    Player player(sf::Vector2<float>(200.0f, 200.0f),
-                  50.0f,
-                  sf::Color(255.0f, 255.0f, 255.0f));
-
     sf::RenderWindow App(sf::VideoMode(800, 600, 32), "Hello World - SFML");
     sf::SoundBuffer kickBuffer, snareBuffer, hihatBuffer;
 
@@ -83,17 +51,14 @@ int main()
         return 1;
     }
 
+    Player player(sf::Vector2<float>(200.0f, 200.0f),
+                  50.0f,
+                  sf::Color(255.0f, 255.0f, 255.0f));
+
     sf::Sound kickSound, snareSound , hihatSound;
     kickSound.setBuffer(kickBuffer);
     snareSound.setBuffer(snareBuffer);
     hihatSound.setBuffer(hihatBuffer);
-
-    State targetState(200.0f, 200.0f, 50.0f, 255.0f, 255.0f, 255.0f, 255.0f);
-
-    Transition *transition = NULL;
-    Transition *moveTransition = NULL;
-
-    State state(200.0f, 200.0f, 50.0f, 255.0f, 255.0f, 255.0f, 255.0f);
 
     sf::Clock clock;
 
@@ -107,50 +72,25 @@ int main()
             if (Event.type == sf::Event::Closed) {
                 App.close();
             } else if (Event.type == sf::Event::JoystickButtonPressed) {
-                // std::cout << "JoystickButtonEvent: " << Event.joystickButton.button << std::endl;
-
                 switch (Event.joystickButton.button) {
                 case 0:         // kick
-                    state.radius = 70.0f;
-                    state.r = 255.0f;
-                    state.g = 0.0f;
-                    state.b = 0.0f;
-
-                    targetState.x += 50.0f;
-
-                    if (transition != NULL) {
-                        delete transition;
-                    }
-                    transition = new Transition(state, 300, targetState);
+                    player.radius.animate(moveTo(70.0f, 300, 50.0f));
+                    player.color.animate(moveTo(sf::Color::Red, 300, sf::Color::White));
+                    player.position.animate(moveBy(player.position.value(), 
+                                                   300, 
+                                                   sf::Vector2f(100.0f, 0.0f)));
 
                     kickSound.play();
                     break;
 
-                case 1:
-                    state.radius = 70.0f;
-                    state.r = 0.0f;
-                    state.g = 255.0f;
-                    state.b = 0.0f;
-
-                    if (transition != NULL) {
-                        delete transition;
-                    }
-                    transition = new Transition(state, 300, targetState);
-
+                case 1:         // snare
+                    player.color.animate(moveTo(sf::Color::Green, 300, sf::Color::White));
                     snareSound.play();
                     break;
 
-                case 2:
-                    state.radius = 70.0f;
-                    state.r = 0.0f;
-                    state.g = 0.0f;
-                    state.b = 255.0f;
-
-                    if (transition != NULL) {
-                        delete transition;
-                    }
-                    transition = new Transition(state, 300, targetState);
-
+                case 2:         // hihat
+                    player.radius.animate(moveTo(70.0f, 300, 50.0f));
+                    player.color.animate(moveTo(sf::Color::Blue, 300, sf::Color::White));
                     hihatSound.play();
                     break;
 
@@ -160,17 +100,8 @@ int main()
         }
 
         App.clear(sf::Color(0, 0, 0));
-        
-        if (transition != NULL) {
-            state = transition->nextState(clock.getElapsedTime().asMilliseconds());
-
-            if (transition->isFinished()) {
-                delete transition;
-                transition = NULL;
-            }
-        }
-        App.draw(stateToCircle(state));
-
+        player.tick(clock.getElapsedTime().asMilliseconds());
+        App.draw(playerToCircle(player));
         App.display();
     }
  

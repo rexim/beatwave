@@ -6,7 +6,10 @@ if(CMAKE_COMPILER_IS_GNUCXX)
 endif()
 
 set(HPPS
-  state.hpp
+  animated.hpp
+  animation.hpp
+  lineartransition.hpp
+  player.hpp
 )
 
 set(CPPS

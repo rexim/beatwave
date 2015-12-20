@@ -27,7 +27,7 @@ public:
 
     void animate(Animation<T> *animation)
     {
-        m_animation = animation;
+        m_animation.reset(animation);
     }
 
     void tick(sf::Int32 deltaTime)

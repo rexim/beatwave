@@ -18,9 +18,8 @@ public:
     T nextState(const sf::Int32 deltaTime) override
     {
         if (deltaTime < timeLeft) {
-            T deltaState = (finalState - currentState) * ((deltaTime + .0) / timeLeft);
-
-            currentState = currentState + deltaState;
+            T deltaState = (finalState - currentState) * ((deltaTime + .0f) / timeLeft);
+            currentState += deltaState;
         } else {
             currentState = finalState;
         }
