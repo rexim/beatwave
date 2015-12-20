@@ -7,6 +7,8 @@ template <typename T>
 class Animated
 {
 public:
+    Animated(const Animated&) = delete;
+
     Animated(const T &value):
         m_value(value),
         m_transition(nullptr)
@@ -46,9 +48,6 @@ public:
             }
         }
     }
-
-private:
-    
 
 private:
     T m_value;
