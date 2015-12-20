@@ -1,18 +1,18 @@
-#ifndef TRANSITIONABLE_HPP_
-#define TRANSITIONABLE_HPP_
+#ifndef ANIMATED_HPP_
+#define ANIMATED_HPP_
 
 #include "./transition.hpp"
 
 template <typename T>
-class Transitionable
+class Animated
 {
 public:
-    Transitionable(const T &value):
+    Animated(const T &value):
         m_value(value),
         m_transition(nullptr)
     {}
 
-    ~Transitionable()
+    ~Animated()
     {
         if (m_transition != nullptr) {
             delete m_transition;
@@ -55,4 +55,4 @@ private:
     Transition<T> *m_transition;
 };
 
-#endif  // TRANSITIONABLE_HPP_
+#endif  // ANIMATED_HPP_
