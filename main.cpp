@@ -25,15 +25,16 @@ sf::Color operator*(const sf::Color &color, float f)
 
 sf::CircleShape playerToCircle(const Player &player)
 {
+    const float radius = player.radius.value();
     sf::CircleShape circle(player.radius.value());
     circle.setFillColor(player.color.value());
-    circle.setPosition(player.position.value());
+    circle.setPosition(player.position.value() - sf::Vector2f(radius, radius));
     return circle;
 }
 
 int main()
 {
-    sf::RenderWindow App(sf::VideoMode(800, 600, 32), "Hello World - SFML");
+    sf::RenderWindow App(sf::VideoMode(1024, 768, 32), "Hello World - SFML");
     sf::SoundBuffer kickBuffer, snareBuffer, hihatBuffer;
 
     if (!kickBuffer.loadFromFile("data/kick.wav")) {
@@ -62,6 +63,9 @@ int main()
 
     sf::Clock clock;
 
+    const sf::Int32 moveTime = 150;
+    const sf::Int32 colorTime = 700;
+
     while (App.isOpen())
     {
         // std::cout << state << std::endl;
@@ -71,26 +75,34 @@ int main()
         {
             if (Event.type == sf::Event::Closed) {
                 App.close();
-            } else if (Event.type == sf::Event::JoystickButtonPressed) {
-                switch (Event.joystickButton.button) {
-                case 0:         // kick
-                    player.radius.animate(moveTo(70.0f, 300, 50.0f));
-                    player.color.animate(moveTo(sf::Color::Red, 300, sf::Color::White));
+            } else if (Event.type == sf::Event::KeyPressed) {
+                switch (Event.key.code) {
+                case sf::Keyboard::Space:         // kick
+                    player.radius.animate(moveTo(70.0f, colorTime, 50.0f));
+                    player.color.animate(moveTo(sf::Color::Red, colorTime, sf::Color::White));
                     player.position.animate(moveBy(player.position.value(), 
-                                                   300, 
+                                                   moveTime, 
                                                    sf::Vector2f(100.0f, 0.0f)));
 
                     kickSound.play();
                     break;
 
-                case 1:         // snare
-                    player.color.animate(moveTo(sf::Color::Green, 300, sf::Color::White));
+                case sf::Keyboard::S:         // snare
+                    player.radius.animate(moveTo(70.0f, colorTime, 50.0f));
+                    player.color.animate(moveTo(sf::Color::Green, colorTime, sf::Color::White));
+                    player.position.animate(moveBy(player.position.value(), 
+                                                   moveTime, 
+                                                   sf::Vector2f(0.0f, 100.0f)));
+
                     snareSound.play();
                     break;
 
-                case 2:         // hihat
-                    player.radius.animate(moveTo(70.0f, 300, 50.0f));
-                    player.color.animate(moveTo(sf::Color::Blue, 300, sf::Color::White));
+                case sf::Keyboard::P:         // hihat
+                    player.radius.animate(moveTo(70.0f, colorTime, 50.0f));
+                    player.color.animate(moveTo(sf::Color::Blue, colorTime, sf::Color::White));
+                    player.position.animate(moveBy(player.position.value(), 
+                                                   moveTime, 
+                                                   sf::Vector2f(0.0f, -100.0f)));
                     hihatSound.play();
                     break;
 
