@@ -69,7 +69,6 @@ int main()
     while (App.isOpen())
     {
         // std::cout << state << std::endl;
-        clock.restart();
         sf::Event Event;
         while (App.pollEvent(Event))
         {
@@ -112,7 +111,7 @@ int main()
         }
 
         App.clear(sf::Color(0, 0, 0));
-        player.tick(clock.getElapsedTime().asMilliseconds());
+        player.tick(clock.restart().asMilliseconds());
         App.draw(playerToCircle(player));
         App.display();
     }
