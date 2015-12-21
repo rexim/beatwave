@@ -35,7 +35,7 @@ sf::CircleShape playerToCircle(const Player &player)
 int main()
 {
     sf::RenderWindow App(sf::VideoMode(1024, 768, 32), "Hello World - SFML");
-    sf::SoundBuffer kickBuffer, snareBuffer, hihatBuffer;
+    sf::SoundBuffer kickBuffer, snareBuffer, hihatBuffer, shamanBuffer;
 
     if (!kickBuffer.loadFromFile("data/kick.wav")) {
         std::cout << "[ERROR] Cannot load data/kick.wav" << std::endl;
@@ -52,14 +52,20 @@ int main()
         return 1;
     }
 
+    if (!shamanBuffer.loadFromFile("data/shaman.wav")) {
+        std::cout << "[ERROR] Cannot load data/shaman.wav" << std::endl;
+        return 1;
+    }
+
     Player player(sf::Vector2<float>(200.0f, 200.0f),
                   50.0f,
                   sf::Color(255.0f, 255.0f, 255.0f));
 
-    sf::Sound kickSound, snareSound , hihatSound;
+    sf::Sound kickSound, snareSound, hihatSound, shamanSound;
     kickSound.setBuffer(kickBuffer);
     snareSound.setBuffer(snareBuffer);
     hihatSound.setBuffer(hihatBuffer);
+    shamanSound.setBuffer(shamanBuffer);
 
     sf::Clock clock;
 
@@ -104,6 +110,15 @@ int main()
                                                    sf::Vector2f(0.0f, -100.0f)));
                     hihatSound.play();
                     break;
+
+                case sf::Keyboard::H: // shaman
+                    player.radius.animate(moveTo(70.0f, colorTime, 50.0f));
+                    player.color.animate(moveTo(sf::Color::Yellow, colorTime, sf::Color::White));
+                    player.position.animate(moveBy(player.position.value(), 
+                                                   moveTime, 
+                                                   sf::Vector2f(-100.0f, 0.0f)));
+                    shamanSound.play();
+
 
                 default: {}
                 }
