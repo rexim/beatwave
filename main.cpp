@@ -59,7 +59,7 @@ int main()
 
     Player player(sf::Vector2f(200.0f, 200.0f),
                   50.0f,
-                  sf::Color(255.0f, 255.0f, 255.0f));
+                  sf::Color(255, 255, 255));
 
     sf::Sound kickSound, snareSound, hihatSound, shamanSound;
     kickSound.setBuffer(kickBuffer);
