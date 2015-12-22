@@ -2,57 +2,88 @@
 #include <ostream>
 #include <iostream>
 #include <vector>
+#include <tuple>
+#include <string>
+#include <fstream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-#include "./state.hpp"
+#include "./player.hpp"
+#include "./lineartransition.hpp"
+#include "./lineartransitionbuilder.hpp"
 
-struct Transition
+const sf::Int32 MOVE_TIME = 210;
+const sf::Int32 COLOR_TIME = 700;
+
+const sf::Vector2f PLAYER_INIT_POSITION(200.0f, 200.0f);
+const float PLAYER_INIT_RADIUS = 50.0f;
+const sf::Color PLAYER_INIT_COLOR = sf::Color::White;
+
+using Tunnel = std::vector<sf::Rect<float>>;
+
+sf::Color operator-(const sf::Color &c1, const sf::Color &c2)
 {
-public:
-    Transition(const State &initialState,
-               sf::Int32 transitionTime,
-               const State &finalState):
-        currentState(initialState),
-        timeLeft(transitionTime),
-        finalState(finalState)
-    {}
+    return sf::Color(c1.r - c2.r, 
+                     c1.g - c2.g, 
+                     c1.b - c2.b, 
+                     c1.a - c2.a);
+}
 
-    State nextState(const sf::Int32 deltaTime)
-    {
-        std::cout << timeLeft << std::endl;
-        if (deltaTime < timeLeft) {
-            State deltaState = (finalState - currentState) * ((deltaTime + .0) / timeLeft);
+sf::Color operator*(const sf::Color &color, float f)
+{
+    return sf::Color(color.r * f,
+                     color.g * f,
+                     color.b * f);
+}
 
-            currentState = currentState + deltaState;
-        } else {
-            currentState = finalState;
-        }
+sf::CircleShape playerToCircle(const Player &player)
+{
+    const float radius = player.radius.value();
+    sf::CircleShape circle(player.radius.value());
+    circle.setFillColor(player.color.value());
+    circle.setPosition(player.position.value() - sf::Vector2f(radius, radius));
+    return circle;
+}
 
-        timeLeft -= deltaTime;
-        return currentState;
+void stepPlayer(Player &player, 
+                const sf::Color &flashColor, 
+                const sf::Vector2f direction)
+{
+    // player.radius.animate(from(70.0f)
+    //                       .to(50.0f)
+    //                       .during(COLOR_TIME)
+    //                       .build());
+    player.color.animate(from(flashColor)
+                         .to(sf::Color::White)
+                         .during(COLOR_TIME)
+                         .build());
+    player.position.animate(from(player.position.value())
+                            .by(direction)
+                            .during(MOVE_TIME)
+                            .build());
+}
+
+void digTunnel(const std::string &plan,
+                Tunnel &result)
+{
+    std::ifstream tunnelFile(plan);
+    
+    if (!tunnelFile) {
+        std::cout << "[ERROR] Cannot load " << plan << std::endl;
     }
 
-    bool isFinished() const
-    {
-        return timeLeft <= 0.0f;
-    }
+    result.clear();
 
-    sf::Int32 getTimeLeft() const
-    {
-        return timeLeft;
+    sf::Rect<float> rect;
+    while(tunnelFile >> rect.left >> rect.top >> rect.width >> rect.height) {
+        result.push_back(rect);
     }
-
-private:
-    State currentState;
-    sf::Int32 timeLeft;
-    const State finalState;
-};
+}
 
 int main()
 {
-    sf::RenderWindow App(sf::VideoMode(800, 600, 32), "Hello World - SFML");
-    sf::SoundBuffer kickBuffer, snareBuffer, hihatBuffer;
+    sf::RenderWindow App(sf::VideoMode(1024, 768, 32), "Hello World - SFML");
+    sf::SoundBuffer kickBuffer, snareBuffer, hihatBuffer, shamanBuffer;
 
     if (!kickBuffer.loadFromFile("data/kick.wav")) {
         std::cout << "[ERROR] Cannot load data/kick.wav" << std::endl;
@@ -69,75 +100,61 @@ int main()
         return 1;
     }
 
-    sf::Sound kickSound, snareSound , hihatSound;
+    if (!shamanBuffer.loadFromFile("data/shaman.wav")) {
+        std::cout << "[ERROR] Cannot load data/shaman.wav" << std::endl;
+        return 1;
+    }
+
+    Player player(sf::Vector2f(200.0f, 200.0f),
+                  50.0f,
+                  sf::Color::White);
+
+    Tunnel tunnel;
+    digTunnel("tunnel.txt", tunnel);
+
+    sf::Sound kickSound, snareSound, hihatSound, shamanSound;
     kickSound.setBuffer(kickBuffer);
     snareSound.setBuffer(snareBuffer);
     hihatSound.setBuffer(hihatBuffer);
-
-    State targetState(200.0f, 200.0f, 50.0f, 255.0f, 255.0f, 255.0f, 255.0f);
-
-    Transition *transition = NULL;
-    Transition *moveTransition = NULL;
-
-    State state(200.0f, 200.0f, 50.0f, 255.0f, 255.0f, 255.0f, 255.0f);
+    shamanSound.setBuffer(shamanBuffer);
 
     sf::Clock clock;
 
     while (App.isOpen())
     {
         // std::cout << state << std::endl;
-        clock.restart();
         sf::Event Event;
         while (App.pollEvent(Event))
         {
             if (Event.type == sf::Event::Closed) {
                 App.close();
-            } else if (Event.type == sf::Event::JoystickButtonPressed) {
-                // std::cout << "JoystickButtonEvent: " << Event.joystickButton.button << std::endl;
-
-                switch (Event.joystickButton.button) {
-                case 0:         // kick
-                    state.radius = 70.0f;
-                    state.r = 255.0f;
-                    state.g = 0.0f;
-                    state.b = 0.0f;
-
-                    targetState.x += 50.0f;
-
-                    if (transition != NULL) {
-                        delete transition;
-                    }
-                    transition = new Transition(state, 300, targetState);
-
+            } else if (Event.type == sf::Event::KeyPressed) {
+                switch (Event.key.code) {
+                case sf::Keyboard::Space:         // kick
+                    stepPlayer(player, sf::Color::Red, sf::Vector2f(100.0f, 0.0f));
                     kickSound.play();
                     break;
 
-                case 1:
-                    state.radius = 70.0f;
-                    state.r = 0.0f;
-                    state.g = 255.0f;
-                    state.b = 0.0f;
-
-                    if (transition != NULL) {
-                        delete transition;
-                    }
-                    transition = new Transition(state, 300, targetState);
-
+                case sf::Keyboard::S:         // snare
+                    stepPlayer(player, sf::Color::Green, sf::Vector2f(0.0f, 100.0f));
                     snareSound.play();
                     break;
 
-                case 2:
-                    state.radius = 70.0f;
-                    state.r = 0.0f;
-                    state.g = 0.0f;
-                    state.b = 255.0f;
-
-                    if (transition != NULL) {
-                        delete transition;
-                    }
-                    transition = new Transition(state, 300, targetState);
-
+                case sf::Keyboard::P:         // hihat
+                    stepPlayer(player, sf::Color::Blue, sf::Vector2f(0.0f, -100.0f));
                     hihatSound.play();
+                    break;
+
+                case sf::Keyboard::H: // shaman
+                    stepPlayer(player, sf::Color::Yellow, sf::Vector2f(-100.0f, 0.0f));
+                    shamanSound.play();
+                    break;
+
+                case sf::Keyboard::G:
+                    digTunnel("tunnel.txt", tunnel);
+                    player.position.animate(from(player.position.value()).to(PLAYER_INIT_POSITION).during(MOVE_TIME).build());
+                    player.color.animate(from(player.color.value()).to(PLAYER_INIT_COLOR).during(MOVE_TIME).build());
+                    player.radius.animate(from(player.radius.value()).to(PLAYER_INIT_RADIUS).during(MOVE_TIME).build());
                     break;
 
                 default: {}
@@ -145,18 +162,18 @@ int main()
             }
         }
 
-        App.clear(sf::Color(0, 0, 0));
-        
-        if (transition != NULL) {
-            state = transition->nextState(clock.getElapsedTime().asMilliseconds());
+        App.clear(sf::Color(100, 100, 100));
+        player.tick(clock.restart().asMilliseconds());
 
-            if (transition->isFinished()) {
-                delete transition;
-                transition = NULL;
-            }
+        for (const auto &rect: tunnel) {
+            sf::RectangleShape shape;
+            shape.setPosition(rect.left, rect.top);
+            shape.setSize(sf::Vector2f(rect.width, rect.height));
+            shape.setFillColor(sf::Color::Black);
+            App.draw(shape);
         }
-        App.draw(stateToCircle(state));
 
+        App.draw(playerToCircle(player));
         App.display();
     }
  
