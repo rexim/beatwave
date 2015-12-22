@@ -2,6 +2,9 @@
 #include <ostream>
 #include <iostream>
 #include <vector>
+#include <tuple>
+#include <string>
+#include <fstream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
@@ -9,9 +12,14 @@
 #include "./lineartransition.hpp"
 #include "./lineartransitionbuilder.hpp"
 
-const sf::Int32 MOVE_TIME = 150;
+const sf::Int32 MOVE_TIME = 210;
 const sf::Int32 COLOR_TIME = 700;
 
+const sf::Vector2f PLAYER_INIT_POSITION(200.0f, 200.0f);
+const float PLAYER_INIT_RADIUS = 50.0f;
+const sf::Color PLAYER_INIT_COLOR = sf::Color::White;
+
+using Tunnel = std::vector<sf::Rect<float>>;
 
 sf::Color operator-(const sf::Color &c1, const sf::Color &c2)
 {
@@ -41,10 +49,10 @@ void stepPlayer(Player &player,
                 const sf::Color &flashColor, 
                 const sf::Vector2f direction)
 {
-    player.radius.animate(from(70.0f)
-                          .to(50.0f)
-                          .during(COLOR_TIME)
-                          .build());
+    // player.radius.animate(from(70.0f)
+    //                       .to(50.0f)
+    //                       .during(COLOR_TIME)
+    //                       .build());
     player.color.animate(from(flashColor)
                          .to(sf::Color::White)
                          .during(COLOR_TIME)
@@ -53,6 +61,23 @@ void stepPlayer(Player &player,
                             .by(direction)
                             .during(MOVE_TIME)
                             .build());
+}
+
+void digTunnel(const std::string &plan,
+                Tunnel &result)
+{
+    std::ifstream tunnelFile(plan);
+    
+    if (!tunnelFile) {
+        std::cout << "[ERROR] Cannot load " << plan << std::endl;
+    }
+
+    result.clear();
+
+    sf::Rect<float> rect;
+    while(tunnelFile >> rect.left >> rect.top >> rect.width >> rect.height) {
+        result.push_back(rect);
+    }
 }
 
 int main()
@@ -82,7 +107,10 @@ int main()
 
     Player player(sf::Vector2f(200.0f, 200.0f),
                   50.0f,
-                  sf::Color(255, 255, 255));
+                  sf::Color::White);
+
+    Tunnel tunnel;
+    digTunnel("tunnel.txt", tunnel);
 
     sf::Sound kickSound, snareSound, hihatSound, shamanSound;
     kickSound.setBuffer(kickBuffer);
@@ -120,14 +148,31 @@ int main()
                 case sf::Keyboard::H: // shaman
                     stepPlayer(player, sf::Color::Yellow, sf::Vector2f(-100.0f, 0.0f));
                     shamanSound.play();
+                    break;
+
+                case sf::Keyboard::G:
+                    digTunnel("tunnel.txt", tunnel);
+                    player.position.animate(from(player.position.value()).to(PLAYER_INIT_POSITION).during(MOVE_TIME).build());
+                    player.color.animate(from(player.color.value()).to(PLAYER_INIT_COLOR).during(MOVE_TIME).build());
+                    player.radius.animate(from(player.radius.value()).to(PLAYER_INIT_RADIUS).during(MOVE_TIME).build());
+                    break;
 
                 default: {}
                 }
             }
         }
 
-        App.clear(sf::Color(0, 0, 0));
+        App.clear(sf::Color(100, 100, 100));
         player.tick(clock.restart().asMilliseconds());
+
+        for (const auto &rect: tunnel) {
+            sf::RectangleShape shape;
+            shape.setPosition(rect.left, rect.top);
+            shape.setSize(sf::Vector2f(rect.width, rect.height));
+            shape.setFillColor(sf::Color::Black);
+            App.draw(shape);
+        }
+
         App.draw(playerToCircle(player));
         App.display();
     }
