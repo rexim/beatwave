@@ -8,11 +8,11 @@
 
 struct Player
 {
-    Animated<sf::Vector2<float>> position;
+    Animated<sf::Vector2f> position;
     Animated<float> radius;
     Animated<sf::Color> color;
 
-    Player(const sf::Vector2<float> &position = sf::Vector2<float>(0.0f, 0.0f),
+    Player(const sf::Vector2f &position = sf::Vector2f(0.0f, 0.0f),
            float radius = 0.0f,
            const sf::Color &color = sf::Color(0.0f, 0.0f, 0.0f)):
         position(position),

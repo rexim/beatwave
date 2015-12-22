@@ -57,7 +57,7 @@ int main()
         return 1;
     }
 
-    Player player(sf::Vector2<float>(200.0f, 200.0f),
+    Player player(sf::Vector2f(200.0f, 200.0f),
                   50.0f,
                   sf::Color(255.0f, 255.0f, 255.0f));
 
