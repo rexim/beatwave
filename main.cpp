@@ -7,6 +7,11 @@
 
 #include "./player.hpp"
 #include "./lineartransition.hpp"
+#include "./lineartransitionbuilder.hpp"
+
+const sf::Int32 MOVE_TIME = 150;
+const sf::Int32 COLOR_TIME = 700;
+
 
 sf::Color operator-(const sf::Color &c1, const sf::Color &c2)
 {
@@ -30,6 +35,24 @@ sf::CircleShape playerToCircle(const Player &player)
     circle.setFillColor(player.color.value());
     circle.setPosition(player.position.value() - sf::Vector2f(radius, radius));
     return circle;
+}
+
+void stepPlayer(Player &player, 
+                const sf::Color &flashColor, 
+                const sf::Vector2f direction)
+{
+    player.radius.animate(from(70.0f)
+                          .to(50.0f)
+                          .during(COLOR_TIME)
+                          .build());
+    player.color.animate(from(flashColor)
+                         .to(sf::Color::White)
+                         .during(COLOR_TIME)
+                         .build());
+    player.position.animate(from(player.position.value())
+                            .by(direction)
+                            .during(MOVE_TIME)
+                            .build());
 }
 
 int main()
@@ -69,9 +92,6 @@ int main()
 
     sf::Clock clock;
 
-    const sf::Int32 moveTime = 150;
-    const sf::Int32 colorTime = 700;
-
     while (App.isOpen())
     {
         // std::cout << state << std::endl;
@@ -83,42 +103,23 @@ int main()
             } else if (Event.type == sf::Event::KeyPressed) {
                 switch (Event.key.code) {
                 case sf::Keyboard::Space:         // kick
-                    player.radius.animate(moveTo(70.0f, colorTime, 50.0f));
-                    player.color.animate(moveTo(sf::Color::Red, colorTime, sf::Color::White));
-                    player.position.animate(moveBy(player.position.value(), 
-                                                   moveTime, 
-                                                   sf::Vector2f(100.0f, 0.0f)));
-
+                    stepPlayer(player, sf::Color::Red, sf::Vector2f(100.0f, 0.0f));
                     kickSound.play();
                     break;
 
                 case sf::Keyboard::S:         // snare
-                    player.radius.animate(moveTo(70.0f, colorTime, 50.0f));
-                    player.color.animate(moveTo(sf::Color::Green, colorTime, sf::Color::White));
-                    player.position.animate(moveBy(player.position.value(), 
-                                                   moveTime, 
-                                                   sf::Vector2f(0.0f, 100.0f)));
-
+                    stepPlayer(player, sf::Color::Green, sf::Vector2f(0.0f, 100.0f));
                     snareSound.play();
                     break;
 
                 case sf::Keyboard::P:         // hihat
-                    player.radius.animate(moveTo(70.0f, colorTime, 50.0f));
-                    player.color.animate(moveTo(sf::Color::Blue, colorTime, sf::Color::White));
-                    player.position.animate(moveBy(player.position.value(), 
-                                                   moveTime, 
-                                                   sf::Vector2f(0.0f, -100.0f)));
+                    stepPlayer(player, sf::Color::Blue, sf::Vector2f(0.0f, -100.0f));
                     hihatSound.play();
                     break;
 
                 case sf::Keyboard::H: // shaman
-                    player.radius.animate(moveTo(70.0f, colorTime, 50.0f));
-                    player.color.animate(moveTo(sf::Color::Yellow, colorTime, sf::Color::White));
-                    player.position.animate(moveBy(player.position.value(), 
-                                                   moveTime, 
-                                                   sf::Vector2f(-100.0f, 0.0f)));
+                    stepPlayer(player, sf::Color::Yellow, sf::Vector2f(-100.0f, 0.0f));
                     shamanSound.play();
-
 
                 default: {}
                 }

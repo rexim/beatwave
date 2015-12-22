@@ -8,8 +8,8 @@ class LinearTransition: public Animation<T>
 {
 public:
     LinearTransition(const T &initialState,
-               sf::Int32 transitionTime,
-               const T &finalState):
+                     sf::Int32 transitionTime = 0,
+                     const T &finalState = T()):
         currentState(initialState),
         timeLeft(transitionTime),
         finalState(finalState)
@@ -38,21 +38,5 @@ private:
     sf::Int32 timeLeft;
     const T finalState;
 };
-
-template <typename T>
-Animation<T> *moveTo(const T &initialState, sf::Int32 transitionTime, const T &finalState)
-{
-    return new LinearTransition<T>(initialState, 
-                                   transitionTime, 
-                                   finalState);
-}
-
-template <typename T>
-Animation<T> *moveBy(const T &initialState, sf::Int32 transitionTime, const T &deltaState)
-{
-    return new LinearTransition<T>(initialState, 
-                                   transitionTime, 
-                                   initialState + deltaState);
-}
 
 #endif  // LINEARTRANSITION_HPP_
