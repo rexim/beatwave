@@ -4,7 +4,7 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
-using Tunnel = std::vector<sf::Rect<float>>;
+using Tunnel = std::vector<sf::FloatRect>;
 
 void digTunnel(const std::string &plan, Tunnel &result);
 

@@ -107,7 +107,7 @@ int main()
     sf::Clock playClock;
 
     std::deque<std::pair<int, sf::Int32>> captures;
-    loadCaptureInfo(captures, "replay.txt");
+    // loadCaptureInfo(captures, "replay.txt");
 
     sf::Int32 currentTime = 0;
 
