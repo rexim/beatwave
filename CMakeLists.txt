@@ -10,10 +10,16 @@ set(HPPS
   animation.hpp
   lineartransition.hpp
   player.hpp
+  tunnel.hpp
+  captures.hpp
+  tunnelgenerator.hpp
 )
 
 set(CPPS
   main.cpp
+  tunnel.cpp
+  captures.cpp
+  tunnelgenerator.cpp
 )
 
 add_executable(beatwave ${CPPS} ${HPPS})

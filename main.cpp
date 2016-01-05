@@ -2,15 +2,21 @@
 #include <ostream>
 #include <iostream>
 #include <vector>
+#include <deque>
 #include <tuple>
 #include <string>
 #include <fstream>
+#include <utility>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
+#include "./tunnel.hpp"
+#include "./captures.hpp"
 #include "./player.hpp"
 #include "./lineartransition.hpp"
 #include "./lineartransitionbuilder.hpp"
+
+const sf::Color WALL_COLOR = sf::Color(30, 30, 30);
 
 const sf::Int32 MOVE_TIME = 210;
 const sf::Int32 COLOR_TIME = 700;
@@ -18,8 +24,6 @@ const sf::Int32 COLOR_TIME = 700;
 const sf::Vector2f PLAYER_INIT_POSITION(200.0f, 200.0f);
 const float PLAYER_INIT_RADIUS = 50.0f;
 const sf::Color PLAYER_INIT_COLOR = sf::Color::White;
-
-using Tunnel = std::vector<sf::Rect<float>>;
 
 sf::Color operator-(const sf::Color &c1, const sf::Color &c2)
 {
@@ -47,12 +51,9 @@ sf::CircleShape playerToCircle(const Player &player)
 
 void stepPlayer(Player &player, 
                 const sf::Color &flashColor, 
-                const sf::Vector2f direction)
+                const sf::Vector2f direction,
+                sf::Sound &sound)
 {
-    // player.radius.animate(from(70.0f)
-    //                       .to(50.0f)
-    //                       .during(COLOR_TIME)
-    //                       .build());
     player.color.animate(from(flashColor)
                          .to(sf::Color::White)
                          .during(COLOR_TIME)
@@ -61,23 +62,7 @@ void stepPlayer(Player &player,
                             .by(direction)
                             .during(MOVE_TIME)
                             .build());
-}
-
-void digTunnel(const std::string &plan,
-                Tunnel &result)
-{
-    std::ifstream tunnelFile(plan);
-    
-    if (!tunnelFile) {
-        std::cout << "[ERROR] Cannot load " << plan << std::endl;
-    }
-
-    result.clear();
-
-    sf::Rect<float> rect;
-    while(tunnelFile >> rect.left >> rect.top >> rect.width >> rect.height) {
-        result.push_back(rect);
-    }
+    sound.play();
 }
 
 int main()
@@ -119,6 +104,12 @@ int main()
     shamanSound.setBuffer(shamanBuffer);
 
     sf::Clock clock;
+    sf::Clock playClock;
+
+    std::deque<std::pair<int, sf::Int32>> captures;
+    loadCaptureInfo(captures, "replay.txt");
+
+    sf::Int32 currentTime = 0;
 
     while (App.isOpen())
     {
@@ -131,23 +122,19 @@ int main()
             } else if (Event.type == sf::Event::KeyPressed) {
                 switch (Event.key.code) {
                 case sf::Keyboard::Space:         // kick
-                    stepPlayer(player, sf::Color::Red, sf::Vector2f(100.0f, 0.0f));
-                    kickSound.play();
+                    stepPlayer(player, sf::Color::Red, sf::Vector2f(100.0f, 0.0f), kickSound);
                     break;
 
                 case sf::Keyboard::S:         // snare
-                    stepPlayer(player, sf::Color::Green, sf::Vector2f(0.0f, 100.0f));
-                    snareSound.play();
+                    stepPlayer(player, sf::Color::Green, sf::Vector2f(0.0f, 100.0f), snareSound);
                     break;
 
                 case sf::Keyboard::P:         // hihat
-                    stepPlayer(player, sf::Color::Blue, sf::Vector2f(0.0f, -100.0f));
-                    hihatSound.play();
+                    stepPlayer(player, sf::Color::Blue, sf::Vector2f(0.0f, -100.0f), hihatSound);
                     break;
 
                 case sf::Keyboard::H: // shaman
-                    stepPlayer(player, sf::Color::Yellow, sf::Vector2f(-100.0f, 0.0f));
-                    shamanSound.play();
+                    stepPlayer(player, sf::Color::Yellow, sf::Vector2f(-100.0f, 0.0f), shamanSound);
                     break;
 
                 case sf::Keyboard::G:
@@ -157,13 +144,40 @@ int main()
                     player.radius.animate(from(player.radius.value()).to(PLAYER_INIT_RADIUS).during(MOVE_TIME).build());
                     break;
 
+                case sf::Keyboard::Q:
+                    dumpCaptureInfo(captures, "captures.txt");
+                    break;
+
                 default: {}
                 }
             }
         }
 
-        App.clear(sf::Color(100, 100, 100));
-        player.tick(clock.restart().asMilliseconds());
+        sf::Int32 deltaTime = clock.restart().asMilliseconds();
+        currentTime += deltaTime;
+        
+        if (!captures.empty()) {
+            auto capture = captures.front();
+            if (capture.second <= currentTime) {
+                switch (capture.first) {
+                case 0:
+                    stepPlayer(player, sf::Color::Red, sf::Vector2f(100.0f, 0.0f), kickSound);
+                    break;
+
+                case 1:
+                    stepPlayer(player, sf::Color::Green, sf::Vector2f(0.0f, 100.0f), snareSound);
+                    break;
+
+                default: {}
+                }
+
+                currentTime = 0;
+                captures.pop_front();
+            }
+        }
+
+        App.clear(WALL_COLOR);
+        player.tick(deltaTime);
 
         for (const auto &rect: tunnel) {
             sf::RectangleShape shape;
