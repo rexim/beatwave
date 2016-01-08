@@ -56,12 +56,12 @@ void generateTunnelFromCaptures(const std::deque<Capture> &captures,
 
 int main(int argc, char *argv[])
 {
-    const float errorBuffer = 5.0f;
+    const float errorBuffer = 20.0f;
     std::deque<Capture> captures;
     Tunnel tunnel;
 
     loadCaptureInfo(captures, "replay.txt");
-    generateTunnelFromCaptures(captures, sf::Vector2f(200.0f, 200.0f), 50.0f + errorBuffer, 476.0f, tunnel);
+    generateTunnelFromCaptures(captures, sf::Vector2f(200.0f, 200.0f), 50.0f + errorBuffer, 500.0f, tunnel);
 
     for (const auto &rect: tunnel) {
         std::cout << rect.left << ' '<< rect.top << ' ' << rect.width << ' ' << rect.height << std::endl;

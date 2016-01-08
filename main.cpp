@@ -16,14 +16,15 @@
 #include "./lineartransition.hpp"
 #include "./lineartransitionbuilder.hpp"
 
-const sf::Color WALL_COLOR = sf::Color(30, 30, 30);
+const sf::Color WALL_COLOR = sf::Color(0, 130, 140);
 
-const sf::Int32 MOVE_TIME = 210;
+const sf::Int32 MOVE_TIME = 500;
 const sf::Int32 COLOR_TIME = 700;
 
 const sf::Vector2f PLAYER_INIT_POSITION(200.0f, 200.0f);
 const float PLAYER_INIT_RADIUS = 50.0f;
 const sf::Color PLAYER_INIT_COLOR = sf::Color::White;
+const float PLAYER_MOVE_DISTANCE = 250.0f;
 
 sf::Color operator-(const sf::Color &c1, const sf::Color &c2)
 {
@@ -67,7 +68,7 @@ void stepPlayer(Player &player,
 
 int main()
 {
-    sf::RenderWindow App(sf::VideoMode(1024, 768, 32), "Hello World - SFML");
+    sf::RenderWindow App(sf::VideoMode(1280, 720, 32), "Hello World - SFML");
     sf::SoundBuffer kickBuffer, snareBuffer, hihatBuffer, shamanBuffer;
 
     if (!kickBuffer.loadFromFile("data/kick.wav")) {
@@ -107,7 +108,7 @@ int main()
     sf::Clock playClock;
 
     std::deque<std::pair<int, sf::Int32>> captures;
-    // loadCaptureInfo(captures, "replay.txt");
+    loadCaptureInfo(captures, "replay.txt");
 
     sf::Int32 currentTime = 0;
 
@@ -122,19 +123,21 @@ int main()
             } else if (Event.type == sf::Event::KeyPressed) {
                 switch (Event.key.code) {
                 case sf::Keyboard::Space:         // kick
-                    stepPlayer(player, sf::Color::Red, sf::Vector2f(100.0f, 0.0f), kickSound);
+                    captures.push_back(std::make_pair(0, playClock.restart().asMilliseconds()));
+                    stepPlayer(player, sf::Color::Red, sf::Vector2f(PLAYER_MOVE_DISTANCE, 0.0f), kickSound);
                     break;
 
                 case sf::Keyboard::S:         // snare
-                    stepPlayer(player, sf::Color::Green, sf::Vector2f(0.0f, 100.0f), snareSound);
+                    captures.push_back(std::make_pair(1, playClock.restart().asMilliseconds()));
+                    stepPlayer(player, sf::Color::Green, sf::Vector2f(0.0f, PLAYER_MOVE_DISTANCE), snareSound);
                     break;
 
                 case sf::Keyboard::P:         // hihat
-                    stepPlayer(player, sf::Color::Blue, sf::Vector2f(0.0f, -100.0f), hihatSound);
+                    stepPlayer(player, sf::Color::Blue, sf::Vector2f(0.0f, -PLAYER_MOVE_DISTANCE), hihatSound);
                     break;
 
                 case sf::Keyboard::H: // shaman
-                    stepPlayer(player, sf::Color::Yellow, sf::Vector2f(-100.0f, 0.0f), shamanSound);
+                    stepPlayer(player, sf::Color::Yellow, sf::Vector2f(-PLAYER_MOVE_DISTANCE, 0.0f), shamanSound);
                     break;
 
                 case sf::Keyboard::G:
@@ -156,25 +159,25 @@ int main()
         sf::Int32 deltaTime = clock.restart().asMilliseconds();
         currentTime += deltaTime;
         
-        if (!captures.empty()) {
-            auto capture = captures.front();
-            if (capture.second <= currentTime) {
-                switch (capture.first) {
-                case 0:
-                    stepPlayer(player, sf::Color::Red, sf::Vector2f(100.0f, 0.0f), kickSound);
-                    break;
+        // if (!captures.empty()) {
+        //     auto capture = captures.front();
+        //     if (capture.second <= currentTime) {
+        //         switch (capture.first) {
+        //         case 0:
+        //             stepPlayer(player, sf::Color::Red, sf::Vector2f(PLAYER_MOVE_DISTANCE, 0.0f), kickSound);
+        //             break;
 
-                case 1:
-                    stepPlayer(player, sf::Color::Green, sf::Vector2f(0.0f, 100.0f), snareSound);
-                    break;
+        //         case 1:
+        //             stepPlayer(player, sf::Color::Green, sf::Vector2f(0.0f, PLAYER_MOVE_DISTANCE), snareSound);
+        //             break;
 
-                default: {}
-                }
+        //         default: {}
+        //         }
 
-                currentTime = 0;
-                captures.pop_front();
-            }
-        }
+        //         currentTime = 0;
+        //         captures.pop_front();
+        //     }
+        // }
 
         App.clear(WALL_COLOR);
         player.tick(deltaTime);
