@@ -28,6 +28,10 @@ public:
     void animate(Animation<T> *animation)
     {
         m_animation.reset(animation);
+
+        if (!m_animation->isFinished()) {
+            m_value = m_animation->getCurrentState();
+        }
     }
 
     void tick(sf::Int32 deltaTime)

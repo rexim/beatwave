@@ -15,7 +15,7 @@ public:
         finalState(finalState)
     {}
 
-    T nextState(const sf::Int32 deltaTime) override
+    virtual T nextState(const sf::Int32 deltaTime) override
     {
         if (deltaTime < timeLeft) {
             T deltaState = (finalState - currentState) * ((deltaTime + .0f) / timeLeft);
@@ -28,7 +28,12 @@ public:
         return currentState;
     }
 
-    bool isFinished() const override
+    virtual T getCurrentState() const override
+    {
+        return currentState;
+    }
+
+    virtual bool isFinished() const override
     {
         return timeLeft <= 0.0f;
     }
