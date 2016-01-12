@@ -57,12 +57,10 @@ void stepPlayer(Player &player,
 {
     player.color.animate(from(flashColor)
                          .to(sf::Color::White)
-                         .during(COLOR_TIME)
-                         .build());
+                         .during(COLOR_TIME));
     player.position.animate(from(player.position.value())
                             .by(direction)
-                            .during(MOVE_TIME)
-                            .build());
+                            .during(MOVE_TIME));
     sound.play();
 }
 
@@ -142,9 +140,9 @@ int main()
 
                 case sf::Keyboard::G:
                     digTunnel("tunnel.txt", tunnel);
-                    player.position.animate(from(player.position.value()).to(PLAYER_INIT_POSITION).during(MOVE_TIME).build());
-                    player.color.animate(from(player.color.value()).to(PLAYER_INIT_COLOR).during(MOVE_TIME).build());
-                    player.radius.animate(from(player.radius.value()).to(PLAYER_INIT_RADIUS).during(MOVE_TIME).build());
+                    player.position.animate(from(player.position.value()).to(PLAYER_INIT_POSITION).during(MOVE_TIME));
+                    player.color.animate(from(player.color.value()).to(PLAYER_INIT_COLOR).during(MOVE_TIME));
+                    player.radius.animate(from(player.radius.value()).to(PLAYER_INIT_RADIUS).during(MOVE_TIME));
                     break;
 
                 case sf::Keyboard::Q:
