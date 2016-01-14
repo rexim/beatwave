@@ -15,6 +15,7 @@
 #include "./player.hpp"
 #include "./lineartransition.hpp"
 #include "./lineartransitionbuilder.hpp"
+#include "./sequencecombinator.hpp"
 
 const sf::Color WALL_COLOR = sf::Color(0, 130, 140);
 
@@ -24,7 +25,7 @@ const sf::Int32 COLOR_TIME = 700;
 const sf::Vector2f PLAYER_INIT_POSITION(200.0f, 200.0f);
 const float PLAYER_INIT_RADIUS = 50.0f;
 const sf::Color PLAYER_INIT_COLOR = sf::Color::White;
-const float PLAYER_MOVE_DISTANCE = 250.0f;
+const float PLAYER_MOVE_DISTANCE = 50.0f;//250.0f;
 
 sf::Color operator-(const sf::Color &c1, const sf::Color &c2)
 {
@@ -57,12 +58,10 @@ void stepPlayer(Player &player,
 {
     player.color.animate(from(flashColor)
                          .to(sf::Color::White)
-                         .during(COLOR_TIME)
-                         .build());
+                         .during(COLOR_TIME));
     player.position.animate(from(player.position.value())
                             .by(direction)
-                            .during(MOVE_TIME)
-                            .build());
+                            .during(MOVE_TIME));
     sound.play();
 }
 
@@ -142,9 +141,9 @@ int main()
 
                 case sf::Keyboard::G:
                     digTunnel("tunnel.txt", tunnel);
-                    player.position.animate(from(player.position.value()).to(PLAYER_INIT_POSITION).during(MOVE_TIME).build());
-                    player.color.animate(from(player.color.value()).to(PLAYER_INIT_COLOR).during(MOVE_TIME).build());
-                    player.radius.animate(from(player.radius.value()).to(PLAYER_INIT_RADIUS).during(MOVE_TIME).build());
+                    player.position.animate(from(player.position.value()).to(PLAYER_INIT_POSITION).during(MOVE_TIME));
+                    player.color.animate(from(player.color.value()).to(PLAYER_INIT_COLOR).during(MOVE_TIME));
+                    player.radius.animate(from(player.radius.value()).to(PLAYER_INIT_RADIUS).during(MOVE_TIME));
                     break;
 
                 case sf::Keyboard::Q:

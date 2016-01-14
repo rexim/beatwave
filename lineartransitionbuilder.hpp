@@ -29,8 +29,7 @@ public:
         return *this;
     }
 
-    LinearTransition<T> *build()
-    {
+    operator LinearTransition<T>*() {
         return new LinearTransition<T>(m_initialState, m_transitionTime, m_finalState);
     }
 
