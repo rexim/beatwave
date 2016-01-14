@@ -16,7 +16,6 @@
 #include "./lineartransition.hpp"
 #include "./lineartransitionbuilder.hpp"
 #include "./sequencecombinator.hpp"
-#include "./sequencecombinatorbuilder.hpp"
 
 const sf::Color WALL_COLOR = sf::Color(0, 130, 140);
 
@@ -60,21 +59,14 @@ void stepPlayer(Player &player,
     player.color.animate(from(flashColor)
                          .to(sf::Color::White)
                          .during(COLOR_TIME));
-    player.position.animate(SequenceCombinatorBuilder<sf::Vector2f>(from(player.position.value())
-                                                                    .by(direction)
-                                                                    .during(MOVE_TIME))
-                            .then(from(player.position.value())
-                                  .by(direction * -1.0f)
-                                  .during(MOVE_TIME)));
+    player.position.animate(from(player.position.value())
+                            .by(direction)
+                            .during(MOVE_TIME));
     sound.play();
 }
 
 int main()
 {
-    Animated<float> x(0.0f);
-    x.animate(SequenceCombinatorBuilder<float>(from(1.0f).to(2.0f).during(100))
-              .then(from(2.0f).to(3.0f).during(200)));
-
     sf::RenderWindow App(sf::VideoMode(1280, 720, 32), "Hello World - SFML");
     sf::SoundBuffer kickBuffer, snareBuffer, hihatBuffer, shamanBuffer;
 

@@ -29,8 +29,8 @@ public:
         return *this;
     }
 
-    operator AnimationPtr<T>() {
-        return AnimationPtr<T>(new LinearTransition<T>(m_initialState, m_transitionTime, m_finalState));
+    operator LinearTransition<T>*() {
+        return new LinearTransition<T>(m_initialState, m_transitionTime, m_finalState);
     }
 
 private:

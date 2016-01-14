@@ -2,16 +2,20 @@
 #define SEQUENCECOMBINATOR_HPP_
 
 #include <vector>
+#include <initializer_list>
 #include "./animation.hpp"
 
 template <typename State>
 class SequenceCombinator: public Animation<State>
 {
 public:
-    SequenceCombinator(std::vector<AnimationPtr<State>> &&animations):
-        m_animations(std::move(animations)),
+    SequenceCombinator(std::initializer_list<Animation<State>*> animations):
         m_currentAnimation(0)
-    {}
+    {
+        for (auto animation: animations) {
+            m_animations.push_back(std::unique_ptr<Animation<State>>(animation));
+        }
+    }
 
     State nextState(const sf::Int32 deltaTime)
     {
@@ -40,8 +44,24 @@ public:
     }
 
 private:
-    std::vector<AnimationPtr<State>> m_animations;
+    std::vector<std::unique_ptr<Animation<State>>> m_animations;
     size_t m_currentAnimation;
+};
+
+template <typename State>
+class seq
+{
+public:
+    seq(std::initializer_list<Animation<State>*> animations):
+        sequenceCombinator(new SequenceCombinator<State>(animations))
+    {}
+
+    operator SequenceCombinator<State>*() {
+        return sequenceCombinator;
+    }
+
+private:
+    SequenceCombinator<State> *sequenceCombinator;
 };
 
 #endif  // SEQUENCECOMBINATOR_HPP_

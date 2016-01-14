@@ -13,7 +13,4 @@ public:
     virtual bool isFinished() const = 0;
 };
 
-template <typename T>
-using AnimationPtr = std::unique_ptr<Animation<T>>;
-
 #endif  // ANIMATION_HPP_
