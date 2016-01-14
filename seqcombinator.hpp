@@ -1,15 +1,15 @@
-#ifndef SEQUENCECOMBINATOR_HPP_
-#define SEQUENCECOMBINATOR_HPP_
+#ifndef SEQCOMBINATOR_HPP_
+#define SEQCOMBINATOR_HPP_
 
 #include <vector>
 #include <initializer_list>
 #include "./animation.hpp"
 
 template <typename State>
-class SequenceCombinator: public Animation<State>
+class SeqCombinator: public Animation<State>
 {
 public:
-    SequenceCombinator(std::initializer_list<Animation<State>*> animations):
+    SeqCombinator(std::initializer_list<Animation<State>*> animations):
         m_currentAnimation(0)
     {
         for (auto animation: animations) {
@@ -48,20 +48,4 @@ private:
     size_t m_currentAnimation;
 };
 
-template <typename State>
-class seq
-{
-public:
-    seq(std::initializer_list<Animation<State>*> animations):
-        sequenceCombinator(new SequenceCombinator<State>(animations))
-    {}
-
-    operator SequenceCombinator<State>*() {
-        return sequenceCombinator;
-    }
-
-private:
-    SequenceCombinator<State> *sequenceCombinator;
-};
-
-#endif  // SEQUENCECOMBINATOR_HPP_
+#endif  // SEQCOMBINATOR_HPP_

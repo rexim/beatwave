@@ -10,7 +10,7 @@ class Animated
 public:
     Animated(const Animated&) = delete;
 
-    Animated(const T &value):
+    Animated(const T &value = T()):
         m_value(value),
         m_animation(nullptr)
     {}
