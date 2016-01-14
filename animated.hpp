@@ -25,9 +25,9 @@ public:
         m_animation.reset();
     }
 
-    void animate(Animation<T> *animation)
+    void animate(AnimationPtr<T> &&animation)
     {
-        m_animation.reset(animation);
+        m_animation = std::move(animation);
 
         if (!m_animation->isFinished()) {
             m_value = m_animation->getCurrentState();
