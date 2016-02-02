@@ -19,6 +19,9 @@
 
 const sf::Color WALL_COLOR = sf::Color(0, 130, 140);
 
+const sf::Int32 SCREEN_WIDTH = 1280;
+const sf::Int32 SCREEN_HEIGHT = 720;
+
 const sf::Int32 MOVE_TIME = 500;
 const sf::Int32 COLOR_TIME = 700;
 
@@ -45,9 +48,11 @@ sf::Color operator*(const sf::Color &color, float f)
 sf::CircleShape playerToCircle(const Player &player)
 {
     const float radius = player.radius.value();
-    sf::CircleShape circle(player.radius.value());
+    sf::CircleShape circle(radius);
     circle.setFillColor(player.color.value());
-    circle.setPosition(player.position.value() - sf::Vector2f(radius, radius));
+    circle.setPosition(SCREEN_WIDTH / 2.0f - radius,
+                       SCREEN_HEIGHT / 2.0f - radius);
+    // circle.setPosition(player.position.value() - sf::Vector2f(radius, radius));
     return circle;
 }
 
@@ -67,7 +72,7 @@ void stepPlayer(Player &player,
 
 int main()
 {
-    sf::RenderWindow App(sf::VideoMode(1280, 720, 32), "Hello World - SFML");
+    sf::RenderWindow App(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32), "Hello World - SFML");
     sf::SoundBuffer kickBuffer, snareBuffer, hihatBuffer, shamanBuffer;
 
     if (!kickBuffer.loadFromFile("data/kick.wav")) {
@@ -107,7 +112,7 @@ int main()
     sf::Clock playClock;
 
     std::deque<std::pair<int, sf::Int32>> captures;
-    loadCaptureInfo(captures, "replay.txt");
+    // loadCaptureInfo(captures, "replay.txt");
 
     sf::Int32 currentTime = 0;
 
@@ -122,12 +127,12 @@ int main()
             } else if (Event.type == sf::Event::KeyPressed) {
                 switch (Event.key.code) {
                 case sf::Keyboard::Space:         // kick
-                    captures.push_back(std::make_pair(0, playClock.restart().asMilliseconds()));
+                    // captures.push_back(std::make_pair(0, playClock.restart().asMilliseconds()));
                     stepPlayer(player, sf::Color::Red, sf::Vector2f(PLAYER_MOVE_DISTANCE, 0.0f), kickSound);
                     break;
 
                 case sf::Keyboard::S:         // snare
-                    captures.push_back(std::make_pair(1, playClock.restart().asMilliseconds()));
+                    // captures.push_back(std::make_pair(1, playClock.restart().asMilliseconds()));
                     stepPlayer(player, sf::Color::Green, sf::Vector2f(0.0f, PLAYER_MOVE_DISTANCE), snareSound);
                     break;
 
@@ -183,7 +188,8 @@ int main()
 
         for (const auto &rect: tunnel) {
             sf::RectangleShape shape;
-            shape.setPosition(rect.left, rect.top);
+            shape.setPosition(rect.left - player.position.value().x + SCREEN_WIDTH / 2.0f, 
+                              rect.top - player.position.value().y + SCREEN_HEIGHT / 2.0f);
             shape.setSize(sf::Vector2f(rect.width, rect.height));
             shape.setFillColor(sf::Color::Black);
             App.draw(shape);
