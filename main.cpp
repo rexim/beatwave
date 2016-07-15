@@ -30,14 +30,6 @@ const float PLAYER_INIT_RADIUS = 50.0f;
 const sf::Color PLAYER_INIT_COLOR = sf::Color::White;
 const float PLAYER_MOVE_DISTANCE = 250.0f;
 
-sf::Color operator-(const sf::Color &c1, const sf::Color &c2)
-{
-    return sf::Color(c1.r - c2.r, 
-                     c1.g - c2.g, 
-                     c1.b - c2.b, 
-                     c1.a - c2.a);
-}
-
 sf::Color operator*(const sf::Color &color, float f)
 {
     return sf::Color(color.r * f,
