@@ -21,6 +21,8 @@ const sf::Color WALL_COLOR = sf::Color(0, 130, 140);
 
 const sf::Int32 SCREEN_WIDTH = 1280;
 const sf::Int32 SCREEN_HEIGHT = 720;
+const sf::Int32 SCREEN_COLOR_DEPTH = 32;
+const char* WINDOW_TITLE = "Hello World - SFML";
 
 const sf::Int32 MOVE_TIME = 500;
 const sf::Int32 COLOR_TIME = 700;

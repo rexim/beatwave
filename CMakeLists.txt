@@ -1,9 +1,7 @@
 cmake_minimum_required(VERSION 2.6)
 project(beatwave)
 
-if(CMAKE_COMPILER_IS_GNUCXX)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra -pedantic")
-endif()
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra -pedantic")
 
 set(HPPS
   animated.hpp
@@ -12,12 +10,14 @@ set(HPPS
   player.hpp
   tunnel.hpp
   captures.hpp
+  game.hpp
 )
 
 set(CPPS
   main.cpp
   tunnel.cpp
   captures.cpp
+  game.cpp
 )
 
 add_executable(beatwave ${CPPS} ${HPPS})

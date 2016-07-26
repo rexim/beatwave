@@ -15,7 +15,7 @@ void generateTunnelPoints(const std::deque<Capture> &captures,
                           std::vector<sf::Vector2f> &points)
 {
     sf::Vector2f currentPosition = position;
-        
+
     points.push_back(position);
 
     for (size_t i = 0; i < captures.size() - 1; ++i) {
@@ -45,7 +45,7 @@ void generateTunnelRects(const std::vector<sf::Vector2f> &points,
 
 void generateTunnelFromCaptures(const std::deque<Capture> &captures,
                                 const sf::Vector2f &position,
-                                float radius, 
+                                float radius,
                                 float velocity,
                                 Tunnel &tunnel)
 {
@@ -56,6 +56,8 @@ void generateTunnelFromCaptures(const std::deque<Capture> &captures,
 
 int main(int argc, char *argv[])
 {
+    static_cast<void>(argc);
+    static_cast<void>(argv);
     const float errorBuffer = 20.0f;
     std::deque<Capture> captures;
     Tunnel tunnel;
@@ -66,6 +68,6 @@ int main(int argc, char *argv[])
     for (const auto &rect: tunnel) {
         std::cout << rect.left << ' '<< rect.top << ' ' << rect.width << ' ' << rect.height << std::endl;
     }
-    
+
     return 0;
 }
