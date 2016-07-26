@@ -4,7 +4,6 @@
 #include <SFML/System.hpp>
 
 #include "animated.hpp"
-#include "lineartransition.hpp"
 
 struct Player
 {

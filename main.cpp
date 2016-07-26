@@ -16,82 +16,25 @@
 #include "lineartransition.hpp"
 #include "lineartransitionbuilder.hpp"
 #include "seqcombinator.hpp"
-
-const sf::Color WALL_COLOR = sf::Color(0, 130, 140);
+#include "util.hpp"
+#include "game.hpp"
 
 const sf::Int32 SCREEN_WIDTH = 1280;
 const sf::Int32 SCREEN_HEIGHT = 720;
-
-const sf::Int32 MOVE_TIME = 500;
-const sf::Int32 COLOR_TIME = 700;
-
-const sf::Vector2f PLAYER_INIT_POSITION(200.0f, 200.0f);
-const float PLAYER_INIT_RADIUS = 50.0f;
-const sf::Color PLAYER_INIT_COLOR = sf::Color::White;
-const float PLAYER_MOVE_DISTANCE = 250.0f;
-
-sf::CircleShape playerToCircle(const Player &player)
-{
-    const float radius = player.radius.value();
-    sf::CircleShape circle(radius);
-    circle.setFillColor(player.color.value());
-    circle.setPosition(player.position.value() - sf::Vector2f(radius, radius));
-    return circle;
-}
-
-void stepPlayer(Player &player,
-                const sf::Color &flashColor,
-                const sf::Vector2f direction,
-                sf::Sound &sound)
-{
-    player.color.animate(from(flashColor)
-                         .to(sf::Color::White)
-                         .during(COLOR_TIME));
-    player.position.animate(from(player.position.value())
-                            .by(direction)
-                            .during(MOVE_TIME));
-    sound.play();
-}
+const sf::Int32 SCREEN_COLOR_DEPTH = 32;
+const char* WINDOW_TITLE = "Hello World - SFML";
 
 int main(int argc, char* argv[])
 {
     static_cast<void>(argc);
     static_cast<void>(argv);
-    sf::RenderWindow App(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32), "Hello World - SFML");
-    sf::SoundBuffer kickBuffer, snareBuffer, hihatBuffer, shamanBuffer;
+    sf::RenderWindow App(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_COLOR_DEPTH), WINDOW_TITLE);
 
-    if (!kickBuffer.loadFromFile("data/kick.wav")) {
-        std::cout << "[ERROR] Cannot load data/kick.wav" << std::endl;
+    Game game;
+
+    if (!game.init()) {
         return 1;
     }
-
-    if (!snareBuffer.loadFromFile("data/snare.wav")) {
-        std::cout << "[ERROR] Cannot load data/snare.wav" << std::endl;
-         return 1;
-    }
-
-    if (!hihatBuffer.loadFromFile("data/hihat.wav")) {
-        std::cout << "[ERROR] Cannot load data/hihat.wav" << std::endl;
-        return 1;
-    }
-
-    if (!shamanBuffer.loadFromFile("data/shaman.wav")) {
-        std::cout << "[ERROR] Cannot load data/shaman.wav" << std::endl;
-        return 1;
-    }
-
-    Player player(PLAYER_INIT_POSITION,
-                  50.0f,
-                  sf::Color::White);
-
-    Tunnel tunnel;
-    digTunnel("tunnel.txt", tunnel);
-
-    sf::Sound kickSound, snareSound, hihatSound, shamanSound;
-    kickSound.setBuffer(kickBuffer);
-    snareSound.setBuffer(snareBuffer);
-    hihatSound.setBuffer(hihatBuffer);
-    shamanSound.setBuffer(shamanBuffer);
 
     sf::Clock clock;
     sf::Clock playClock;
@@ -111,29 +54,26 @@ int main(int argc, char* argv[])
                 App.close();
             } else if (Event.type == sf::Event::KeyPressed) {
                 switch (Event.key.code) {
-                case sf::Keyboard::Space:         // kick
+                case sf::Keyboard::Space:
                     // captures.push_back(std::make_pair(0, playClock.restart().asMilliseconds()));
-                    stepPlayer(player, sf::Color::Red, sf::Vector2f(PLAYER_MOVE_DISTANCE, 0.0f), kickSound);
+                    game.kick();
                     break;
 
-                case sf::Keyboard::S:         // snare
+                case sf::Keyboard::S:
                     // captures.push_back(std::make_pair(1, playClock.restart().asMilliseconds()));
-                    stepPlayer(player, sf::Color::Green, sf::Vector2f(0.0f, PLAYER_MOVE_DISTANCE), snareSound);
+                    game.snare();
                     break;
 
-                case sf::Keyboard::P:         // hihat
-                    stepPlayer(player, sf::Color::Blue, sf::Vector2f(0.0f, -PLAYER_MOVE_DISTANCE), hihatSound);
+                case sf::Keyboard::P:
+                    game.hihat();
                     break;
 
-                case sf::Keyboard::H: // shaman
-                    stepPlayer(player, sf::Color::Yellow, sf::Vector2f(-PLAYER_MOVE_DISTANCE, 0.0f), shamanSound);
+                case sf::Keyboard::H:
+                    game.shaman();
                     break;
 
                 case sf::Keyboard::G:
-                    digTunnel("tunnel.txt", tunnel);
-                    player.position.animate(from(player.position.value()).to(PLAYER_INIT_POSITION).during(MOVE_TIME));
-                    player.color.animate(from(player.color.value()).to(PLAYER_INIT_COLOR).during(MOVE_TIME));
-                    player.radius.animate(from(player.radius.value()).to(PLAYER_INIT_RADIUS).during(MOVE_TIME));
+                    game.reset();
                     break;
 
                 case sf::Keyboard::Q:
@@ -168,22 +108,8 @@ int main(int argc, char* argv[])
         //     }
         // }
 
-
-
-        player.tick(deltaTime);
-
-        App.clear(WALL_COLOR);
-        App.setView(sf::View(player.position.value(), sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT)));
-
-        for (const auto &rect: tunnel) {
-            sf::RectangleShape shape;
-            shape.setPosition(rect.left, rect.top);
-            shape.setSize(sf::Vector2f(rect.width, rect.height));
-            shape.setFillColor(sf::Color::Black);
-            App.draw(shape);
-        }
-
-        App.draw(playerToCircle(player));
+        game.tick(deltaTime);
+        game.render(&App);
         App.display();
     }
 
