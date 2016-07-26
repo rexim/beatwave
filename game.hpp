@@ -21,6 +21,7 @@ public:
     void run();
 
     void render(sf::RenderTarget *renderTarget);
+    void tick(sf::Int32 deltaTime);
 
     void kick();
     void snare();
@@ -35,6 +36,7 @@ private:
 private:
     Player player;
     Tunnel tunnel;
+    sf::SoundBuffer kickBuffer, snareBuffer, hihatBuffer, shamanBuffer;
     sf::Sound kickSound, snareSound, hihatSound, shamanSound;
 };
 

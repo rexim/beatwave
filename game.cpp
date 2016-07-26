@@ -51,8 +51,6 @@ Game::Game():
 
 bool Game::initSounds()
 {
-    sf::SoundBuffer kickBuffer, snareBuffer, hihatBuffer, shamanBuffer;
-
     if (!kickBuffer.loadFromFile("data/kick.wav")) {
         std::cout << "[ERROR] Cannot load data/kick.wav" << std::endl;
         return false;
@@ -90,6 +88,11 @@ bool Game::init()
     digTunnel("tunnel.txt", tunnel);
 
     return true;
+}
+
+void Game::tick(sf::Int32 deltaTime)
+{
+    player.tick(deltaTime);
 }
 
 void Game::render(sf::RenderTarget *renderTarget)
