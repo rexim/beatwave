@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include "./captures.hpp"
+#include "captures.hpp"
 
 void dumpCaptureInfo(const std::deque<Capture> &captures,
                      const std::string &capturesFileName)

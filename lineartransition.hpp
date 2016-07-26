@@ -1,7 +1,7 @@
 #ifndef LINEARTRANSITION_HPP_
 #define LINEARTRANSITION_HPP_
 
-#include "./animation.hpp"
+#include "animation.hpp"
 
 
 sf::Color operator*(const sf::Color &color, float f)

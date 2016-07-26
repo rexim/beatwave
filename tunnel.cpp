@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include "./tunnel.hpp"
+#include "tunnel.hpp"
 
 void digTunnel(const std::string &plan,
                Tunnel &result)
