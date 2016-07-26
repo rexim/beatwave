@@ -42,14 +42,12 @@ sf::CircleShape playerToCircle(const Player &player)
     const float radius = player.radius.value();
     sf::CircleShape circle(radius);
     circle.setFillColor(player.color.value());
-    circle.setPosition(SCREEN_WIDTH / 2.0f - radius,
-                       SCREEN_HEIGHT / 2.0f - radius);
-    // circle.setPosition(player.position.value() - sf::Vector2f(radius, radius));
+    circle.setPosition(player.position.value() - sf::Vector2f(radius, radius));
     return circle;
 }
 
-void stepPlayer(Player &player, 
-                const sf::Color &flashColor, 
+void stepPlayer(Player &player,
+                const sf::Color &flashColor,
                 const sf::Vector2f direction,
                 sf::Sound &sound)
 {
@@ -87,7 +85,7 @@ int main()
         return 1;
     }
 
-    Player player(sf::Vector2f(200.0f, 200.0f),
+    Player player(PLAYER_INIT_POSITION,
                   50.0f,
                   sf::Color::White);
 
@@ -154,7 +152,7 @@ int main()
 
         sf::Int32 deltaTime = clock.restart().asMilliseconds();
         currentTime += deltaTime;
-        
+
         // if (!captures.empty()) {
         //     auto capture = captures.front();
         //     if (capture.second <= currentTime) {
@@ -175,13 +173,16 @@ int main()
         //     }
         // }
 
-        App.clear(WALL_COLOR);
+
+
         player.tick(deltaTime);
+
+        App.clear(WALL_COLOR);
+        App.setView(sf::View(player.position.value(), sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT)));
 
         for (const auto &rect: tunnel) {
             sf::RectangleShape shape;
-            shape.setPosition(rect.left - player.position.value().x + SCREEN_WIDTH / 2.0f, 
-                              rect.top - player.position.value().y + SCREEN_HEIGHT / 2.0f);
+            shape.setPosition(rect.left, rect.top);
             shape.setSize(sf::Vector2f(rect.width, rect.height));
             shape.setFillColor(sf::Color::Black);
             App.draw(shape);
@@ -190,6 +191,6 @@ int main()
         App.draw(playerToCircle(player));
         App.display();
     }
- 
+
     return 0;
 }
