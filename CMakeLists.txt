@@ -11,6 +11,7 @@ set(HPPS
   tunnel.hpp
   captures.hpp
   game.hpp
+  util.hpp
 )
 
 set(CPPS
@@ -18,6 +19,7 @@ set(CPPS
   tunnel.cpp
   captures.cpp
   game.cpp
+  util.cpp
 )
 
 add_executable(beatwave ${CPPS} ${HPPS})

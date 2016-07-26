@@ -16,6 +16,7 @@
 #include "lineartransition.hpp"
 #include "lineartransitionbuilder.hpp"
 #include "seqcombinator.hpp"
+#include "util.hpp"
 
 const sf::Color WALL_COLOR = sf::Color(0, 130, 140);
 

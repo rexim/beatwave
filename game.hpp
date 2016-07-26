@@ -7,6 +7,11 @@
 #include "player.hpp"
 #include "tunnel.hpp"
 
+namespace sf
+{
+    class RenderTarget;
+}
+
 class Game
 {
 public:
@@ -15,7 +20,7 @@ public:
     bool init();
     void run();
 
-    void render();
+    void render(sf::RenderTarget *renderTarget);
 
     void kick();
     void snare();

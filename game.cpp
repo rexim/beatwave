@@ -3,6 +3,7 @@
 #include <SFML/Audio/SoundBuffer.hpp>
 
 #include "game.hpp"
+#include "util.hpp"
 #include "lineartransitionbuilder.hpp"
 
 namespace
@@ -15,6 +16,8 @@ namespace
 
     const float PLAYER_INIT_RADIUS = 50.0f;
     const sf::Color PLAYER_INIT_COLOR = sf::Color::White;
+
+    const sf::Color WALL_COLOR = sf::Color(0, 130, 140);
 
     void stepPlayer(Player &player,
                     const sf::Color &flashColor,
@@ -29,15 +32,22 @@ namespace
                                 .during(MOVE_TIME));
         sound.play();
     }
+
+    sf::CircleShape playerToCircle(const Player &player)
+    {
+        const float radius = player.radius.value();
+        sf::CircleShape circle(radius);
+        circle.setFillColor(player.color.value());
+        circle.setPosition(player.position.value() - sf::Vector2f(radius, radius));
+        return circle;
+    }
 }
 
 Game::Game():
     player(PLAYER_INIT_POSITION,
            50.0f,
            sf::Color::White)
-{
-
-}
+{}
 
 bool Game::initSounds()
 {
@@ -82,9 +92,20 @@ bool Game::init()
     return true;
 }
 
-void Game::render()
+void Game::render(sf::RenderTarget *renderTarget)
 {
+    renderTarget->clear(WALL_COLOR);
+    renderTarget->setView(sf::View(player.position.value(), renderTarget->getView().getSize()));
 
+    for (const auto &rect: tunnel) {
+        sf::RectangleShape shape;
+        shape.setPosition(rect.left, rect.top);
+        shape.setSize(sf::Vector2f(rect.width, rect.height));
+        shape.setFillColor(sf::Color::Black);
+        renderTarget->draw(shape);
+    }
+
+    renderTarget->draw(playerToCircle(player));
 }
 
 void Game::run()
