@@ -38,8 +38,8 @@ void generateTunnelRects(const std::vector<sf::Vector2f> &points,
         const sf::Vector2f rightBottom = points[i + 1] + radiusVector;
 
         tunnel.push_back(sf::FloatRect(leftUpper.x, leftUpper.y,
-                                       std::abs(leftUpper.x - rightBottom.x),
-                                       std::abs(leftUpper.y - rightBottom.y)));
+                                       std::abs(static_cast<long>(leftUpper.x - rightBottom.x)),
+                                       std::abs(static_cast<long>(leftUpper.y - rightBottom.y))));
     }
 }
 

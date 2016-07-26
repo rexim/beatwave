@@ -30,13 +30,6 @@ const float PLAYER_INIT_RADIUS = 50.0f;
 const sf::Color PLAYER_INIT_COLOR = sf::Color::White;
 const float PLAYER_MOVE_DISTANCE = 250.0f;
 
-sf::Color operator*(const sf::Color &color, float f)
-{
-    return sf::Color(color.r * f,
-                     color.g * f,
-                     color.b * f);
-}
-
 sf::CircleShape playerToCircle(const Player &player)
 {
     const float radius = player.radius.value();
@@ -60,8 +53,10 @@ void stepPlayer(Player &player,
     sound.play();
 }
 
-int main()
+int main(int argc, char* argv[])
 {
+    static_cast<void>(argc);
+    static_cast<void>(argv);
     sf::RenderWindow App(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32), "Hello World - SFML");
     sf::SoundBuffer kickBuffer, snareBuffer, hihatBuffer, shamanBuffer;
 
