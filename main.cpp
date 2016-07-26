@@ -10,12 +10,12 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-#include "./tunnel.hpp"
-#include "./captures.hpp"
-#include "./player.hpp"
-#include "./lineartransition.hpp"
-#include "./lineartransitionbuilder.hpp"
-#include "./seqcombinator.hpp"
+#include "tunnel.hpp"
+#include "captures.hpp"
+#include "player.hpp"
+#include "lineartransition.hpp"
+#include "lineartransitionbuilder.hpp"
+#include "seqcombinator.hpp"
 
 const sf::Color WALL_COLOR = sf::Color(0, 130, 140);
 
