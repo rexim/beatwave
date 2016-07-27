@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.6)
 project(beatwave)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra -pedantic")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x -Wall -Wextra -pedantic")
 
 set(HPPS
   animated.hpp
