@@ -8,7 +8,7 @@ namespace sf {
 
     Color operator*(const Color &color, float f);
 #if SFML_VERSION_MAJOR == 2 && SFML_VERSION < 2
-    Color operator-(const Color& left, const Color& right)
+    Color operator-(const Color& left, const Color& right);
 #endif
 
 }  // namespacs sf
