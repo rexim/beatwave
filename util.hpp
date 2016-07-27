@@ -3,8 +3,9 @@
 
 namespace sf {
     class Color;
+
+    Color operator*(const Color &color, float f);
 }
 
-sf::Color operator*(const sf::Color &color, float f);
 
 #endif  // UTIL_HPP_
