@@ -1,0 +1,13 @@
+language: cpp
+compiler:
+  - gcc
+  - clang
+addons:
+  apt:
+    packages:
+      - libsfml-dev
+script:
+  - mkdir build
+  - cd build
+  - cmake ..
+  - make
