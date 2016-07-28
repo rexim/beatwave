@@ -2,6 +2,13 @@
 #include <SFML/Graphics/Color.hpp>
 #include "util.hpp"
 
+#ifndef SFML_VERSION_MAJOR
+#error IMPOSSIBRU!
+#endif
+#ifndef SFML_VERSION_MINOR
+#error IMPOSSIBRU!
+#endif
+
 namespace sf {
 
 Color operator*(const Color &color, float f)
@@ -11,7 +18,7 @@ Color operator*(const Color &color, float f)
                  color.b * f);
 }
 
-#if SFML_VERSION_MAJOR == 2 && SFML_VERSION < 2
+#if SFML_VERSION_MAJOR == 2 && SFML_VERSION_MINOR < 2
 Color operator-(const Color& left, const Color& right)
 {
     return Color(left.r - right.r,
