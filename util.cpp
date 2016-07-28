@@ -2,13 +2,6 @@
 #include <SFML/Graphics/Color.hpp>
 #include "util.hpp"
 
-#ifndef SFML_VERSION_MAJOR
-#error IMPOSSIBRU!
-#endif
-#ifndef SFML_VERSION_MINOR
-#error IMPOSSIBRU!
-#endif
-
 namespace sf {
 
 Color operator*(const Color &color, float f)

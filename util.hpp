@@ -2,10 +2,11 @@
 #define UTIL_HPP_
 
 #ifndef SFML_VERSION_MAJOR
-#error IMPOSSIBRU!
+#error "Unsupported version of SFML is used. Please use SFML 2.0+."
 #endif
+
 #ifndef SFML_VERSION_MINOR
-#error IMPOSSIBRU!
+#error "Unsupported version of SFML is used. Please use SFML 2.0+."
 #endif
 
 #include <SFML/Config.hpp>
