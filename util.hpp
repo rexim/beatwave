@@ -1,11 +1,7 @@
 #ifndef UTIL_HPP_
 #define UTIL_HPP_
 
-#ifndef SFML_VERSION_MAJOR
-#error "Unsupported version of SFML is used. Please use SFML 2.0+."
-#endif
-
-#ifndef SFML_VERSION_MINOR
+#if !(defined (SFML_VERSION_MAJOR) && defined (SFML_VERSION_MINOR))
 #error "Unsupported version of SFML is used. Please use SFML 2.0+."
 #endif
 
