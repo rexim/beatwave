@@ -11,7 +11,7 @@ namespace sf {
     Color operator-(const Color& left, const Color& right);
 #endif
 
-}  // namespacs sf
+}  // namespace sf
 
 
 #endif  // UTIL_HPP_
