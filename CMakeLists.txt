@@ -7,31 +7,31 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
 include_directories(src/)
 
 set(HPPS
-  src/animated.hpp
-  src/animation.hpp
-  src/lineartransition.hpp
-  src/player.hpp
-  src/tunnel.hpp
-  src/captures.hpp
-  src/game.hpp
-  src/util.hpp
+  src/core/animated.hpp
+  src/core/animation.hpp
+  src/core/lineartransition.hpp
+  src/core/player.hpp
+  src/core/tunnel.hpp
+  src/core/captures.hpp
+  src/beatwave/game.hpp
+  src/core/util.hpp
 )
 
 set(CPPS
-  src/main.cpp
-  src/tunnel.cpp
-  src/captures.cpp
-  src/game.cpp
-  src/util.cpp
+  src/beatwave/main.cpp
+  src/core/tunnel.cpp
+  src/core/captures.cpp
+  src/beatwave/game.cpp
+  src/core/util.cpp
 )
 
 add_executable(beatwave ${CPPS} ${HPPS})
 add_executable(tunnelgenerator 
-  src/tunnel.hpp
-  src/tunnel.cpp
-  src/captures.hpp
-  src/captures.cpp
-  src/tunnelgenerator.cpp
+  src/core/tunnel.hpp
+  src/core/tunnel.cpp
+  src/core/captures.hpp
+  src/core/captures.cpp
+  src/tunnelgenerator/main.cpp
 )
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
