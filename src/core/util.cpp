@@ -1,6 +1,6 @@
 #include <SFML/Config.hpp>
 #include <SFML/Graphics/Color.hpp>
-#include "util.hpp"
+#include <core/util.hpp>
 
 namespace sf {
 

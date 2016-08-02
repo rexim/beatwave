@@ -1,7 +1,7 @@
 #ifndef LINEARTRANSITION_HPP_
 #define LINEARTRANSITION_HPP_
 
-#include "animation.hpp"
+#include <core/animation.hpp>
 
 template <typename T>
 class LinearTransition: public Animation<T>

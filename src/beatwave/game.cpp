@@ -2,9 +2,9 @@
 
 #include <SFML/Audio/SoundBuffer.hpp>
 
-#include "game.hpp"
-#include "util.hpp"
-#include "lineartransitionbuilder.hpp"
+#include <beatwave/game.hpp>
+#include <core/util.hpp>
+#include <core/lineartransitionbuilder.hpp>
 
 namespace
 {

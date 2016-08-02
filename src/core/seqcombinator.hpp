@@ -3,7 +3,8 @@
 
 #include <vector>
 #include <initializer_list>
-#include "animation.hpp"
+
+#include <core/animation.hpp>
 
 template <typename State>
 class SeqCombinator: public Animation<State>

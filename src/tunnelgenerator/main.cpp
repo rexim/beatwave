@@ -6,8 +6,8 @@
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 
-#include "tunnel.hpp"
-#include "captures.hpp"
+#include <core/tunnel.hpp>
+#include <core/captures.hpp>
 
 void generateTunnelPoints(const std::deque<Capture> &captures,
                           const sf::Vector2f &position,

@@ -1,7 +1,7 @@
 #ifndef LINEARTRANSITIONBUILDER_HPP_
 #define LINEARTRANSITIONBUILDER_HPP_
 
-#include "lineartransition.hpp"
+#include <core/lineartransition.hpp>
 
 template <typename T>
 class LinearTransitionBuilder
