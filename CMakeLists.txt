@@ -14,6 +14,7 @@ set(CORE_SOURCES
   src/core/tunnel.hpp
   src/core/captures.hpp
   src/core/util.hpp
+  src/core/forever.hpp
 
   src/core/tunnel.cpp
   src/core/captures.cpp

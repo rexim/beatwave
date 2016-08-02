@@ -44,6 +44,8 @@ int main(int argc, char* argv[])
 
     sf::Int32 currentTime = 0;
 
+    App.requestFocus();
+
     while (App.isOpen())
     {
         // std::cout << state << std::endl;
