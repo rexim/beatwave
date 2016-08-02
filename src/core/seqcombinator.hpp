@@ -58,4 +58,10 @@ private:
     size_t m_currentAnimation;
 };
 
+template <typename State>
+SeqCombinator<State> *seq(std::initializer_list<Animation<State>*> animations)
+{
+    return new SeqCombinator<State>(animations);
+}
+
 #endif  // SEQCOMBINATOR_HPP_

@@ -52,10 +52,10 @@ Game::Game():
            sf::Color::White),
     dummy(sf::Vector2f(100.0f, 100.0f))
 {
-    dummy.animate(repeat(2, new SeqCombinator<sf::Vector2f> ({
-                from(sf::Vector2f(100.0f, 100.0f)).to(sf::Vector2f(200.0f, 200.0f)).during(1000),
-                from(sf::Vector2f(200.0f, 200.0f)).to(sf::Vector2f(200.0f, 100.0f)).during(100),
-                from(sf::Vector2f(200.0f, 100.0f)).to(sf::Vector2f(100.0f, 100.0f)).during(1000)
+    dummy.animate(repeat(2, seq<sf::Vector2f>({
+        from(sf::Vector2f(100.0f, 100.0f)).to(sf::Vector2f(200.0f, 200.0f)).during(1000),
+        from(sf::Vector2f(200.0f, 200.0f)).to(sf::Vector2f(200.0f, 100.0f)).during(100),
+        from(sf::Vector2f(200.0f, 100.0f)).to(sf::Vector2f(100.0f, 100.0f)).during(1000)
     })));
 }
 
