@@ -48,4 +48,10 @@ private:
     int m_currentCounter;
 };
 
+template <typename State>
+Repeat<State> *repeat(int counter, Animation<State> *animation)
+{
+    return new Repeat<State>(counter, animation);
+}
+
 #endif  // REPEAT_HPP_
