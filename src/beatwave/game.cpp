@@ -7,6 +7,7 @@
 #include <core/lineartransitionbuilder.hpp>
 #include <core/seqcombinator.hpp>
 #include <core/forever.hpp>
+#include <core/repeat.hpp>
 
 namespace
 {
@@ -51,7 +52,7 @@ Game::Game():
            sf::Color::White),
     dummy(sf::Vector2f(100.0f, 100.0f))
 {
-    dummy.animate(new Forever<sf::Vector2f>(new SeqCombinator<sf::Vector2f> ({
+    dummy.animate(new Repeat<sf::Vector2f>(0, new SeqCombinator<sf::Vector2f> ({
                 from(sf::Vector2f(100.0f, 100.0f)).to(sf::Vector2f(200.0f, 200.0f)).during(1000),
                 from(sf::Vector2f(200.0f, 200.0f)).to(sf::Vector2f(200.0f, 100.0f)).during(100),
                 from(sf::Vector2f(200.0f, 100.0f)).to(sf::Vector2f(100.0f, 100.0f)).during(1000)
