@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include "captures.hpp"
+#include <captures.hpp>
 
 void dumpCaptureInfo(const std::deque<Capture> &captures,
                      const std::string &capturesFileName)
@@ -23,7 +23,7 @@ void loadCaptureInfo(std::deque<Capture> &captures,
                       const std::string &capturesFileName)
 {
     std::ifstream capturesFile(capturesFileName);
-    
+
     if (capturesFile) {
         int actionType;
         sf::Int32 captureTime;

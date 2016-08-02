@@ -10,14 +10,14 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-#include "tunnel.hpp"
-#include "captures.hpp"
-#include "player.hpp"
-#include "lineartransition.hpp"
-#include "lineartransitionbuilder.hpp"
-#include "seqcombinator.hpp"
-#include "util.hpp"
-#include "game.hpp"
+#include <tunnel.hpp>
+#include <captures.hpp>
+#include <player.hpp>
+#include <lineartransition.hpp>
+#include <lineartransitionbuilder.hpp>
+#include <seqcombinator.hpp>
+#include <util.hpp>
+#include <game.hpp>
 
 const sf::Int32 SCREEN_WIDTH = 1280;
 const sf::Int32 SCREEN_HEIGHT = 720;

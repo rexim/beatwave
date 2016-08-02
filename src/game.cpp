@@ -2,9 +2,9 @@
 
 #include <SFML/Audio/SoundBuffer.hpp>
 
-#include "game.hpp"
-#include "util.hpp"
-#include "lineartransitionbuilder.hpp"
+#include <game.hpp>
+#include <util.hpp>
+#include <lineartransitionbuilder.hpp>
 
 namespace
 {

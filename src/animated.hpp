@@ -2,7 +2,7 @@
 #define ANIMATED_HPP_
 
 #include <memory>
-#include "animation.hpp"
+#include <animation.hpp>
 
 template <typename T>
 class Animated

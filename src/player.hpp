@@ -3,7 +3,7 @@
 
 #include <SFML/System.hpp>
 
-#include "animated.hpp"
+#include <animated.hpp>
 
 struct Player
 {

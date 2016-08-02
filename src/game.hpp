@@ -4,8 +4,8 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Audio/Sound.hpp>
 
-#include "player.hpp"
-#include "tunnel.hpp"
+#include <player.hpp>
+#include <tunnel.hpp>
 
 namespace sf
 {

@@ -1,12 +1,12 @@
 #include <iostream>
 #include <fstream>
-#include "tunnel.hpp"
+#include <tunnel.hpp>
 
 void digTunnel(const std::string &plan,
                Tunnel &result)
 {
     std::ifstream tunnelFile(plan);
-    
+
     if (!tunnelFile) {
         std::cout << "[ERROR] Cannot load " << plan << std::endl;
     }
