@@ -6,6 +6,7 @@
 
 #include <core/player.hpp>
 #include <core/tunnel.hpp>
+#include <core/animated.hpp>
 
 namespace sf
 {
@@ -38,6 +39,8 @@ private:
     Tunnel tunnel;
     sf::SoundBuffer kickBuffer, snareBuffer, hihatBuffer, shamanBuffer;
     sf::Sound kickSound, snareSound, hihatSound, shamanSound;
+
+    Animated<sf::Vector2f> dummy;
 };
 
 #endif  // GAME_HPP_

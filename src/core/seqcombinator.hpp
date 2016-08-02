@@ -44,9 +44,24 @@ public:
         return m_currentAnimation >= m_animations.size();
     }
 
+    void reset()
+    {
+        for (const auto &animation: m_animations) {
+            animation->reset();
+        }
+
+        m_currentAnimation = 0;
+    }
+
 private:
     std::vector<std::unique_ptr<Animation<State>>> m_animations;
     size_t m_currentAnimation;
 };
+
+template <typename State>
+SeqCombinator<State> *seq(std::initializer_list<Animation<State>*> animations)
+{
+    return new SeqCombinator<State>(animations);
+}
 
 #endif  // SEQCOMBINATOR_HPP_

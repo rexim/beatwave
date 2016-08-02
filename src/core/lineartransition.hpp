@@ -10,38 +10,49 @@ public:
     LinearTransition(const T &initialState,
                      sf::Int32 transitionTime = 0,
                      const T &finalState = T()):
-        currentState(initialState),
-        timeLeft(transitionTime),
-        finalState(finalState)
+        m_initialState(initialState),
+        m_transitionTime(transitionTime),
+        m_currentState(initialState),
+        m_timeLeft(transitionTime),
+        m_finalState(finalState)
     {}
 
     virtual T nextState(const sf::Int32 deltaTime) override
     {
-        if (deltaTime < timeLeft) {
-            T deltaState = (finalState - currentState) * ((deltaTime + .0f) / timeLeft);
-            currentState += deltaState;
+        if (deltaTime < m_timeLeft) {
+            T deltaState = (m_finalState - m_currentState) * ((deltaTime + .0f) / m_timeLeft);
+            m_currentState += deltaState;
         } else {
-            currentState = finalState;
+            m_currentState = m_finalState;
         }
 
-        timeLeft -= deltaTime;
-        return currentState;
+        m_timeLeft -= deltaTime;
+        return m_currentState;
     }
 
     virtual T getCurrentState() const override
     {
-        return currentState;
+        return m_currentState;
     }
 
     virtual bool isFinished() const override
     {
-        return timeLeft <= 0.0f;
+        return m_timeLeft <= 0.0f;
+    }
+
+    virtual void reset() override
+    {
+        m_currentState = m_initialState;
+        m_timeLeft = m_transitionTime;
     }
 
 private:
-    T currentState;
-    sf::Int32 timeLeft;
-    const T finalState;
+    const T m_initialState;
+    const sf::Int32 m_transitionTime;
+
+    T m_currentState;
+    sf::Int32 m_timeLeft;
+    const T m_finalState;
 };
 
 #endif  // LINEARTRANSITION_HPP_
