@@ -5,26 +5,32 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x -Wall -Wextra -pedantic")
 set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
 
 set(HPPS
-  animated.hpp
-  animation.hpp
-  lineartransition.hpp
-  player.hpp
-  tunnel.hpp
-  captures.hpp
-  game.hpp
-  util.hpp
+  src/animated.hpp
+  src/animation.hpp
+  src/lineartransition.hpp
+  src/player.hpp
+  src/tunnel.hpp
+  src/captures.hpp
+  src/game.hpp
+  src/util.hpp
 )
 
 set(CPPS
-  main.cpp
-  tunnel.cpp
-  captures.cpp
-  game.cpp
-  util.cpp
+  src/main.cpp
+  src/tunnel.cpp
+  src/captures.cpp
+  src/game.cpp
+  src/util.cpp
 )
 
 add_executable(beatwave ${CPPS} ${HPPS})
-add_executable(tunnelgenerator tunnel.hpp tunnel.cpp captures.hpp captures.cpp tunnelgenerator.cpp)
+add_executable(tunnelgenerator 
+  src/tunnel.hpp
+  src/tunnel.cpp
+  src/captures.hpp
+  src/captures.cpp
+  src/tunnelgenerator.cpp
+)
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
 
