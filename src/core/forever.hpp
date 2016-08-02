@@ -38,4 +38,11 @@ private:
     std::unique_ptr<Animation<State>> m_animation;
 };
 
+
+template <typename State>
+Forever<State> *forever(Animation<State> *animation)
+{
+    return new Forever<State>(animation);
+}
+
 #endif  // FOREVER_HPP_
