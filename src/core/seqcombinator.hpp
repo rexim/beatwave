@@ -10,13 +10,10 @@ template <typename State>
 class SeqCombinator: public Animation<State>
 {
 public:
-    SeqCombinator(std::initializer_list<Animation<State>*> animations):
+    SeqCombinator(std::vector<AnimationPtr<State>> &&animations):
+        m_animations(std::move(animations)),
         m_currentAnimation(0)
-    {
-        for (auto animation: animations) {
-            m_animations.push_back(std::unique_ptr<Animation<State>>(animation));
-        }
-    }
+    {}
 
     State nextState(const sf::Int32 deltaTime)
     {
@@ -54,14 +51,8 @@ public:
     }
 
 private:
-    std::vector<std::unique_ptr<Animation<State>>> m_animations;
+    std::vector<AnimationPtr<State>> m_animations;
     size_t m_currentAnimation;
 };
-
-template <typename State>
-SeqCombinator<State> *seq(std::initializer_list<Animation<State>*> animations)
-{
-    return new SeqCombinator<State>(animations);
-}
 
 #endif  // SEQCOMBINATOR_HPP_
