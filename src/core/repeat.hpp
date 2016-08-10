@@ -10,9 +10,9 @@ template <typename State>
 class Repeat: public Animation<State>
 {
 public:
-    Repeat(int counter, Animation<State> *animation):
+    Repeat(int counter, AnimationPtr<State> &&animation):
         m_initialCounter(std::max(0, counter)),
-        m_animation(animation),
+        m_animation(std::move(animation)),
         m_currentCounter(m_initialCounter)
     {}
 
@@ -44,14 +44,14 @@ public:
 
 private:
     const int m_initialCounter;
-    std::unique_ptr<Animation<State>> m_animation;
+    AnimationPtr<State> m_animation;
     int m_currentCounter;
 };
 
 template <typename State>
-Repeat<State> *repeat(int counter, Animation<State> *animation)
+AnimationPtr<State> repeat(int counter, AnimationPtr<State> &&animation)
 {
-    return new Repeat<State>(counter, animation);
+    return AnimationPtr<State>(new Repeat<State>(counter, std::move(animation)));
 }
 
 #endif  // REPEAT_HPP_

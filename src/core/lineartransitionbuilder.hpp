@@ -29,8 +29,8 @@ public:
         return *this;
     }
 
-    operator LinearTransition<T>*() {
-        return new LinearTransition<T>(m_initialState, m_transitionTime, m_finalState);
+    operator AnimationPtr<T>() {
+        return AnimationPtr<T>(new LinearTransition<T>(m_initialState, m_transitionTime, m_finalState));
     }
 
 private:
@@ -38,7 +38,6 @@ private:
     T m_finalState;
     sf::Int32 m_transitionTime;
 };
-
 
 template <typename T>
 LinearTransitionBuilder<T> from(const T &initialState)

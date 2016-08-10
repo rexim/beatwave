@@ -8,8 +8,8 @@ template <typename State>
 class Forever: public Animation<State>
 {
 public:
-    Forever(Animation<State> *animation):
-        m_animation(animation)
+    Forever(AnimationPtr<State> &&animation):
+        m_animation(std::move(animation))
     {}
 
     State nextState(const sf::Int32 deltaTime) override
@@ -35,14 +35,14 @@ public:
     {}
 
 private:
-    std::unique_ptr<Animation<State>> m_animation;
+    AnimationPtr<State> m_animation;
 };
 
 
 template <typename State>
-Forever<State> *forever(Animation<State> *animation)
+AnimationPtr<State> forever(AnimationPtr<State> &&animation)
 {
-    return new Forever<State>(animation);
+    return AnimationPtr<State>(new Forever<State>(std::move(animation)));
 }
 
 #endif  // FOREVER_HPP_

@@ -51,7 +51,7 @@ public:
     }
 
 private:
-    std::vector<std::unique_ptr<Animation<State>>> m_animations;
+    std::vector<AnimationPtr<State>> m_animations;
     size_t m_currentAnimation;
 };
 

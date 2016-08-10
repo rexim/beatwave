@@ -7,20 +7,20 @@ template <typename State>
 class SeqCombinatorBuilder
 {
 public:
-    SeqCombinatorBuilder(Animation<State> *animation)
+    SeqCombinatorBuilder(AnimationPtr<State> &&animation)
     {
-        m_animations.push_back(AnimationPtr<State>(animation));
+        m_animations.push_back(std::move(animation));
     }
 
-    SeqCombinatorBuilder<State> &then(Animation<State> *animation)
+    SeqCombinatorBuilder<State> &then(AnimationPtr<State> &&animation)
     {
-        m_animations.push_back(AnimationPtr<State>(animation));
+        m_animations.push_back(std::move(animation));
         return *this;
     }
 
-    operator Animation<State>*()
+    operator AnimationPtr<State>()
     {
-        return new SeqCombinator<State>(std::move(m_animations));
+        return AnimationPtr<State>(new SeqCombinator<State>(std::move(m_animations)));
     }
 
 private:
@@ -28,9 +28,9 @@ private:
 };
 
 template <typename State>
-SeqCombinatorBuilder<State> start(Animation<State> *animation)
+SeqCombinatorBuilder<State> start(AnimationPtr<State> &&animation)
 {
-    return SeqCombinatorBuilder<State>(animation);
+    return SeqCombinatorBuilder<State>(std::move(animation));
 }
 
 #endif  // SEQCOMBINATORBUILDER_HPP_
