@@ -14,4 +14,7 @@ public:
     virtual void reset() = 0;
 };
 
+template <typename State>
+using AnimationPtr = std::unique_ptr<Animation<State>>;
+
 #endif  // ANIMATION_HPP_
