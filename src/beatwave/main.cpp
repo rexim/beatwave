@@ -22,7 +22,7 @@
 const sf::Int32 SCREEN_WIDTH = 1280;
 const sf::Int32 SCREEN_HEIGHT = 720;
 const sf::Int32 SCREEN_COLOR_DEPTH = 32;
-const char* WINDOW_TITLE = "Hello World - SFML";
+const char* WINDOW_TITLE = "Beatwave";
 
 int main(int argc, char* argv[])
 {
