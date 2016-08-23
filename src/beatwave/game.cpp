@@ -118,5 +118,5 @@ void Game::reset()
     using namespace dsl;
 
     digTunnel("tunnel.txt", tunnel);
-
+    player.reset();
 }
