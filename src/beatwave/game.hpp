@@ -19,7 +19,6 @@ public:
     Game();
 
     bool init();
-    void run();
 
     void render(sf::RenderTarget *renderTarget);
     void tick(sf::Int32 deltaTime);
@@ -39,8 +38,6 @@ private:
     Tunnel tunnel;
     sf::SoundBuffer kickBuffer, snareBuffer, hihatBuffer, shamanBuffer;
     sf::Sound kickSound, snareSound, hihatSound, shamanSound;
-
-    Animated<sf::Vector2f> dummy;
 };
 
 #endif  // GAME_HPP_

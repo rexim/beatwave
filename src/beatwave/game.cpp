@@ -48,16 +48,8 @@ namespace
 Game::Game():
     player(PLAYER_INIT_POSITION,
            50.0f,
-           sf::Color::White),
-    dummy(sf::Vector2f(100.0f, 100.0f))
-{
-    using namespace dsl;
-
-    dummy.animate(forever<sf::Vector2f>(
-                      start<sf::Vector2f>(from(sf::Vector2f(100.0f, 100.0f)).to(sf::Vector2f(200.0f, 200.0f)).during(1000))
-                      .then(from(sf::Vector2f(200.0f, 200.0f)).to(sf::Vector2f(200.0f, 100.0f)).during(100))
-                      .then(from(sf::Vector2f(200.0f, 100.0f)).to(sf::Vector2f(100.0f, 100.0f)).during(1000))));
-}
+           sf::Color::White)
+{}
 
 
 bool Game::initSounds()
@@ -104,7 +96,6 @@ bool Game::init()
 void Game::tick(sf::Int32 deltaTime)
 {
     player.tick(deltaTime);
-    dummy.tick(deltaTime);
 }
 
 void Game::render(sf::RenderTarget *renderTarget)
@@ -121,18 +112,6 @@ void Game::render(sf::RenderTarget *renderTarget)
     }
 
     renderTarget->draw(playerToCircle(player));
-
-    // Render Dummy
-
-    sf::CircleShape dummyCircle(20.0f);
-    dummyCircle.setFillColor(sf::Color::Red);
-    dummyCircle.setPosition(dummy.value());
-    renderTarget->draw(dummyCircle);
-}
-
-void Game::run()
-{
-
 }
 
 void Game::kick()
