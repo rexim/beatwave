@@ -4,10 +4,7 @@
 
 #include <beatwave/game.hpp>
 #include <core/util.hpp>
-#include <core/lineartransitionbuilder.hpp>
-#include <core/seqcombinatorbuilder.hpp>
-#include <core/forever.hpp>
-#include <core/repeat.hpp>
+#include <core/dsl.hpp>
 
 namespace
 {
@@ -27,6 +24,8 @@ namespace
                     const sf::Vector2f direction,
                     sf::Sound &sound)
     {
+        using namespace dsl;
+
         player.color.animate(from(flashColor)
                              .to(sf::Color::White)
                              .during(COLOR_TIME));
@@ -52,10 +51,12 @@ Game::Game():
            sf::Color::White),
     dummy(sf::Vector2f(100.0f, 100.0f))
 {
-    dummy.animate(repeat<sf::Vector2f>(2,
-                         start<sf::Vector2f>(from(sf::Vector2f(100.0f, 100.0f)).to(sf::Vector2f(200.0f, 200.0f)).during(1000))
-                         .then(from(sf::Vector2f(200.0f, 200.0f)).to(sf::Vector2f(200.0f, 100.0f)).during(100))
-                         .then(from(sf::Vector2f(200.0f, 100.0f)).to(sf::Vector2f(100.0f, 100.0f)).during(1000))));
+    using namespace dsl;
+
+    dummy.animate(forever<sf::Vector2f>(
+                      start<sf::Vector2f>(from(sf::Vector2f(100.0f, 100.0f)).to(sf::Vector2f(200.0f, 200.0f)).during(1000))
+                      .then(from(sf::Vector2f(200.0f, 200.0f)).to(sf::Vector2f(200.0f, 100.0f)).during(100))
+                      .then(from(sf::Vector2f(200.0f, 100.0f)).to(sf::Vector2f(100.0f, 100.0f)).during(1000))));
 }
 
 
@@ -164,6 +165,8 @@ void Game::shaman()
 
 void Game::reset()
 {
+    using namespace dsl;
+
     digTunnel("tunnel.txt", tunnel);
     player.position.animate(from(player.position.value()).to(PLAYER_INIT_POSITION).during(MOVE_TIME));
     player.color.animate(from(player.color.value()).to(PLAYER_INIT_COLOR).during(MOVE_TIME));

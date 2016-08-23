@@ -48,10 +48,5 @@ private:
     int m_currentCounter;
 };
 
-template <typename State>
-AnimationPtr<State> repeat(int counter, AnimationPtr<State> &&animation)
-{
-    return AnimationPtr<State>(new Repeat<State>(counter, std::move(animation)));
-}
 
 #endif  // REPEAT_HPP_

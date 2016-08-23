@@ -39,10 +39,5 @@ private:
     sf::Int32 m_transitionTime;
 };
 
-template <typename T>
-LinearTransitionBuilder<T> from(const T &initialState)
-{
-    return LinearTransitionBuilder<T>(initialState);
-}
 
 #endif  // LINEARTRANSITIONBUILDER_HPP_

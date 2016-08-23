@@ -39,10 +39,5 @@ private:
 };
 
 
-template <typename State>
-AnimationPtr<State> forever(AnimationPtr<State> &&animation)
-{
-    return AnimationPtr<State>(new Forever<State>(std::move(animation)));
-}
 
 #endif  // FOREVER_HPP_

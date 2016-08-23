@@ -27,10 +27,4 @@ private:
     std::vector<AnimationPtr<State>> m_animations;
 };
 
-template <typename State>
-SeqCombinatorBuilder<State> start(AnimationPtr<State> &&animation)
-{
-    return SeqCombinatorBuilder<State>(std::move(animation));
-}
-
 #endif  // SEQCOMBINATORBUILDER_HPP_
