@@ -10,7 +10,7 @@ set(CORE_SOURCES
   src/core/animated.hpp
   src/core/animation.hpp
   src/core/lineartransition.hpp
-  src/core/player.hpp
+
   src/core/tunnel.hpp
   src/core/captures.hpp
   src/core/util.hpp
@@ -26,9 +26,11 @@ add_library(core STATIC ${CORE_SOURCES})
 
 set(BEATWAVE_SOURCES
   src/beatwave/game.hpp
+  src/beatwave/player.hpp
 
   src/beatwave/main.cpp
   src/beatwave/game.cpp
+  src/beatwave/player.cpp
 )
 
 add_executable(beatwave ${BEATWAVE_SOURCES})
