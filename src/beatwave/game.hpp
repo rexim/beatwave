@@ -27,6 +27,7 @@ public:
     void snare();
     void hihat();
     void shaman();
+    void killPlayer();
 
     void reset();
 

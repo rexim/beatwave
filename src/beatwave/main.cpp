@@ -80,6 +80,10 @@ int main(int argc, char* argv[])
                     dumpCaptureInfo(captures, "captures.txt");
                     break;
 
+                case sf::Keyboard::D:
+                    game.killPlayer();
+                    break;
+
                 default: {}
                 }
             }

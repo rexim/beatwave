@@ -142,6 +142,14 @@ void Game::shaman()
                shamanSound);
 }
 
+void Game::killPlayer()
+{
+    using namespace dsl;
+
+    const int COLLAPSE_TIME = 500;
+    player.radius.animate(from(PLAYER_INIT_RADIUS).to(0.0f).during(COLLAPSE_TIME));
+}
+
 void Game::reset()
 {
     using namespace dsl;
