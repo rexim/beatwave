@@ -4,9 +4,10 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Audio/Sound.hpp>
 
-#include <core/player.hpp>
 #include <core/tunnel.hpp>
 #include <core/animated.hpp>
+
+#include <beatwave/player.hpp>
 
 namespace sf
 {
