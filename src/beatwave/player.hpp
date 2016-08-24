@@ -9,9 +9,9 @@
 class Player
 {
 public:
-    Player(const sf::Vector2f &position,
-           float radius,
-           const sf::Color &color);
+    Player(const sf::Vector2f &position = sf::Vector2f(0.0f, 0.0f),
+           float radius = 0.0f,
+           const sf::Color &color = sf::Color::Black);
 
     void tick(sf::Int32 deltaTime);
     void render(sf::RenderTarget *renderTarget) const;
