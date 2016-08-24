@@ -3,61 +3,19 @@
 #include <SFML/Audio/SoundBuffer.hpp>
 
 #include <beatwave/game.hpp>
+#include <beatwave/config.hpp>
 #include <core/util.hpp>
 #include <core/dsl.hpp>
 
 namespace
 {
-    const sf::Vector2f PLAYER_INIT_POSITION(200.0f, 200.0f);
-    const float PLAYER_MOVE_DISTANCE = 250.0f;
-
-    const sf::Int32 MOVE_TIME = 500;
-    const sf::Int32 COLOR_TIME = 700;
-
-    const float PLAYER_INIT_RADIUS = 50.0f;
-    const sf::Color PLAYER_INIT_COLOR = sf::Color::White;
-
-    const sf::Color WALL_COLOR = sf::Color(0, 130, 140);
-
-    void stepPlayer(Player &player,
-                    const sf::Color &flashColor,
-                    const sf::Vector2f direction,
-                    sf::Sound &sound)
-    {
-        using namespace dsl;
-
-        player.color.animate(from(flashColor)
-                             .to(sf::Color::White)
-                             .during(COLOR_TIME));
-        player.position.animate(from(player.position.value())
-                                .by(direction)
-                                .during(MOVE_TIME));
-        sound.play();
-    }
-
-    sf::CircleShape playerToCircle(const Player &player)
-    {
-        const float radius = player.radius.value();
-        sf::CircleShape circle(radius);
-        circle.setFillColor(player.color.value());
-        circle.setPosition(player.position.value() - sf::Vector2f(radius, radius));
-        return circle;
-    }
 }
 
 Game::Game():
-    player(PLAYER_INIT_POSITION,
-           50.0f,
-           sf::Color::White),
-    dummy(sf::Vector2f(100.0f, 100.0f))
-{
-    using namespace dsl;
-
-    dummy.animate(forever<sf::Vector2f>(
-                      start<sf::Vector2f>(from(sf::Vector2f(100.0f, 100.0f)).to(sf::Vector2f(200.0f, 200.0f)).during(1000))
-                      .then(from(sf::Vector2f(200.0f, 200.0f)).to(sf::Vector2f(200.0f, 100.0f)).during(100))
-                      .then(from(sf::Vector2f(200.0f, 100.0f)).to(sf::Vector2f(100.0f, 100.0f)).during(1000))));
-}
+    player(config::PLAYER_INIT_POSITION,
+           config::PLAYER_INIT_RADIUS,
+           config::PLAYER_INIT_COLOR)
+{}
 
 
 bool Game::initSounds()
@@ -104,13 +62,12 @@ bool Game::init()
 void Game::tick(sf::Int32 deltaTime)
 {
     player.tick(deltaTime);
-    dummy.tick(deltaTime);
 }
 
 void Game::render(sf::RenderTarget *renderTarget)
 {
-    renderTarget->clear(WALL_COLOR);
-    renderTarget->setView(sf::View(player.position.value(), renderTarget->getView().getSize()));
+    renderTarget->clear(config::WALL_COLOR);
+    player.centerView(renderTarget);
 
     for (const auto &rect: tunnel) {
         sf::RectangleShape shape;
@@ -120,47 +77,40 @@ void Game::render(sf::RenderTarget *renderTarget)
         renderTarget->draw(shape);
     }
 
-    renderTarget->draw(playerToCircle(player));
-
-    // Render Dummy
-
-    sf::CircleShape dummyCircle(20.0f);
-    dummyCircle.setFillColor(sf::Color::Red);
-    dummyCircle.setPosition(dummy.value());
-    renderTarget->draw(dummyCircle);
-}
-
-void Game::run()
-{
-
+    player.render(renderTarget);
 }
 
 void Game::kick()
 {
-    stepPlayer(player, sf::Color::Red,
-               sf::Vector2f(PLAYER_MOVE_DISTANCE, 0.0f),
-               kickSound);
+    player.step(sf::Color::Red,
+                sf::Vector2f(config::PLAYER_MOVE_DISTANCE, 0.0f));
+    kickSound.play();
 }
 
 void Game::snare()
 {
-    stepPlayer(player, sf::Color::Green,
-               sf::Vector2f(0.0f, PLAYER_MOVE_DISTANCE),
-               snareSound);
+    player.step(sf::Color::Green,
+                sf::Vector2f(0.0f, config::PLAYER_MOVE_DISTANCE));
+    snareSound.play();
 }
 
 void Game::hihat()
 {
-    stepPlayer(player, sf::Color::Blue,
-               sf::Vector2f(0.0f, -PLAYER_MOVE_DISTANCE),
-               hihatSound);
+    player.step(sf::Color::Blue,
+                sf::Vector2f(0.0f, -config::PLAYER_MOVE_DISTANCE));
+    hihatSound.play();
 }
 
 void Game::shaman()
 {
-    stepPlayer(player, sf::Color::Yellow,
-               sf::Vector2f(-PLAYER_MOVE_DISTANCE, 0.0f),
-               shamanSound);
+    player.step(sf::Color::Yellow,
+                sf::Vector2f(-config::PLAYER_MOVE_DISTANCE, 0.0f));
+    shamanSound.play();
+}
+
+void Game::killPlayer()
+{
+    player.kill();
 }
 
 void Game::reset()
@@ -168,7 +118,5 @@ void Game::reset()
     using namespace dsl;
 
     digTunnel("tunnel.txt", tunnel);
-    player.position.animate(from(player.position.value()).to(PLAYER_INIT_POSITION).during(MOVE_TIME));
-    player.color.animate(from(player.color.value()).to(PLAYER_INIT_COLOR).during(MOVE_TIME));
-    player.radius.animate(from(player.radius.value()).to(PLAYER_INIT_RADIUS).during(MOVE_TIME));
+    player.reset();
 }

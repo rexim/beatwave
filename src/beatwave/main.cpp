@@ -12,12 +12,13 @@
 
 #include <core/tunnel.hpp>
 #include <core/captures.hpp>
-#include <core/player.hpp>
 #include <core/lineartransition.hpp>
 #include <core/lineartransitionbuilder.hpp>
 #include <core/seqcombinator.hpp>
 #include <core/util.hpp>
+
 #include <beatwave/game.hpp>
+#include <beatwave/player.hpp>
 
 const sf::Int32 SCREEN_WIDTH = 1280;
 const sf::Int32 SCREEN_HEIGHT = 720;
@@ -78,6 +79,10 @@ int main(int argc, char* argv[])
 
                 case sf::Keyboard::Q:
                     dumpCaptureInfo(captures, "captures.txt");
+                    break;
+
+                case sf::Keyboard::D:
+                    game.killPlayer();
                     break;
 
                 default: {}

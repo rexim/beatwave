@@ -4,9 +4,10 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Audio/Sound.hpp>
 
-#include <core/player.hpp>
 #include <core/tunnel.hpp>
 #include <core/animated.hpp>
+
+#include <beatwave/player.hpp>
 
 namespace sf
 {
@@ -19,7 +20,6 @@ public:
     Game();
 
     bool init();
-    void run();
 
     void render(sf::RenderTarget *renderTarget);
     void tick(sf::Int32 deltaTime);
@@ -28,6 +28,7 @@ public:
     void snare();
     void hihat();
     void shaman();
+    void killPlayer();
 
     void reset();
 
@@ -39,8 +40,6 @@ private:
     Tunnel tunnel;
     sf::SoundBuffer kickBuffer, snareBuffer, hihatBuffer, shamanBuffer;
     sf::Sound kickSound, snareSound, hihatSound, shamanSound;
-
-    Animated<sf::Vector2f> dummy;
 };
 
 #endif  // GAME_HPP_
