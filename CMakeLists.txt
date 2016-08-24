@@ -7,16 +7,6 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
 include_directories(src/)
 
 set(CORE_SOURCES
-  src/core/animated.hpp
-  src/core/animation.hpp
-  src/core/lineartransition.hpp
-
-  src/core/tunnel.hpp
-  src/core/captures.hpp
-  src/core/util.hpp
-  src/core/forever.hpp
-  src/core/repeat.hpp
-
   src/core/tunnel.cpp
   src/core/captures.cpp
   src/core/util.cpp
@@ -25,9 +15,6 @@ set(CORE_SOURCES
 add_library(core STATIC ${CORE_SOURCES})
 
 set(BEATWAVE_SOURCES
-  src/beatwave/game.hpp
-  src/beatwave/player.hpp
-
   src/beatwave/main.cpp
   src/beatwave/game.cpp
   src/beatwave/player.cpp
