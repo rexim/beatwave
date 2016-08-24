@@ -58,6 +58,6 @@ void Player::kill()
 {
     using namespace dsl;
 
-    const int COLLAPSE_TIME = 500;
+    const int COLLAPSE_TIME = 100;
     radius.animate(from(config::PLAYER_INIT_RADIUS).to(0.0f).during(COLLAPSE_TIME));
 }
