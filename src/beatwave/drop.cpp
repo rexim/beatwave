@@ -21,7 +21,7 @@ void Drop::drop(const sf::Vector2f &begin,
 {
     using namespace dsl;
 
-    const int32_t DROP_DURATION = 200;
+    const int32_t DROP_DURATION = 400;
 
     m_radius.animate(from(radius).to(0.0f).during(DROP_DURATION));
     m_position.animate(from(begin).to(end).during(DROP_DURATION));
