@@ -27,11 +27,18 @@ void Splat::tick(int32_t deltaTime)
 void Splat::splat(const sf::Vector2f &center,
                   float radius)
 {
+    const float PI = 3.14159265f;
     const float step = 2.0f * 3.14159265f / m_drops.size();
 
+    std::uniform_real_distribution<float> dist(0.0f, PI / 8.0f);
+
     for (size_t i = 0; i < m_drops.size(); ++i) {
-        const sf::Vector2f direction(std::cos(step * i),
-                                     std::sin(step * i));
+        const float offset = dist(m_rd);
+
+        const float directionAngle = step * i + offset;
+        const sf::Vector2f direction(std::cos(directionAngle),
+                                     std::sin(directionAngle));
+
         m_drops[i].drop(center,
                         center + direction * radius,
                         20.0f);
