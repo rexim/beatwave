@@ -24,12 +24,23 @@ public:
 
     void kill();
 
+    sf::Vector2f getPosition()
+    {
+        return position.value();
+    }
+
+    bool isDead() const
+    {
+        return dead;
+    }
+
 private:
     Animated<sf::Vector2f> position;
     Animated<float> radius;
     Animated<sf::Color> color;
 
     Splat splat;
+    bool dead;
 };
 
 #endif  // PLAYER_HPP_

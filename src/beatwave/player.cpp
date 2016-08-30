@@ -9,7 +9,8 @@ Player::Player(const sf::Vector2f &position,
     position(position),
     radius(radius),
     color(color),
-    splat(20)
+    splat(20),
+    dead(false)
 {}
 
 void Player::tick(int32_t deltaTime)
@@ -55,10 +56,16 @@ void Player::reset()
     position.animate(from(position.value()).to(config::PLAYER_INIT_POSITION).during(config::MOVE_TIME));
     color.animate(from(color.value()).to(config::PLAYER_INIT_COLOR).during(config::MOVE_TIME));
     radius.animate(from(radius.value()).to(config::PLAYER_INIT_RADIUS).during(config::MOVE_TIME));
+    dead = false;
 }
 
 void Player::kill()
 {
+    position.stop();
+    radius.stop();
+    color.stop();
+    dead = true;
+
     using namespace dsl;
 
     const int COLLAPSE_TIME = 100;
