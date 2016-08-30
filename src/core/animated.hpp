@@ -9,6 +9,7 @@ class Animated
 {
 public:
     Animated(const Animated&) = delete;
+    Animated(Animated&&) = default;
 
     Animated(const T &value = T()):
         m_value(value),
