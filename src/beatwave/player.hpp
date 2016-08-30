@@ -24,11 +24,13 @@ public:
 
     void kill();
 
+    // FIXME(#48): do not expose this
     sf::Vector2f getPosition()
     {
         return position.value();
     }
 
+    // FIXME(#48): do not expose this
     bool isDead() const
     {
         return dead;

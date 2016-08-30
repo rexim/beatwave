@@ -82,6 +82,8 @@ void Game::tick(int32_t deltaTime)
 {
     player.tick(deltaTime);
 
+    // FIXME(#48): this process should be inside of Player and Tunnel
+    // entities.
     if (!player.isDead()) {
         for (const auto &rect: tunnel) {
             if (rectContainsCircle(rect, player.getPosition(), config::PLAYER_INIT_RADIUS)) {
