@@ -1,4 +1,8 @@
+#include <cmath>
 #include <iostream>
+#include <algorithm>
+#include <functional>
+#include <array>
 
 #include <SFML/Audio/SoundBuffer.hpp>
 
@@ -9,6 +13,22 @@
 
 namespace
 {
+    // FIXME(#47)
+    bool rectContainsCircle(const sf::FloatRect &rect,
+                            const sf::Vector2f &center,
+                            float radius)
+    {
+        const std::array<float, 4> ds = {
+            std::abs(rect.top - center.y),
+            std::abs(rect.top + rect.height - 1 - center.y),
+            std::abs(rect.left - center.x),
+            std::abs(rect.left + rect.width - 1 - center.x)
+        };
+
+        return rect.contains(center) && std::all_of(ds.begin(), ds.end(), [radius](float d) {
+                return radius < d;
+        });
+    }
 }
 
 Game::Game():
@@ -16,7 +36,6 @@ Game::Game():
            config::PLAYER_INIT_RADIUS,
            config::PLAYER_INIT_COLOR)
 {}
-
 
 bool Game::initSounds()
 {
@@ -62,6 +81,18 @@ bool Game::init()
 void Game::tick(int32_t deltaTime)
 {
     player.tick(deltaTime);
+
+    // FIXME(#48): this process should be inside of Player and Tunnel
+    // entities.
+    if (!player.isDead()) {
+        for (const auto &rect: tunnel) {
+            if (rectContainsCircle(rect, player.getPosition(), config::PLAYER_INIT_RADIUS)) {
+                return;
+            }
+        }
+
+        player.kill();
+    }
 }
 
 void Game::render(sf::RenderTarget *renderTarget)

@@ -24,12 +24,25 @@ public:
 
     void kill();
 
+    // FIXME(#48): do not expose this
+    sf::Vector2f getPosition()
+    {
+        return position.value();
+    }
+
+    // FIXME(#48): do not expose this
+    bool isDead() const
+    {
+        return dead;
+    }
+
 private:
     Animated<sf::Vector2f> position;
     Animated<float> radius;
     Animated<sf::Color> color;
 
     Splat splat;
+    bool dead;
 };
 
 #endif  // PLAYER_HPP_
