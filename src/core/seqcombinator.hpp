@@ -15,7 +15,7 @@ public:
         m_currentAnimation(0)
     {}
 
-    State nextState(const sf::Int32 deltaTime)
+    State nextState(const int32_t deltaTime)
     {
         if (!isFinished()) {
             if (!m_animations[m_currentAnimation]->isFinished()) {

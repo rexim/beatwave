@@ -23,7 +23,7 @@ public:
         return *this;
     }
 
-    LinearTransitionBuilder<T> &during(sf::Int32 transitionTime)
+    LinearTransitionBuilder<T> &during(int32_t transitionTime)
     {
         m_transitionTime = transitionTime;
         return *this;
@@ -36,7 +36,7 @@ public:
 private:
     T m_initialState;
     T m_finalState;
-    sf::Int32 m_transitionTime;
+    int32_t m_transitionTime;
 };
 
 

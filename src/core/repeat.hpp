@@ -16,7 +16,7 @@ public:
         m_currentCounter(m_initialCounter)
     {}
 
-    State nextState(const sf::Int32 deltaTime) override
+    State nextState(const int32_t deltaTime) override
     {
         if (m_animation->isFinished() && m_currentCounter > 0) {
             --m_currentCounter;

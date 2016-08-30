@@ -8,7 +8,7 @@ class Animation
 {
 public:
     virtual ~Animation() = default;
-    virtual State nextState(const sf::Int32 deltaTime) = 0;
+    virtual State nextState(const int32_t deltaTime) = 0;
     virtual State getCurrentState() const = 0;
     virtual bool isFinished() const = 0;
     virtual void reset() = 0;

@@ -9,6 +9,7 @@ class Animated
 {
 public:
     Animated(const Animated&) = delete;
+    Animated(Animated&&) = default;
 
     Animated(const T &value = T()):
         m_value(value),
@@ -34,7 +35,7 @@ public:
         }
     }
 
-    void tick(sf::Int32 deltaTime)
+    void tick(int32_t deltaTime)
     {
         if (m_animation != nullptr && !m_animation->isFinished()) {
             m_value = m_animation->nextState(deltaTime);

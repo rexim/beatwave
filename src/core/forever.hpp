@@ -12,7 +12,7 @@ public:
         m_animation(std::move(animation))
     {}
 
-    State nextState(const sf::Int32 deltaTime) override
+    State nextState(const int32_t deltaTime) override
     {
         if (m_animation->isFinished()) {
             m_animation->reset();

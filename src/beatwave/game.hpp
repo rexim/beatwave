@@ -22,7 +22,7 @@ public:
     bool init();
 
     void render(sf::RenderTarget *renderTarget);
-    void tick(sf::Int32 deltaTime);
+    void tick(int32_t deltaTime);
 
     void kick();
     void snare();

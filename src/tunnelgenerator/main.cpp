@@ -20,7 +20,7 @@ void generateTunnelPoints(const std::deque<Capture> &captures,
 
     for (size_t i = 0; i < captures.size() - 1; ++i) {
         int actionType = captures[i].first;
-        sf::Int32 intervalTime = captures[i + 1].second;
+        int32_t intervalTime = captures[i + 1].second;
         sf::Vector2f direction = actionType == 0 ? sf::Vector2f(1.0f, 0.0f) : sf::Vector2f(0.0f, 1.0f);
 
         currentPosition += (direction * velocity * (intervalTime * 0.001f));

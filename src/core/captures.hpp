@@ -5,7 +5,7 @@
 #include <string>
 #include <SFML/System.hpp>
 
-using Capture = std::pair<int, sf::Int32>;
+using Capture = std::pair<int, int32_t>;
 
 void dumpCaptureInfo(const std::deque<Capture> &captures,
                      const std::string &capturesFileName);

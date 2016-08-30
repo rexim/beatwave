@@ -40,10 +40,10 @@ int main(int argc, char* argv[])
     sf::Clock clock;
     sf::Clock playClock;
 
-    std::deque<std::pair<int, sf::Int32>> captures;
+    std::deque<std::pair<int, int32_t>> captures;
     // loadCaptureInfo(captures, "replay.txt");
 
-    sf::Int32 currentTime = 0;
+    int32_t currentTime = 0;
 
     while (App.isOpen())
     {
@@ -90,7 +90,7 @@ int main(int argc, char* argv[])
             }
         }
 
-        sf::Int32 deltaTime = clock.restart().asMilliseconds();
+        int32_t deltaTime = clock.restart().asMilliseconds();
         currentTime += deltaTime;
 
         // if (!captures.empty()) {
