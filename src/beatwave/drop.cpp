@@ -1,3 +1,4 @@
+#include <core/dsl.hpp>
 #include <beatwave/drop.hpp>
 
 Drop::Drop(const sf::Color &color):
@@ -13,6 +14,19 @@ void Drop::render(sf::RenderTarget *renderTarget) const
     circle.setPosition(m_position.value() - sf::Vector2f(m_radius.value(), m_radius.value()));
     renderTarget->draw(circle);
 }
+
+void Drop::drop(const sf::Vector2f &begin,
+                const sf::Vector2f &end,
+                double radius)
+{
+    using namespace dsl;
+
+    const int32_t DROP_DURATION = 200;
+
+    m_radius.animate(from(radius).to(0.0f).during(DROP_DURATION));
+    m_position.animate(from(begin).to(end).during(DROP_DURATION));
+}
+
 
 void Drop::tick(int32_t deltaTime)
 {

@@ -17,6 +17,10 @@ public:
     void render(sf::RenderTarget *renderTarget) const;
     void tick(int32_t deltaTime);
 
+    void drop(const sf::Vector2f &begin,
+              const sf::Vector2f &end,
+              double radius);
+
 private:
     Animated<double> m_radius;
     Animated<sf::Vector2f> m_position;
