@@ -18,6 +18,7 @@ set(BEATWAVE_SOURCES
   src/beatwave/main.cpp
   src/beatwave/game.cpp
   src/beatwave/player.cpp
+  src/beatwave/drop.cpp
 )
 
 add_executable(beatwave ${BEATWAVE_SOURCES})
