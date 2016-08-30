@@ -8,8 +8,8 @@ namespace config {
 
     const float PLAYER_MOVE_DISTANCE = 250.0f;
 
-    const sf::Int32 MOVE_TIME = 500;
-    const sf::Int32 COLOR_TIME = 700;
+    const int32_t MOVE_TIME = 500;
+    const int32_t COLOR_TIME = 700;
 
     const sf::Color WALL_COLOR = sf::Color(0, 130, 140);
 }

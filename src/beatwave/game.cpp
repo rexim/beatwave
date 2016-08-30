@@ -59,7 +59,7 @@ bool Game::init()
     return true;
 }
 
-void Game::tick(sf::Int32 deltaTime)
+void Game::tick(int32_t deltaTime)
 {
     player.tick(deltaTime);
 }

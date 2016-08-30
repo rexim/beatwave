@@ -14,7 +14,7 @@ void Drop::render(sf::RenderTarget *renderTarget) const
     renderTarget->draw(circle);
 }
 
-void Drop::tick(sf::Int32 deltaTime)
+void Drop::tick(int32_t deltaTime)
 {
     m_radius.tick(deltaTime);
     m_position.tick(deltaTime);

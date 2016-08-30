@@ -34,7 +34,7 @@ public:
         }
     }
 
-    void tick(sf::Int32 deltaTime)
+    void tick(int32_t deltaTime)
     {
         if (m_animation != nullptr && !m_animation->isFinished()) {
             m_value = m_animation->nextState(deltaTime);

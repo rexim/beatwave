@@ -11,7 +11,7 @@ Player::Player(const sf::Vector2f &position,
     color(color)
 {}
 
-void Player::tick(sf::Int32 deltaTime)
+void Player::tick(int32_t deltaTime)
 {
     position.tick(deltaTime);
     radius.tick(deltaTime);

@@ -8,7 +8,7 @@ class LinearTransition: public Animation<T>
 {
 public:
     LinearTransition(const T &initialState,
-                     sf::Int32 transitionTime = 0,
+                     int32_t transitionTime = 0,
                      const T &finalState = T()):
         m_initialState(initialState),
         m_transitionTime(transitionTime),
@@ -17,7 +17,7 @@ public:
         m_finalState(finalState)
     {}
 
-    virtual T nextState(const sf::Int32 deltaTime) override
+    virtual T nextState(const int32_t deltaTime) override
     {
         if (deltaTime < m_timeLeft) {
             T deltaState = (m_finalState - m_currentState) * ((deltaTime + .0f) / m_timeLeft);
@@ -48,10 +48,10 @@ public:
 
 private:
     const T m_initialState;
-    const sf::Int32 m_transitionTime;
+    const int32_t m_transitionTime;
 
     T m_currentState;
-    sf::Int32 m_timeLeft;
+    int32_t m_timeLeft;
     const T m_finalState;
 };
 

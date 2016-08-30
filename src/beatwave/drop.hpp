@@ -15,7 +15,7 @@ public:
     Drop(const sf::Color &color);
 
     void render(sf::RenderTarget *renderTarget) const;
-    void tick(sf::Int32 deltaTime);
+    void tick(int32_t deltaTime);
 
 private:
     Animated<double> m_radius;

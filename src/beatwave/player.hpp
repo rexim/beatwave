@@ -13,7 +13,7 @@ public:
            float radius = 0.0f,
            const sf::Color &color = sf::Color::Black);
 
-    void tick(sf::Int32 deltaTime);
+    void tick(int32_t deltaTime);
     void render(sf::RenderTarget *renderTarget) const;
     void step(const sf::Color &flashColor,
               const sf::Vector2f direction);

@@ -10,7 +10,7 @@ void dumpCaptureInfo(const std::deque<Capture> &captures,
     if (capturesFile) {
         for (const auto &capture: captures) {
             int actionType;
-            sf::Int32 captureTime;
+            int32_t captureTime;
             std::tie(actionType, captureTime) = capture;
             capturesFile << actionType << ' ' << captureTime << std::endl;
         }
@@ -26,7 +26,7 @@ void loadCaptureInfo(std::deque<Capture> &captures,
 
     if (capturesFile) {
         int actionType;
-        sf::Int32 captureTime;
+        int32_t captureTime;
         while (capturesFile >> actionType >> captureTime) {
             captures.push_back(std::make_pair(actionType, captureTime));
         }
