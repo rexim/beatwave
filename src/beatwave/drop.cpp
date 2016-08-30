@@ -21,6 +21,7 @@ void Drop::drop(const sf::Vector2f &begin,
 {
     using namespace dsl;
 
+    // FIXME(#46)
     const int32_t DROP_DURATION = 400;
 
     m_radius.animate(from(radius).to(0.0f).during(DROP_DURATION));
