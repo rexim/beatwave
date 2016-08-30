@@ -13,6 +13,7 @@
 
 namespace
 {
+    // FIXME(#47)
     bool rectContainsCircle(const sf::FloatRect &rect,
                             const sf::Vector2f &center,
                             float radius)
