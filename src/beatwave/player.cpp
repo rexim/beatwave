@@ -8,7 +8,8 @@ Player::Player(const sf::Vector2f &position,
                const sf::Color &color):
     position(position),
     radius(radius),
-    color(color)
+    color(color),
+    splat(20)
 {}
 
 void Player::tick(int32_t deltaTime)
@@ -16,6 +17,7 @@ void Player::tick(int32_t deltaTime)
     position.tick(deltaTime);
     radius.tick(deltaTime);
     color.tick(deltaTime);
+    splat.tick(deltaTime);
 }
 
 void Player::render(sf::RenderTarget *renderTarget) const
@@ -25,6 +27,7 @@ void Player::render(sf::RenderTarget *renderTarget) const
     circle.setPosition(position.value() - sf::Vector2f(radius.value(), radius.value()));
 
     renderTarget->draw(circle);
+    splat.render(renderTarget);
 }
 
 void Player::step(const sf::Color &flashColor,
@@ -60,4 +63,5 @@ void Player::kill()
 
     const int COLLAPSE_TIME = 100;
     radius.animate(from(config::PLAYER_INIT_RADIUS).to(0.0f).during(COLLAPSE_TIME));
+    splat.splat(position.value(), 500.0);
 }

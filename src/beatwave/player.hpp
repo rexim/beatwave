@@ -6,6 +6,8 @@
 
 #include <core/animated.hpp>
 
+#include <beatwave/splat.hpp>
+
 class Player
 {
 public:
@@ -26,6 +28,8 @@ private:
     Animated<sf::Vector2f> position;
     Animated<float> radius;
     Animated<sf::Color> color;
+
+    Splat splat;
 };
 
 #endif  // PLAYER_HPP_
