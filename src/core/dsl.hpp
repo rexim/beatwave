@@ -5,6 +5,7 @@
 #include <core/seqcombinatorbuilder.hpp>
 #include <core/forever.hpp>
 #include <core/repeat.hpp>
+#include <core/set.hpp>
 
 namespace dsl {
 
@@ -30,6 +31,12 @@ template <typename State>
 AnimationPtr<State> repeat(int counter, AnimationPtr<State> &&animation)
 {
     return AnimationPtr<State>(new Repeat<State>(counter, std::move(animation)));
+}
+
+template <typename State>
+AnimationPtr<State> set(const State &state)
+{
+    return AnimationPtr<State>(new Set<State>(state));
 }
 
 }

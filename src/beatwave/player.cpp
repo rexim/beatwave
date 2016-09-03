@@ -36,12 +36,14 @@ void Player::step(const sf::Color &flashColor,
 {
     using namespace dsl;
 
-    color.animate(from(flashColor)
-                  .to(sf::Color::White)
-                  .during(config::COLOR_TIME));
-    position.animate(from(position.value())
-                     .by(direction)
-                     .during(config::MOVE_TIME));
+    if (!dead) {
+        color.animate(from(flashColor)
+                      .to(sf::Color::White)
+                      .during(config::COLOR_TIME));
+        position.animate(from(position.value())
+                         .by(direction)
+                         .during(config::MOVE_TIME));
+    }
 }
 
 void Player::centerView(sf::RenderTarget *renderTarget) const
@@ -53,9 +55,9 @@ void Player::reset()
 {
     using namespace dsl;
 
-    position.animate(from(position.value()).to(config::PLAYER_INIT_POSITION).during(config::MOVE_TIME));
-    color.animate(from(color.value()).to(config::PLAYER_INIT_COLOR).during(config::MOVE_TIME));
-    radius.animate(from(radius.value()).to(config::PLAYER_INIT_RADIUS).during(config::MOVE_TIME));
+    position.animate(set(config::PLAYER_INIT_POSITION));
+    color.animate(set(config::PLAYER_INIT_COLOR));
+    radius.animate(set(config::PLAYER_INIT_RADIUS));
     dead = false;
 }
 
