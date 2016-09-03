@@ -12,11 +12,6 @@ public:
         m_finished(false)
     {}
 
-    virtual ~Set() override
-    {
-        std::cout << "~Set()" << std::endl;
-    }
-
     virtual State nextState(const int32_t) override
     {
         m_finished = true;
