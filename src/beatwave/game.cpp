@@ -8,6 +8,7 @@
 
 #include <beatwave/game.hpp>
 #include <beatwave/config.hpp>
+#include <core/animatedgroup.hpp>
 #include <core/util.hpp>
 #include <core/dsl.hpp>
 

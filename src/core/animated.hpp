@@ -8,10 +8,12 @@ template <typename T>
 class Animated
 {
 public:
+    using type = T;
+
     Animated(const Animated&) = delete;
     Animated(Animated&&) = default;
 
-    Animated(const T &value = T()):
+    explicit Animated(const T &value = T()):
         m_value(value),
         m_animation(nullptr)
     {}

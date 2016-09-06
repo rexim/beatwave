@@ -8,6 +8,7 @@
 #include <core/animated.hpp>
 
 #include <beatwave/player.hpp>
+#include <beatwave/circle.hpp>
 
 namespace sf
 {
