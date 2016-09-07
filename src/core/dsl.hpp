@@ -9,6 +9,7 @@
 
 namespace dsl {
 
+// FIXME(#60): Immitate a pascal-style block of code in SeqCombinatorBuilder
 template <typename State>
 SeqCombinatorBuilder<State> start(AnimationPtr<State> &&animation)
 {
@@ -21,6 +22,7 @@ AnimationPtr<State> forever(AnimationPtr<State> &&animation)
     return AnimationPtr<State>(new Forever<State>(std::move(animation)));
 }
 
+// FIXME(#59): Strict argument order for LinearTransitionBuilder
 template <typename T>
 LinearTransitionBuilder<T> from(const T &initialState)
 {
