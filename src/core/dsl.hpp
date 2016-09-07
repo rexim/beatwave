@@ -9,6 +9,7 @@
 
 namespace dsl {
 
+// FIXME(#60): Immitate a pascal-style block of code in SeqCombinatorBuilder
 template <typename State>
 SeqCombinatorBuilder<State> start(AnimationPtr<State> &&animation)
 {
