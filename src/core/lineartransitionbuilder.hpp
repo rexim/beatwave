@@ -3,41 +3,50 @@
 
 #include <core/lineartransition.hpp>
 
+namespace LinearTransitionBuilder {
+
 template <typename T>
-class LinearTransitionBuilder
+class During
 {
 public:
-    LinearTransitionBuilder(const T &initialState):
-        m_initialState(initialState)
+    During(const T &initialState, const T &finalState):
+        m_initialState(initialState), m_finalState(finalState)
     {}
 
-    LinearTransitionBuilder<T> &to(const T &finalState)
+    AnimationPtr<T> during(int32_t transitionTime)
     {
-        m_finalState = finalState;
-        return *this;
-    }
-
-    LinearTransitionBuilder<T> &by(const T &deltaState)
-    {
-        m_finalState = m_initialState + deltaState;
-        return *this;
-    }
-
-    LinearTransitionBuilder<T> &during(int32_t transitionTime)
-    {
-        m_transitionTime = transitionTime;
-        return *this;
-    }
-
-    operator AnimationPtr<T>() {
-        return AnimationPtr<T>(new LinearTransition<T>(m_initialState, m_transitionTime, m_finalState));
+        return AnimationPtr<T>(new LinearTransition<T>(m_initialState,
+                                                       transitionTime,
+                                                       m_finalState));
     }
 
 private:
-    T m_initialState;
-    T m_finalState;
-    int32_t m_transitionTime;
+    const T m_initialState;
+    const T m_finalState;
 };
 
+template <typename T>
+class Toby
+{
+public:
+    Toby(const T &initialState):
+        m_initialState(initialState)
+    {}
+
+    During<T> to(const T &finalState)
+    {
+        return During<T>(m_initialState, finalState);
+    }
+
+    During<T> by(const T &deltaState)
+    {
+        return During<T>(m_initialState, m_initialState + deltaState);
+    }
+
+private:
+    const T m_initialState;
+};
+
+}  // namespace LinearTransitionBuilder
 
 #endif  // LINEARTRANSITIONBUILDER_HPP_

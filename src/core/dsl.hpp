@@ -22,11 +22,10 @@ AnimationPtr<State> forever(AnimationPtr<State> &&animation)
     return AnimationPtr<State>(new Forever<State>(std::move(animation)));
 }
 
-// FIXME(#59): Strict argument order for LinearTransitionBuilder
 template <typename T>
-LinearTransitionBuilder<T> from(const T &initialState)
+LinearTransitionBuilder::Toby<T> from(const T &initialState)
 {
-    return LinearTransitionBuilder<T>(initialState);
+    return LinearTransitionBuilder::Toby<T>(initialState);
 }
 
 template <typename State>
