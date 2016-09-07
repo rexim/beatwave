@@ -7,6 +7,7 @@
 template <typename ...Tp>
 using AnimatedTuple = std::tuple<Animated<Tp>...>;
 
+// FIXME(#57): generalize tuple iteration process
 template<std::size_t I = 0, typename... Tp>
 inline typename std::enable_if<I == sizeof...(Tp), void>::type
 iterateTick(AnimatedTuple<Tp...>&, int32_t)
