@@ -18,7 +18,7 @@ public:
         return *this;
     }
 
-    operator AnimationPtr<State>()
+    AnimationPtr<State> end()
     {
         return AnimationPtr<State>(new SeqCombinator<State>(std::move(m_animations)));
     }
