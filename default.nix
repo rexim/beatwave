@@ -1,6 +1,6 @@
 with import <nixpkgs> {}; {
-  beatwaveEnv = stdenv.mkDerivation {
+  beatwaveEnv = clangStdenv.mkDerivation {
     name = "beatwave";
-    buildInputs = [ stdenv sfml cmake rtags ];
+    buildInputs = [ clangStdenv sfml cmake rtags ];
   };
 }
