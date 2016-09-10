@@ -6,7 +6,20 @@ Musical Puzzle Game
 
 ![screenshot](http://i.imgur.com/somxQOU.png)
 
-# Building and Usage on NixOS #
+## Building ##
+
+### Linux ###
+
+See general build instructions for Linux in the file `.travis.yml`
+inside of the Beatwave source directory.
+
+You will need C++11-compatible compiler (GCC or Clang), [CMake] and
+[SFML].
+
+Below is an example of building Beatwave on [NixOS Linux]. Feel free
+to add instructions for any other distributions.
+
+#### Building and Usage on NixOS ####
 
     $ nix-shell
     $ mkdir build
@@ -38,3 +51,7 @@ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
 LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+[CMake]: https://cmake.org/
+[SFML]: http://www.sfml-dev.org/
+[NixOS Linux]: https://nixos.org/
