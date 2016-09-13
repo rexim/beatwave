@@ -24,6 +24,8 @@ public:
 
     void kill();
 
+    bool isCompletlyInsideOf(const sf::FloatRect &rect) const;
+
     // FIXME(#48): do not expose this
     sf::Vector2f getPosition()
     {

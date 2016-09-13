@@ -74,3 +74,19 @@ void Player::kill()
     radius.animate(from(config::PLAYER_INIT_RADIUS).to(0.0f).during(COLLAPSE_TIME));
     splat.splat(position.value(), 500.0);
 }
+
+bool Player::isCompletlyInsideOf(const sf::FloatRect &rect) const
+{
+    const auto center = position.value();
+
+    const std::array<float, 4> ds = {
+        std::abs(rect.top - center.y),
+        std::abs(rect.top + rect.height - 1 - center.y),
+        std::abs(rect.left - center.x),
+        std::abs(rect.left + rect.width - 1 - center.x)
+    };
+
+    return rect.contains(center) && std::all_of(ds.begin(), ds.end(), [this](float d) {
+            return radius.value() < d;
+    });
+}

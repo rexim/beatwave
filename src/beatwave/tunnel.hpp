@@ -8,12 +8,15 @@ namespace sf
     class RenderTarget;
 }
 
+class Player;
+
 class Tunnel
 {
 public:
     Tunnel(const TunnelVector &tunnelVector);
 
     void render(sf::RenderTarget *renderTarget) const;
+    void hit(Player *player) const;
 
 private:
     const TunnelVector m_tunnelVector;
