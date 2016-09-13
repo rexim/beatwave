@@ -38,7 +38,7 @@ private:
 
 private:
     Player player;
-    Tunnel tunnel;
+    TunnelVector tunnel;
     sf::SoundBuffer kickBuffer, snareBuffer, hihatBuffer, shamanBuffer;
     sf::Sound kickSound, snareSound, hihatSound, shamanSound;
 };

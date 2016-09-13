@@ -3,7 +3,7 @@
 #include <core/tunnel.hpp>
 
 void digTunnel(const std::string &plan,
-               Tunnel &result)
+               TunnelVector &result)
 {
     std::ifstream tunnelFile(plan);
 
