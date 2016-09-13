@@ -12,26 +12,6 @@
 #include <core/util.hpp>
 #include <core/dsl.hpp>
 
-namespace
-{
-    // FIXME(#47)
-    bool rectContainsCircle(const sf::FloatRect &rect,
-                            const sf::Vector2f &center,
-                            float radius)
-    {
-        const std::array<float, 4> ds = {
-            std::abs(rect.top - center.y),
-            std::abs(rect.top + rect.height - 1 - center.y),
-            std::abs(rect.left - center.x),
-            std::abs(rect.left + rect.width - 1 - center.x)
-        };
-
-        return rect.contains(center) && std::all_of(ds.begin(), ds.end(), [radius](float d) {
-                return radius < d;
-        });
-    }
-}
-
 Game::Game():
     player(config::PLAYER_INIT_POSITION,
            config::PLAYER_INIT_RADIUS,
@@ -74,7 +54,7 @@ bool Game::init()
         return false;
     }
 
-    digTunnel("tunnel.txt", tunnel);
+    tunnel.load("tunnel.txt");
 
     return true;
 }
@@ -82,18 +62,7 @@ bool Game::init()
 void Game::tick(int32_t deltaTime)
 {
     player.tick(deltaTime);
-
-    // FIXME(#48): this process should be inside of Player and Tunnel
-    // entities.
-    if (!player.isDead()) {
-        for (const auto &rect: tunnel) {
-            if (rectContainsCircle(rect, player.getPosition(), config::PLAYER_INIT_RADIUS)) {
-                return;
-            }
-        }
-
-        player.kill();
-    }
+    tunnel.hit(&player);
 }
 
 void Game::render(sf::RenderTarget *renderTarget)
@@ -101,14 +70,7 @@ void Game::render(sf::RenderTarget *renderTarget)
     renderTarget->clear(config::WALL_COLOR);
     player.centerView(renderTarget);
 
-    for (const auto &rect: tunnel) {
-        sf::RectangleShape shape;
-        shape.setPosition(rect.left, rect.top);
-        shape.setSize(sf::Vector2f(rect.width, rect.height));
-        shape.setFillColor(sf::Color::Black);
-        renderTarget->draw(shape);
-    }
-
+    tunnel.render(renderTarget);
     player.render(renderTarget);
 }
 
@@ -149,6 +111,6 @@ void Game::reset()
 {
     using namespace dsl;
 
-    digTunnel("tunnel.txt", tunnel);
+    tunnel.load("tunnel.txt");
     player.reset();
 }

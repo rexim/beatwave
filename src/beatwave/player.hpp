@@ -24,17 +24,7 @@ public:
 
     void kill();
 
-    // FIXME(#48): do not expose this
-    sf::Vector2f getPosition()
-    {
-        return position.value();
-    }
-
-    // FIXME(#48): do not expose this
-    bool isDead() const
-    {
-        return dead;
-    }
+    bool isCompletlyInsideOf(const sf::FloatRect &rect) const;
 
 private:
     Animated<sf::Vector2f> position;

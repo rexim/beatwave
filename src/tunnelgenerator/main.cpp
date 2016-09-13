@@ -6,7 +6,7 @@
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 
-#include <core/tunnel.hpp>
+#include <core/tunnelvector.hpp>
 #include <core/captures.hpp>
 
 void generateTunnelPoints(const std::deque<Capture> &captures,
@@ -30,7 +30,7 @@ void generateTunnelPoints(const std::deque<Capture> &captures,
 
 void generateTunnelRects(const std::vector<sf::Vector2f> &points,
                          float radius,
-                         Tunnel &tunnel)
+                         TunnelVector &tunnel)
 {
     for (size_t i = 0; i < points.size() - 1; ++i) {
         const sf::Vector2f radiusVector = sf::Vector2f(radius, radius);
@@ -47,7 +47,7 @@ void generateTunnelFromCaptures(const std::deque<Capture> &captures,
                                 const sf::Vector2f &position,
                                 float radius,
                                 float velocity,
-                                Tunnel &tunnel)
+                                TunnelVector &tunnel)
 {
     std::vector<sf::Vector2f> points;
     generateTunnelPoints(captures, position, velocity, points);
@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
     static_cast<void>(argv);
     const float errorBuffer = 20.0f;
     std::deque<Capture> captures;
-    Tunnel tunnel;
+    TunnelVector tunnel;
 
     loadCaptureInfo(captures, "replay.txt");
     generateTunnelFromCaptures(captures, sf::Vector2f(200.0f, 200.0f), 50.0f + errorBuffer, 500.0f, tunnel);

@@ -4,11 +4,11 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Audio/Sound.hpp>
 
-#include <core/tunnel.hpp>
 #include <core/animated.hpp>
 
 #include <beatwave/player.hpp>
 #include <beatwave/circle.hpp>
+#include <beatwave/tunnel.hpp>
 
 namespace sf
 {

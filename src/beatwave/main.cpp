@@ -10,7 +10,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-#include <core/tunnel.hpp>
+#include <core/tunnelvector.hpp>
 #include <core/captures.hpp>
 #include <core/lineartransition.hpp>
 #include <core/lineartransitionbuilder.hpp>
