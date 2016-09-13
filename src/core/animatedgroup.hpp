@@ -20,7 +20,10 @@ public:
         iterateTick<0, Tp...>(m_properties, deltaTime);
     }
 
-    // FIXME(#58): Implement stop() operation for AnimatedGroup
+    void stop()
+    {
+        iterateStop<0, Tp...>(m_properties);
+    }
 
     template <size_t I>
     void animate(AnimationPtr<AnimatedElement<I>> &&animation)
