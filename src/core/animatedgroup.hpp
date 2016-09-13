@@ -1,25 +1,8 @@
 #ifndef ANIMATEDGROUP_HPP_
 #define ANIMATEDGROUP_HPP_
 
-#include <tuple>
 #include <core/animated.hpp>
-
-template <typename ...Tp>
-using AnimatedTuple = std::tuple<Animated<Tp>...>;
-
-// FIXME(#57): generalize tuple iteration process
-template<std::size_t I = 0, typename... Tp>
-inline typename std::enable_if<I == sizeof...(Tp), void>::type
-iterateTick(AnimatedTuple<Tp...>&, int32_t)
-{}
-
-template<std::size_t I = 0, typename... Tp>
-inline typename std::enable_if<I < sizeof...(Tp), void>::type
-iterateTick(AnimatedTuple<Tp...>& properties, int32_t deltaTime)
-{
-    std::get<I>(properties).tick(deltaTime);
-    iterateTick<I + 1, Tp...>(properties, deltaTime);
-}
+#include <core/animatedtuple.hpp>
 
 template <typename ...Tp>
 class AnimatedGroup
@@ -37,7 +20,10 @@ public:
         iterateTick<0, Tp...>(m_properties, deltaTime);
     }
 
-    // FIXME(#58): Implement stop() operation for AnimatedGroup
+    void stop()
+    {
+        iterateStop<0, Tp...>(m_properties);
+    }
 
     template <size_t I>
     void animate(AnimationPtr<AnimatedElement<I>> &&animation)
