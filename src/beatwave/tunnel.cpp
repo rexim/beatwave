@@ -5,7 +5,7 @@ Tunnel::Tunnel(const TunnelVector &tunnelVector):
     m_tunnelVector(tunnelVector)
 {}
 
-void Tunnel::render(sf::RenderTarget *renderTarget)
+void Tunnel::render(sf::RenderTarget *renderTarget) const
 {
     for (const auto &rect: m_tunnelVector) {
         sf::RectangleShape shape;

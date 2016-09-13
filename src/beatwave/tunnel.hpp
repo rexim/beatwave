@@ -13,7 +13,7 @@ class Tunnel
 public:
     Tunnel(const TunnelVector &tunnelVector);
 
-    void render(sf::RenderTarget *renderTarget);
+    void render(sf::RenderTarget *renderTarget) const;
 
 private:
     const TunnelVector m_tunnelVector;
