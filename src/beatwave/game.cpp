@@ -74,7 +74,7 @@ bool Game::init()
         return false;
     }
 
-    digTunnel("tunnel.txt", tunnel);
+    loadTunnelVector("tunnel.txt", tunnel);
 
     return true;
 }
@@ -149,6 +149,6 @@ void Game::reset()
 {
     using namespace dsl;
 
-    digTunnel("tunnel.txt", tunnel);
+    loadTunnelVector("tunnel.txt", tunnel);
     player.reset();
 }

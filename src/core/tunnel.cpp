@@ -2,13 +2,13 @@
 #include <fstream>
 #include <core/tunnel.hpp>
 
-void digTunnel(const std::string &plan,
-               TunnelVector &result)
+void loadTunnelVector(const std::string &fileName,
+                      TunnelVector &result)
 {
-    std::ifstream tunnelFile(plan);
+    std::ifstream tunnelFile(fileName);
 
     if (!tunnelFile) {
-        std::cout << "[ERROR] Cannot load " << plan << std::endl;
+        std::cout << "[ERROR] Cannot load " << fileName << std::endl;
     }
 
     result.clear();

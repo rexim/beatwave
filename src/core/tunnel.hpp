@@ -8,6 +8,6 @@
 // player on the wall hitting process
 using TunnelVector = std::vector<sf::FloatRect>;
 
-void digTunnel(const std::string &plan, TunnelVector &result);
+void loadTunnelVector(const std::string &fileName, TunnelVector &result);
 
 #endif  // TUNNEL_HPP_
