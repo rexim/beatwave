@@ -13,13 +13,14 @@ class Player;
 class Tunnel
 {
 public:
-    Tunnel(const TunnelVector &tunnelVector);
+    Tunnel();
 
     void render(sf::RenderTarget *renderTarget) const;
     void hit(Player *player) const;
+    void load(const std::string &fileName);
 
 private:
-    const TunnelVector m_tunnelVector;
+    TunnelVector m_tunnelVector;
 };
 
 #endif  // TUNNEL_HPP_

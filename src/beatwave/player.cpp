@@ -63,16 +63,18 @@ void Player::reset()
 
 void Player::kill()
 {
-    position.stop();
-    radius.stop();
-    color.stop();
-    dead = true;
+    if (!dead) {
+        position.stop();
+        radius.stop();
+        color.stop();
+        dead = true;
 
-    using namespace dsl;
+        using namespace dsl;
 
-    const int COLLAPSE_TIME = 100;
-    radius.animate(from(config::PLAYER_INIT_RADIUS).to(0.0f).during(COLLAPSE_TIME));
-    splat.splat(position.value(), 500.0);
+        const int COLLAPSE_TIME = 100;
+        radius.animate(from(config::PLAYER_INIT_RADIUS).to(0.0f).during(COLLAPSE_TIME));
+        splat.splat(position.value(), 500.0);
+    }
 }
 
 bool Player::isCompletlyInsideOf(const sf::FloatRect &rect) const

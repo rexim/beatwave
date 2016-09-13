@@ -1,9 +1,11 @@
 #include <SFML/Graphics.hpp>
+
+#include <core/tunnelvector.hpp>
+
 #include <beatwave/tunnel.hpp>
 #include <beatwave/player.hpp>
 
-Tunnel::Tunnel(const TunnelVector &tunnelVector):
-    m_tunnelVector(tunnelVector)
+Tunnel::Tunnel()
 {}
 
 void Tunnel::render(sf::RenderTarget *renderTarget) const
@@ -24,9 +26,15 @@ void Tunnel::hit(Player *player) const
     }
 
     for (const auto &rect: m_tunnelVector) {
-        if (!player->isCompletlyInsideOf(rect)) {
-            player->kill();
+        if (player->isCompletlyInsideOf(rect)) {
             return;
         }
     }
+
+    player->kill();
+}
+
+void Tunnel::load(const std::string &fileName)
+{
+    loadTunnelVector(fileName, m_tunnelVector);
 }

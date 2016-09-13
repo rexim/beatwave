@@ -4,11 +4,11 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Audio/Sound.hpp>
 
-#include <core/tunnelvector.hpp>
 #include <core/animated.hpp>
 
 #include <beatwave/player.hpp>
 #include <beatwave/circle.hpp>
+#include <beatwave/tunnel.hpp>
 
 namespace sf
 {
@@ -38,7 +38,7 @@ private:
 
 private:
     Player player;
-    TunnelVector tunnel;
+    Tunnel tunnel;
     sf::SoundBuffer kickBuffer, snareBuffer, hihatBuffer, shamanBuffer;
     sf::Sound kickSound, snareSound, hihatSound, shamanSound;
 };
