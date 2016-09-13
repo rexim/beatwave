@@ -4,7 +4,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Audio/Sound.hpp>
 
-#include <core/tunnel.hpp>
+#include <core/tunnelvector.hpp>
 #include <core/animated.hpp>
 
 #include <beatwave/player.hpp>

@@ -7,7 +7,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
 include_directories(src/)
 
 set(CORE_SOURCES
-  src/core/tunnel.cpp
+  src/core/tunnelvector.cpp
   src/core/captures.cpp
   src/core/util.cpp
 )

@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include <core/tunnel.hpp>
+#include <core/tunnelvector.hpp>
 
 void loadTunnelVector(const std::string &fileName,
                       TunnelVector &result)
