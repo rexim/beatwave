@@ -20,4 +20,17 @@ iterateTick(AnimatedTuple<Tp...>& properties, int32_t deltaTime)
     iterateTick<I + 1, Tp...>(properties, deltaTime);
 }
 
+template<std::size_t I = 0, typename... Tp>
+inline typename std::enable_if<I == sizeof...(Tp), void>::type
+iterateStop(AnimatedTuple<Tp...>&)
+{}
+
+template<std::size_t I = 0, typename... Tp>
+inline typename std::enable_if<I < sizeof...(Tp), void>::type
+iterateStop(AnimatedTuple<Tp...>& properties)
+{
+    std::get<I>(properties).stop();
+    iterateStop<I + 1, Tp...>(properties);
+}
+
 #endif  // ANIMATEDTUPLE_HPP_
