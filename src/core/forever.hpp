@@ -12,7 +12,7 @@ public:
         m_animation(std::move(animation))
     {}
 
-    State nextState(const int32_t deltaTime) override
+    virtual State nextState(const int32_t deltaTime) override
     {
         if (m_animation->isFinished()) {
             m_animation->reset();
@@ -21,17 +21,17 @@ public:
         return m_animation->nextState(deltaTime);
     }
 
-    State getCurrentState() const override
+    virtual State getCurrentState() const override
     {
         return m_animation->getCurrentState();
     }
 
-    bool isFinished() const override
+    virtual bool isFinished() const override
     {
         return false;
     }
 
-    void reset() override
+    virtual void reset() override
     {}
 
 private:
