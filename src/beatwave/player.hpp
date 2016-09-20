@@ -31,8 +31,8 @@ private:
     Animated<float> radius;
     Animated<sf::Color> color;
 
-    Splat splat;
-    bool dead;
+    Splat m_splat;
+    bool m_dead;
 };
 
 #endif  // PLAYER_HPP_

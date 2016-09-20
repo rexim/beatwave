@@ -9,8 +9,8 @@ Player::Player(const sf::Vector2f &position,
     position(position),
     radius(radius),
     color(color),
-    splat(20),
-    dead(false)
+    m_splat(20),
+    m_dead(false)
 {}
 
 void Player::tick(int32_t deltaTime)
@@ -18,7 +18,7 @@ void Player::tick(int32_t deltaTime)
     position.tick(deltaTime);
     radius.tick(deltaTime);
     color.tick(deltaTime);
-    splat.tick(deltaTime);
+    m_splat.tick(deltaTime);
 }
 
 void Player::render(sf::RenderTarget *renderTarget) const
@@ -28,7 +28,7 @@ void Player::render(sf::RenderTarget *renderTarget) const
     circle.setPosition(position.value() - sf::Vector2f(radius.value(), radius.value()));
 
     renderTarget->draw(circle);
-    splat.render(renderTarget);
+    m_splat.render(renderTarget);
 }
 
 void Player::step(const sf::Color &flashColor,
@@ -36,7 +36,7 @@ void Player::step(const sf::Color &flashColor,
 {
     using namespace dsl;
 
-    if (!dead) {
+    if (!m_dead) {
         color.animate(from(flashColor)
                       .to(sf::Color::White)
                       .during(config::COLOR_TIME));
@@ -58,22 +58,22 @@ void Player::reset()
     position.animate(set(config::PLAYER_INIT_POSITION));
     color.animate(set(config::PLAYER_INIT_COLOR));
     radius.animate(set(config::PLAYER_INIT_RADIUS));
-    dead = false;
+    m_dead = false;
 }
 
 void Player::kill()
 {
-    if (!dead) {
+    if (!m_dead) {
         position.stop();
         radius.stop();
         color.stop();
-        dead = true;
+        m_dead = true;
 
         using namespace dsl;
 
         const int COLLAPSE_TIME = 100;
         radius.animate(from(config::PLAYER_INIT_RADIUS).to(0.0f).during(COLLAPSE_TIME));
-        splat.splat(position.value(), 500.0);
+        m_splat.splat(position.value(), 500.0);
     }
 }
 
