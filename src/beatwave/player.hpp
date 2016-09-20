@@ -9,6 +9,11 @@
 #include <beatwave/splat.hpp>
 #include <beatwave/circle.hpp>
 
+namespace sf
+{
+    class Sound;
+}
+
 class Player
 {
 public:
@@ -17,13 +22,15 @@ public:
     void tick(int32_t deltaTime);
     void render(sf::RenderTarget *renderTarget) const;
     void step(const sf::Color &flashColor,
-              const sf::Vector2f direction);
+              const sf::Vector2f direction,
+              sf::Sound *sound);
     void centerView(sf::RenderTarget *renderTarget) const;
     void reset();
 
     void kill();
 
     bool fits(const sf::FloatRect &rect) const;
+    bool isDead() const;
 
 private:
     Circle m_circle;

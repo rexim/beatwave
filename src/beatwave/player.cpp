@@ -1,3 +1,4 @@
+#include <SFML/Audio/Sound.hpp>
 #include <beatwave/player.hpp>
 #include <beatwave/config.hpp>
 #include <core/util.hpp>
@@ -24,7 +25,8 @@ void Player::render(sf::RenderTarget *renderTarget) const
 }
 
 void Player::step(const sf::Color &flashColor,
-                  const sf::Vector2f direction)
+                  const sf::Vector2f direction,
+                  sf::Sound *sound)
 {
     using namespace dsl;
 
@@ -36,6 +38,8 @@ void Player::step(const sf::Color &flashColor,
         m_circle.animate<Circle::Position>(from(m_circle.value<Circle::Position>())
                                            .by(direction)
                                            .during(config::MOVE_TIME));
+
+        sound->play();
     }
 }
 
@@ -82,4 +86,9 @@ bool Player::fits(const sf::FloatRect &rect) const
     return rect.contains(center) && std::all_of(ds.begin(), ds.end(), [this](float d) {
             return m_circle.value<Circle::Radius>() < d;
     });
+}
+
+bool Player::isDead() const
+{
+    return m_dead;
 }
