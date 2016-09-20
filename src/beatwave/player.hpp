@@ -23,7 +23,7 @@ public:
 
     void kill();
 
-    bool isCompletlyInsideOf(const sf::FloatRect &rect) const;
+    bool fits(const sf::FloatRect &rect) const;
 
 private:
     Circle m_circle;

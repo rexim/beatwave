@@ -68,7 +68,7 @@ void Player::kill()
     }
 }
 
-bool Player::isCompletlyInsideOf(const sf::FloatRect &rect) const
+bool Player::fits(const sf::FloatRect &rect) const
 {
     const auto center = m_circle.value<Circle::Position>();
 

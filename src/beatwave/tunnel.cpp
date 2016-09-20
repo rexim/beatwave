@@ -26,7 +26,7 @@ void Tunnel::hit(Player *player) const
     }
 
     for (const auto &rect: m_tunnelVector) {
-        if (player->isCompletlyInsideOf(rect)) {
+        if (player->fits(rect)) {
             return;
         }
     }
