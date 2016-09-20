@@ -13,9 +13,7 @@
 #include <core/dsl.hpp>
 
 Game::Game():
-    player(config::PLAYER_INIT_POSITION,
-           config::PLAYER_INIT_RADIUS,
-           config::PLAYER_INIT_COLOR)
+    player(config::PLAYER_INIT_POSITION)
 {}
 
 bool Game::initSounds()

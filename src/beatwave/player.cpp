@@ -3,31 +3,23 @@
 #include <core/util.hpp>
 #include <core/dsl.hpp>
 
-Player::Player(const sf::Vector2f &position,
-               float radius,
-               const sf::Color &color):
-    position(position),
-    radius(radius),
-    color(color),
+Player::Player(const sf::Vector2f &position):
+    m_circle(config::PLAYER_INIT_RADIUS,
+             position,
+             config::PLAYER_INIT_COLOR),
     m_splat(20),
     m_dead(false)
 {}
 
 void Player::tick(int32_t deltaTime)
 {
-    position.tick(deltaTime);
-    radius.tick(deltaTime);
-    color.tick(deltaTime);
+    m_circle.tick(deltaTime);
     m_splat.tick(deltaTime);
 }
 
 void Player::render(sf::RenderTarget *renderTarget) const
 {
-    sf::CircleShape circle(radius.value());
-    circle.setFillColor(color.value());
-    circle.setPosition(position.value() - sf::Vector2f(radius.value(), radius.value()));
-
-    renderTarget->draw(circle);
+    m_circle.render(renderTarget);
     m_splat.render(renderTarget);
 }
 
@@ -37,49 +29,48 @@ void Player::step(const sf::Color &flashColor,
     using namespace dsl;
 
     if (!m_dead) {
-        color.animate(from(flashColor)
-                      .to(sf::Color::White)
-                      .during(config::COLOR_TIME));
-        position.animate(from(position.value())
-                         .by(direction)
-                         .during(config::MOVE_TIME));
+        m_circle.animate<Circle::Color>(from(flashColor)
+                                        .to(sf::Color::White)
+                                        .during(config::COLOR_TIME));
+
+        m_circle.animate<Circle::Position>(from(m_circle.value<Circle::Position>())
+                                           .by(direction)
+                                           .during(config::MOVE_TIME));
     }
 }
 
 void Player::centerView(sf::RenderTarget *renderTarget) const
 {
-    renderTarget->setView(sf::View(position.value(), renderTarget->getView().getSize()));
+    renderTarget->setView(sf::View(m_circle.value<Circle::Position>(), renderTarget->getView().getSize()));
 }
 
 void Player::reset()
 {
     using namespace dsl;
 
-    position.animate(set(config::PLAYER_INIT_POSITION));
-    color.animate(set(config::PLAYER_INIT_COLOR));
-    radius.animate(set(config::PLAYER_INIT_RADIUS));
+    m_circle.animate<Circle::Position>(set(config::PLAYER_INIT_POSITION));
+    m_circle.animate<Circle::Color>(set(config::PLAYER_INIT_COLOR));
+    m_circle.animate<Circle::Radius>(set(config::PLAYER_INIT_RADIUS));
     m_dead = false;
 }
 
 void Player::kill()
 {
     if (!m_dead) {
-        position.stop();
-        radius.stop();
-        color.stop();
+        m_circle.stop();
         m_dead = true;
 
         using namespace dsl;
 
         const int COLLAPSE_TIME = 100;
-        radius.animate(from(config::PLAYER_INIT_RADIUS).to(0.0f).during(COLLAPSE_TIME));
-        m_splat.splat(position.value(), 500.0);
+        m_circle.animate<Circle::Radius>(from(config::PLAYER_INIT_RADIUS).to(0.0f).during(COLLAPSE_TIME));
+        m_splat.splat(m_circle.value<Circle::Position>(), 500.0);
     }
 }
 
 bool Player::isCompletlyInsideOf(const sf::FloatRect &rect) const
 {
-    const auto center = position.value();
+    const auto center = m_circle.value<Circle::Position>();
 
     const std::array<float, 4> ds = {
         std::abs(rect.top - center.y),
@@ -89,6 +80,6 @@ bool Player::isCompletlyInsideOf(const sf::FloatRect &rect) const
     };
 
     return rect.contains(center) && std::all_of(ds.begin(), ds.end(), [this](float d) {
-            return radius.value() < d;
+            return m_circle.value<Circle::Radius>() < d;
     });
 }

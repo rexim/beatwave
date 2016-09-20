@@ -7,13 +7,12 @@
 #include <core/animated.hpp>
 
 #include <beatwave/splat.hpp>
+#include <beatwave/circle.hpp>
 
 class Player
 {
 public:
-    Player(const sf::Vector2f &position = sf::Vector2f(0.0f, 0.0f),
-           float radius = 0.0f,
-           const sf::Color &color = sf::Color::Black);
+    Player(const sf::Vector2f &position = sf::Vector2f(0.0f, 0.0f));
 
     void tick(int32_t deltaTime);
     void render(sf::RenderTarget *renderTarget) const;
@@ -27,10 +26,7 @@ public:
     bool isCompletlyInsideOf(const sf::FloatRect &rect) const;
 
 private:
-    Animated<sf::Vector2f> position;
-    Animated<float> radius;
-    Animated<sf::Color> color;
-
+    Circle m_circle;
     Splat m_splat;
     bool m_dead;
 };
