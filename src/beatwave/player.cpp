@@ -40,6 +40,8 @@ void Player::step(const sf::Color &flashColor,
                                            .during(config::MOVE_TIME));
 
         sound->play();
+    } else {
+        reset();
     }
 }
 
