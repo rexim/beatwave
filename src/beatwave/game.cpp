@@ -13,9 +13,7 @@
 #include <core/dsl.hpp>
 
 Game::Game():
-    player(config::PLAYER_INIT_POSITION,
-           config::PLAYER_INIT_RADIUS,
-           config::PLAYER_INIT_COLOR)
+    player(config::PLAYER_INIT_POSITION)
 {}
 
 bool Game::initSounds()
@@ -77,29 +75,29 @@ void Game::render(sf::RenderTarget *renderTarget)
 void Game::kick()
 {
     player.step(sf::Color::Red,
-                sf::Vector2f(config::PLAYER_MOVE_DISTANCE, 0.0f));
-    kickSound.play();
+                sf::Vector2f(config::PLAYER_MOVE_DISTANCE, 0.0f),
+                &kickSound);
 }
 
 void Game::snare()
 {
     player.step(sf::Color::Green,
-                sf::Vector2f(0.0f, config::PLAYER_MOVE_DISTANCE));
-    snareSound.play();
+                sf::Vector2f(0.0f, config::PLAYER_MOVE_DISTANCE),
+                &snareSound);
 }
 
 void Game::hihat()
 {
     player.step(sf::Color::Blue,
-                sf::Vector2f(0.0f, -config::PLAYER_MOVE_DISTANCE));
-    hihatSound.play();
+                sf::Vector2f(0.0f, -config::PLAYER_MOVE_DISTANCE),
+                &hihatSound);
 }
 
 void Game::shaman()
 {
     player.step(sf::Color::Yellow,
-                sf::Vector2f(-config::PLAYER_MOVE_DISTANCE, 0.0f));
-    shamanSound.play();
+                sf::Vector2f(-config::PLAYER_MOVE_DISTANCE, 0.0f),
+                &shamanSound);
 }
 
 void Game::killPlayer()
