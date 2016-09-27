@@ -8,13 +8,11 @@ class Set: public Animation<State>
 {
 public:
     Set(const State &state):
-        m_state(state),
-        m_finished(false)
+        m_state(state)
     {}
 
     virtual State nextState(const int32_t) override
     {
-        m_finished = true;
         return m_state;
     }
 
@@ -25,17 +23,14 @@ public:
 
     virtual bool isFinished() const override
     {
-        return m_finished;
+        return false;
     }
 
     virtual void reset(const State&) override
-    {
-        m_finished = false;
-    }
+    {}
 
 private:
     const State m_state;
-    bool m_finished;
 };
 
 #endif  // SET_HPP_

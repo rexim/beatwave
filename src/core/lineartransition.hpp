@@ -8,8 +8,8 @@ class LinearTransition: public Animation<State>
 {
 public:
     LinearTransition(const State &initialState,
-                     int32_t transitionTime = 0,
-                     const State &finalState = State()):
+                     int32_t transitionTime,
+                     const State &finalState):
         m_initialState(initialState),
         m_transitionTime(transitionTime),
         m_currentState(initialState),
