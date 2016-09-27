@@ -15,14 +15,16 @@ public:
         m_currentAnimation(0)
     {}
 
-    State nextState(const int32_t deltaTime)
+    virtual State nextState(const int32_t deltaTime) override
     {
         if (!isFinished()) {
             if (!m_animations[m_currentAnimation]->isFinished()) {
                 return m_animations[m_currentAnimation]->nextState(deltaTime);
             } else {
-                ++m_currentAnimation;
+                const State previousState = m_animations[m_currentAnimation]->getCurrentState();
+                m_currentAnimation++;
                 if (!isFinished()) {
+                    m_animations[m_currentAnimation]->reset(previousState);
                     return m_animations[m_currentAnimation]->getCurrentState();
                 }
             }
@@ -31,23 +33,24 @@ public:
         return m_animations.back()->getCurrentState();
     }
 
-    State getCurrentState() const
+    virtual State getCurrentState() const override
     {
-        return m_animations[m_currentAnimation]->getCurrentState();
+        if (isFinished()) {
+            return m_animations.back()->getCurrentState();
+        } else {
+            return m_animations[m_currentAnimation]->getCurrentState();
+        }
     }
 
-    bool isFinished() const
+    virtual bool isFinished() const override
     {
         return m_currentAnimation >= m_animations.size();
     }
 
-    void reset()
+    virtual void reset(const State &state) override
     {
-        for (const auto &animation: m_animations) {
-            animation->reset();
-        }
-
         m_currentAnimation = 0;
+        m_animations[m_currentAnimation]->reset(state);
     }
 
 private:
