@@ -33,6 +33,8 @@ LinearTransitionBuilder::OpenDuring<State> to(const State &finalState)
     return LinearTransitionBuilder::OpenDuring<State>(finalState);
 }
 
+// TODO(#87): implement by()
+
 template <typename State>
 AnimationPtr<State> repeat(int counter, AnimationPtr<State> &&animation)
 {
