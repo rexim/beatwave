@@ -13,7 +13,7 @@ LevelEnd::LevelEnd(const sf::Vector2f &center):
     using namespace dsl;
     m_angle.animate(forever(repeat(2,
                                    begin(from(0.0f).to(PI).during(500))
-                                   .then(from(PI).to(2.0f * PI).during(100))
+                                   .then(to(2.0f * PI).during(100))
                                    .end())));
 }
 
