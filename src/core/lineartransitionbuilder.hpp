@@ -1,7 +1,7 @@
 #ifndef LINEARTRANSITIONBUILDER_HPP_
 #define LINEARTRANSITIONBUILDER_HPP_
 
-#include <core/lineartransition.hpp>
+#include <core/openlineartransition.hpp>
 
 namespace LinearTransitionBuilder {
 
@@ -23,6 +23,24 @@ public:
 private:
     const T m_initialState;
     const T m_finalState;
+};
+
+template <typename State>
+class OpenDuring
+{
+public:
+    OpenDuring(const State &finalState):
+        m_finalState(finalState)
+    {}
+
+    AnimationPtr<State> during(int32_t transitionTime)
+    {
+        return AnimationPtr<State>(new OpenLinearTransition<State>(transitionTime,
+                                                                   m_finalState));
+    }
+
+private:
+    const State m_finalState;
 };
 
 template <typename T>

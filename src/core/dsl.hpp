@@ -28,6 +28,12 @@ LinearTransitionBuilder::Toby<T> from(const T &initialState)
 }
 
 template <typename State>
+LinearTransitionBuilder::OpenDuring<State> to(const State &finalState)
+{
+    return LinearTransitionBuilder::OpenDuring<State>(finalState);
+}
+
+template <typename State>
 AnimationPtr<State> repeat(int counter, AnimationPtr<State> &&animation)
 {
     return AnimationPtr<State>(new Repeat<State>(counter, std::move(animation)));

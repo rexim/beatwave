@@ -31,8 +31,10 @@ public:
         return false;
     }
 
-    virtual void reset(const State&) override
-    {}
+    virtual void reset(const State &state) override
+    {
+        m_animation->reset(state);
+    }
 
 private:
     AnimationPtr<State> m_animation;

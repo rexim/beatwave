@@ -10,6 +10,7 @@ template <typename State>
 class SeqCombinator: public Animation<State>
 {
 public:
+    // TODO: check if there are no animation
     SeqCombinator(std::vector<AnimationPtr<State>> &&animations):
         m_animations(std::move(animations)),
         m_currentAnimation(0)
