@@ -30,7 +30,7 @@ public:
 
     void animate(AnimationPtr<T> &&animation)
     {
-        // TODO: check if animation owns an object
+        // TODO(#85): check if animation owns an object
 
         m_animation = std::move(animation);
         m_animation->reset(m_value);
