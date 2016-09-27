@@ -3,13 +3,13 @@
 
 #include <core/animation.hpp>
 
-template <typename T>
-class LinearTransition: public Animation<T>
+template <typename State>
+class LinearTransition: public Animation<State>
 {
 public:
-    LinearTransition(const T &initialState,
+    LinearTransition(const State &initialState,
                      int32_t transitionTime = 0,
-                     const T &finalState = T()):
+                     const State &finalState = State()):
         m_initialState(initialState),
         m_transitionTime(transitionTime),
         m_currentState(initialState),
@@ -17,10 +17,10 @@ public:
         m_finalState(finalState)
     {}
 
-    virtual T nextState(const int32_t deltaTime) override
+    virtual State nextState(const int32_t deltaTime) override
     {
         if (deltaTime < m_timeLeft) {
-            T deltaState = (m_finalState - m_currentState) * ((deltaTime + .0f) / m_timeLeft);
+            State deltaState = (m_finalState - m_currentState) * ((deltaTime + .0f) / m_timeLeft);
             m_currentState += deltaState;
         } else {
             m_currentState = m_finalState;
@@ -30,7 +30,7 @@ public:
         return m_currentState;
     }
 
-    virtual T getCurrentState() const override
+    virtual State getCurrentState() const override
     {
         return m_currentState;
     }
@@ -40,19 +40,19 @@ public:
         return m_timeLeft <= 0.0f;
     }
 
-    virtual void reset() override
+    virtual void reset(const State&) override
     {
         m_currentState = m_initialState;
         m_timeLeft = m_transitionTime;
     }
 
 private:
-    const T m_initialState;
+    const State m_initialState;
     const int32_t m_transitionTime;
 
-    T m_currentState;
+    State m_currentState;
     int32_t m_timeLeft;
-    const T m_finalState;
+    const State m_finalState;
 };
 
 #endif  // LINEARTRANSITION_HPP_

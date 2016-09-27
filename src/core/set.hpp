@@ -28,7 +28,7 @@ public:
         return m_finished;
     }
 
-    virtual void reset() override
+    virtual void reset(const State&) override
     {
         m_finished = false;
     }

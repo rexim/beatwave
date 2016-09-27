@@ -15,7 +15,7 @@ public:
     virtual State nextState(const int32_t deltaTime) override
     {
         if (m_animation->isFinished()) {
-            m_animation->reset();
+            m_animation->reset(m_animation->getCurrentState());
         }
 
         return m_animation->nextState(deltaTime);
@@ -31,7 +31,7 @@ public:
         return false;
     }
 
-    virtual void reset() override
+    virtual void reset(const State&) override
     {}
 
 private:

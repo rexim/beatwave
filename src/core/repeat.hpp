@@ -20,7 +20,7 @@ public:
     {
         if (m_animation->isFinished() && m_currentCounter > 0) {
             --m_currentCounter;
-            m_animation->reset();
+            m_animation->reset(m_animation->getCurrentState());
         }
 
         return m_animation->nextState(deltaTime);
@@ -36,10 +36,10 @@ public:
         return m_currentCounter <= 0;
     }
 
-    virtual void reset() override
+    virtual void reset(const State &state) override
     {
         m_currentCounter = m_initialCounter;
-        m_animation->reset();
+        m_animation->reset(state);
     }
 
 private:
