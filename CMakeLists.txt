@@ -21,6 +21,7 @@ set(BEATWAVE_SOURCES
   src/beatwave/drop.cpp
   src/beatwave/splat.cpp
   src/beatwave/tunnel.cpp
+  src/beatwave/levelend.cpp
 )
 
 add_executable(beatwave ${BEATWAVE_SOURCES})
