@@ -4,14 +4,14 @@
 #include <core/lineartransition.hpp>
 #include <core/animation.hpp>
 
-template <typename State>
+template <typename State, bool Relative>
 class OpenLinearTransition: public Animation<State>
 {
 public:
     OpenLinearTransition(int32_t transitionTime,
-                         const State &finalState):
+                         const State &state):
         m_transitionTime(transitionTime),
-        m_finalState(finalState),
+        m_state(state),
         m_linearTransition(nullptr)
     {}
 
@@ -20,7 +20,7 @@ public:
         if (m_linearTransition) {
             return m_linearTransition->nextState(deltaTime);
         } else {
-            return m_finalState;
+            return m_state;
         }
     }
 
@@ -29,7 +29,7 @@ public:
         if (m_linearTransition) {
             return m_linearTransition->getCurrentState();
         } else {
-            return m_finalState;
+            return m_state;
         }
     }
 
@@ -42,12 +42,12 @@ public:
     {
         m_linearTransition.reset(new LinearTransition<State>(initialState,
                                                              m_transitionTime,
-                                                             m_finalState));
+                                                             Relative ? initialState + m_state : m_state));
     }
 
 private:
     const int32_t m_transitionTime;
-    const State m_finalState;
+    const State m_state;
     AnimationPtr<State> m_linearTransition;
 };
 
