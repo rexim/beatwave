@@ -3,3 +3,5 @@ build
 GPATH
 GRTAGS
 GTAGS
+
+doc/
