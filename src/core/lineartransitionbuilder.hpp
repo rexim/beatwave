@@ -25,7 +25,7 @@ private:
     const T m_finalState;
 };
 
-template <typename State>
+template <typename State, bool Relative>
 class OpenDuring
 {
 public:
@@ -35,8 +35,8 @@ public:
 
     AnimationPtr<State> during(int32_t transitionTime)
     {
-        return AnimationPtr<State>(new OpenLinearTransition<State>(transitionTime,
-                                                                   m_finalState));
+        return AnimationPtr<State>(new OpenLinearTransition<State, Relative>(transitionTime,
+                                                                             m_finalState));
     }
 
 private:

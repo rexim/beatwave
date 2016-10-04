@@ -28,10 +28,17 @@ LinearTransitionBuilder::Toby<T> from(const T &initialState)
 }
 
 template <typename State>
-LinearTransitionBuilder::OpenDuring<State> to(const State &finalState)
+LinearTransitionBuilder::OpenDuring<State, false> to(const State &finalState)
 {
-    return LinearTransitionBuilder::OpenDuring<State>(finalState);
+    return LinearTransitionBuilder::OpenDuring<State, false>(finalState);
 }
+
+template <typename State>
+LinearTransitionBuilder::OpenDuring<State, true> by(const State &deltaState)
+{
+    return LinearTransitionBuilder::OpenDuring<State, true>(deltaState);
+}
+
 
 // TODO(#87): implement by()
 
