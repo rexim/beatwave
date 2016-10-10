@@ -10,7 +10,7 @@ template <typename State>
 class SeqCombinator: public Animation<State>
 {
 public:
-    // TODO: check for nullptr animations in the sequence
+    // TODO(#100): check for nullptr animations in the sequence
     SeqCombinator(std::vector<AnimationPtr<State>> &&animations):
         m_animations(std::move(animations)),
         m_currentAnimation(0)
