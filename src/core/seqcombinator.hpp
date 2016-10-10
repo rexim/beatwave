@@ -10,7 +10,7 @@ template <typename State>
 class SeqCombinator: public Animation<State>
 {
 public:
-    // TODO(#86): check if there are no animations
+    // TODO: check for nullptr animations in the sequence
     SeqCombinator(std::vector<AnimationPtr<State>> &&animations):
         m_animations(std::move(animations)),
         m_currentAnimation(0)
@@ -18,6 +18,10 @@ public:
 
     virtual State nextState(const int32_t deltaTime) override
     {
+        if (m_animations.empty()) {
+            return m_emptyPlaceholder;
+        }
+
         if (!isFinished()) {
             if (!m_animations[m_currentAnimation]->isFinished()) {
                 return m_animations[m_currentAnimation]->nextState(deltaTime);
@@ -36,7 +40,9 @@ public:
 
     virtual State getCurrentState() const override
     {
-        if (isFinished()) {
+        if (m_animations.empty()) {
+            return m_emptyPlaceholder;
+        } else if (isFinished()) {
             return m_animations.back()->getCurrentState();
         } else {
             return m_animations[m_currentAnimation]->getCurrentState();
@@ -50,13 +56,18 @@ public:
 
     virtual void reset(const State &state) override
     {
-        m_currentAnimation = 0;
-        m_animations[m_currentAnimation]->reset(state);
+        if (m_animations.empty()) {
+            m_emptyPlaceholder = state;
+        } else {
+            m_currentAnimation = 0;
+            m_animations[m_currentAnimation]->reset(state);
+        }
     }
 
 private:
     std::vector<AnimationPtr<State>> m_animations;
     size_t m_currentAnimation;
+    State m_emptyPlaceholder;
 };
 
 #endif  // SEQCOMBINATOR_HPP_
