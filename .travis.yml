@@ -8,8 +8,11 @@ addons:
   apt:
     packages:
       - libsfml-dev
+env:
+  - CTEST_OUTPUT_ON_FAILURE=1
 script:
   - mkdir build
   - cd build
   - cmake ..
   - make
+  - ctest
