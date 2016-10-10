@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.6)
 project(beatwave)
 
+enable_testing()
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra -pedantic")
 set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
 
@@ -40,3 +42,5 @@ if(SFML_FOUND)
   target_link_libraries(beatwave ${SFML_LIBRARIES} core)
   target_link_libraries(tunnelgenerator core)
 endif()
+
+add_subdirectory(test/)
