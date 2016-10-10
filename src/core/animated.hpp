@@ -30,11 +30,11 @@ public:
 
     void animate(AnimationPtr<T> &&animation)
     {
-        // TODO(#85): check if animation owns an object
-
-        m_animation = std::move(animation);
-        m_animation->reset(m_value);
-        m_value = m_animation->getCurrentState();
+        if (animation != nullptr) {
+            m_animation = std::move(animation);
+            m_animation->reset(m_value);
+            m_value = m_animation->getCurrentState();
+        }
     }
 
     void tick(int32_t deltaTime)
