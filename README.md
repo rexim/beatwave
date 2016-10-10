@@ -6,17 +6,17 @@ Musical Puzzle Game
 
 ![screenshot](http://i.imgur.com/somxQOU.png)
 
-## Building ##
+## Usage ##
 
 ### Linux ###
+
+#### Build and Run ####
 
 See general build instructions for Linux in the file `.travis.yml`
 inside of the Beatwave source directory.
 
 You will need C++11-compatible compiler (GCC or Clang), [CMake] and
 [SFML].
-
-#### Building and Run ####
 
     $ mkdir build
     $ cd build
