@@ -1,7 +1,13 @@
 #define CATCH_CONFIG_MAIN
 #include <catch.hpp>
+
+#include <iostream>
 #include <cmath>
+
+#include <SFML/Graphics/Color.hpp>
+
 #include <core/floatcolor.hpp>
+#include <core/util.hpp>
 
 const float PRECISION = 1e-6;
 
@@ -37,4 +43,18 @@ TEST_CASE("FloatColor add operation", "[floatcolor]") {
     REQUIRE ( std::fabs(actualColor.r - expectedColor.r) < PRECISION );
     REQUIRE ( std::fabs(actualColor.g - expectedColor.g) < PRECISION );
     REQUIRE ( std::fabs(actualColor.b - expectedColor.b) < PRECISION );
+}
+
+TEST_CASE("", "[float]") {
+    const auto expectedColor = sf::Color(101, 201, 56);
+    const auto uncompressedColor = uncompressColor(expectedColor);
+    const auto actualColor = compressColor(uncompressedColor);
+
+    INFO( (int) actualColor.r << ' '
+          << (int) actualColor.g << ' '
+          << (int) actualColor.b );
+
+    REQUIRE ( std::fabs(actualColor.r - expectedColor.r) < PRECISION + 1.0f );
+    REQUIRE ( std::fabs(actualColor.g - expectedColor.g) < PRECISION + 1.0f );
+    REQUIRE ( std::fabs(actualColor.b - expectedColor.b) < PRECISION + 1.0f );
 }

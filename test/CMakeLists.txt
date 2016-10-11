@@ -10,4 +10,4 @@ add_test(NAME testanimated COMMAND testanimated)
 add_test(NAME testseqcombinator COMMAND testseqcombinator)
 add_test(NAME testfloatcolor COMMAND testfloatcolor)
 
-target_link_libraries(testfloatcolor core)
+target_link_libraries(testfloatcolor ${SFML_LIBRARIES} core)
