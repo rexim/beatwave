@@ -1,5 +1,5 @@
-#ifndef CORE_REPEAT_HPP_
-#define CORE_REPEAT_HPP_
+#ifndef CORE_ANIMATIONS_REPEAT_HPP_
+#define CORE_ANIMATIONS_REPEAT_HPP_
 
 #include <algorithm>
 #include <memory>
@@ -49,4 +49,4 @@ private:
 };
 
 
-#endif  // CORE_REPEAT_HPP_
+#endif  // CORE_ANIMATIONS_REPEAT_HPP_

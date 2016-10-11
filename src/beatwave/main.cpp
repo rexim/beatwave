@@ -12,9 +12,11 @@
 
 #include <core/tunnelvector.hpp>
 #include <core/captures.hpp>
-#include <core/lineartransition.hpp>
+
+#include <core/animations/lineartransition.hpp>
+#include <core/animations/seqcombinator.hpp>
+
 #include <core/lineartransitionbuilder.hpp>
-#include <core/seqcombinator.hpp>
 #include <core/util.hpp>
 
 #include <beatwave/game.hpp>

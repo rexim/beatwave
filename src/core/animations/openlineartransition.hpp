@@ -1,7 +1,7 @@
-#ifndef CORE_OPENLINEARTRANSITION_HPP_
-#define CORE_OPENLINEARTRANSITION_HPP_
+#ifndef CORE_ANIMATIONS_OPENLINEARTRANSITION_HPP_
+#define CORE_ANIMATIONS_OPENLINEARTRANSITION_HPP_
 
-#include <core/lineartransition.hpp>
+#include <core/animations/lineartransition.hpp>
 #include <core/animation.hpp>
 
 template <typename State, bool Relative>
@@ -51,4 +51,4 @@ private:
     AnimationPtr<State> m_linearTransition;
 };
 
-#endif  // CORE_OPENLINEARTRANSITION_HPP_
+#endif  // CORE_ANIMATIONS_OPENLINEARTRANSITION_HPP_

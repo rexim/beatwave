@@ -1,7 +1,7 @@
 #ifndef CORE_LINEARTRANSITIONBUILDER_HPP_
 #define CORE_LINEARTRANSITIONBUILDER_HPP_
 
-#include <core/openlineartransition.hpp>
+#include <core/animations/openlineartransition.hpp>
 
 namespace LinearTransitionBuilder {
 

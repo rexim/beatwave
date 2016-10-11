@@ -3,9 +3,10 @@
 
 #include <core/lineartransitionbuilder.hpp>
 #include <core/seqcombinatorbuilder.hpp>
-#include <core/forever.hpp>
-#include <core/repeat.hpp>
-#include <core/set.hpp>
+
+#include <core/animations/forever.hpp>
+#include <core/animations/repeat.hpp>
+#include <core/animations/set.hpp>
 
 namespace dsl {
 

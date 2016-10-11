@@ -1,5 +1,5 @@
-#ifndef CORE_FOREVER_HPP_
-#define CORE_FOREVER_HPP_
+#ifndef CORE_ANIMATIONS_FOREVER_HPP_
+#define CORE_ANIMATIONS_FOREVER_HPP_
 
 #include <memory>
 #include <core/animation.hpp>
@@ -42,4 +42,4 @@ private:
 
 
 
-#endif  // CORE_FOREVER_HPP_
+#endif  // CORE_ANIMATIONS_FOREVER_HPP_

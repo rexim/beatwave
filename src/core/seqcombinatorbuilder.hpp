@@ -1,7 +1,7 @@
 #ifndef CORE_SEQCOMBINATORBUILDER_HPP_
 #define CORE_SEQCOMBINATORBUILDER_HPP_
 
-#include <core/seqcombinator.hpp>
+#include <core/animations/seqcombinator.hpp>
 
 template <typename State>
 class SeqCombinatorBuilder

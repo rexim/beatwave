@@ -1,5 +1,5 @@
-#ifndef CORE_SET_HPP_
-#define CORE_SET_HPP_
+#ifndef CORE_ANIMATIONS_SET_HPP_
+#define CORE_ANIMATIONS_SET_HPP_
 
 #include <iostream>
 
@@ -33,4 +33,4 @@ private:
     const State m_state;
 };
 
-#endif  // CORE_SET_HPP_
+#endif  // CORE_ANIMATIONS_SET_HPP_

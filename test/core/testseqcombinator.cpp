@@ -4,7 +4,7 @@
 #include <vector>
 
 #include <core/animated.hpp>
-#include <core/seqcombinator.hpp>
+#include <core/animations/seqcombinator.hpp>
 
 TEST_CASE("Sequence combinator should not crash the app on empty sequence", "[seqcombinator]") {
     Animated<int> x(10);
