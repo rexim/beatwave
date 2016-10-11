@@ -6,7 +6,10 @@
 #endif
 
 #include <cmath>
+
 #include <SFML/Config.hpp>
+
+#include <core/floatcolor.hpp>
 
 namespace sf {
     class Color;
@@ -18,26 +21,7 @@ namespace sf {
 
 }  // namespace sf
 
-FloatColor uncompressColor(const sf::Color &color)
-{
-    // color.r = 255.0 * std::pow(image[y * w + x].r / 255.0, 2.2);
-    // color.g = 255.0 * std::pow(image[y * w + x].g / 255.0, 2.2);
-    // color.b = 255.0 * std::pow(image[y * w + x].b / 255.0, 2.2);
-
-    return FloatColor(255.0 * std::pow(color.r / 255.0, 2.2),
-                      255.0 * std::pow(color.g / 255.0, 2.2),
-                      255.0 * std::pow(color.b / 255.0, 2.2))
-}
-
-sf::Color compressColor(const FloatColor &color)
-{
-    // image[y * w + x].r = 255.0 * std::pow(color.r / 255.0, 1 / 2.2);
-    // image[y * w + x].g = 255.0 * std::pow(color.g / 255.0, 1 / 2.2);
-    // image[y * w + x].b = 255.0 * std::pow(color.b / 255.0, 1 / 2.2);
-
-    return sf::Color(255.0 * std::pow(color.r / 255.0, 1 / 2.2),
-                     255.0 * std::pow(color.g / 255.0, 1 / 2.2),
-                     255.0 * std::pow(color.b / 255.0, 1 / 2.2))
-}
+FloatColor uncompressColor(const sf::Color &color);
+sf::Color compressColor(const FloatColor &color);
 
 #endif  // CORE_UTIL_HPP_
