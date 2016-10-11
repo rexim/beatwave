@@ -1,5 +1,5 @@
-#ifndef CAPTURES_HPP_
-#define CAPTURES_HPP_
+#ifndef CORE_CAPTURES_HPP_
+#define CORE_CAPTURES_HPP_
 
 #include <deque>
 #include <string>
@@ -13,4 +13,4 @@ void dumpCaptureInfo(const std::deque<Capture> &captures,
 void loadCaptureInfo(std::deque<Capture> &captures,
                      const std::string &capturesFileName);
 
-#endif  // CAPTURES_HPP_
+#endif  // CORE_CAPTURES_HPP_

@@ -1,7 +1,7 @@
 #define CATCH_CONFIG_MAIN
 #include <catch.hpp>
 #include <core/animated.hpp>
-#include <core/set.hpp>
+#include <core/animations/set.hpp>
 #include <core/dsl.hpp>
 
 TEST_CASE("Set animation sets value of animated object", "[set]") {

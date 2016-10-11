@@ -1,5 +1,5 @@
-#ifndef TUNNEL_HPP_
-#define TUNNEL_HPP_
+#ifndef BEATWAVE_TUNNEL_HPP_
+#define BEATWAVE_TUNNEL_HPP_
 
 #include <core/tunnelvector.hpp>
 
@@ -23,4 +23,4 @@ private:
     TunnelVector m_tunnelVector;
 };
 
-#endif  // TUNNEL_HPP_
+#endif  // BEATWAVE_TUNNEL_HPP_

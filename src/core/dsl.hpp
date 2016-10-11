@@ -1,11 +1,12 @@
-#ifndef DSL_HPP_
-#define DSL_HPP_
+#ifndef CORE_DSL_HPP_
+#define CORE_DSL_HPP_
 
-#include <core/lineartransitionbuilder.hpp>
-#include <core/seqcombinatorbuilder.hpp>
-#include <core/forever.hpp>
-#include <core/repeat.hpp>
-#include <core/set.hpp>
+#include <core/dsl/lineartransitionbuilder.hpp>
+#include <core/dsl/seqcombinatorbuilder.hpp>
+
+#include <core/animations/forever.hpp>
+#include <core/animations/repeat.hpp>
+#include <core/animations/set.hpp>
 
 namespace dsl {
 
@@ -56,4 +57,4 @@ AnimationPtr<State> set(const State &state)
 
 }
 
-#endif  // DSL_HPP_
+#endif  // CORE_DSL_HPP_

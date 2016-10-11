@@ -1,5 +1,5 @@
-#ifndef ANIMATEDTUPLE_HPP_
-#define ANIMATEDTUPLE_HPP_
+#ifndef CORE_ANIMATEDTUPLE_HPP_
+#define CORE_ANIMATEDTUPLE_HPP_
 
 #include <tuple>
 
@@ -33,4 +33,4 @@ iterateStop(AnimatedTuple<Tp...>& properties)
     iterateStop<I + 1, Tp...>(properties);
 }
 
-#endif  // ANIMATEDTUPLE_HPP_
+#endif  // CORE_ANIMATEDTUPLE_HPP_

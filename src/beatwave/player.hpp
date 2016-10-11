@@ -1,5 +1,5 @@
-#ifndef PLAYER_HPP_
-#define PLAYER_HPP_
+#ifndef BEATWAVE_PLAYER_HPP_
+#define BEATWAVE_PLAYER_HPP_
 
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
@@ -38,4 +38,4 @@ private:
     bool m_dead;
 };
 
-#endif  // PLAYER_HPP_
+#endif  // BEATWAVE_PLAYER_HPP_

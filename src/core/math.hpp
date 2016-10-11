@@ -1,6 +1,6 @@
-#ifndef MATH_HPP_
-#define MATH_HPP_
+#ifndef CORE_MATH_HPP_
+#define CORE_MATH_HPP_
 
 #define PI 3.14159265f
 
-#endif  // MATH_HPP_
+#endif  // CORE_MATH_HPP_

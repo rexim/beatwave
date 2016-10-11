@@ -1,5 +1,5 @@
-#ifndef CIRCLE_HPP_
-#define CIRCLE_HPP_
+#ifndef BEATWAVE_CIRCLE_HPP_
+#define BEATWAVE_CIRCLE_HPP_
 
 #include <core/animatedgroup.hpp>
 
@@ -26,4 +26,4 @@ public:
     }
 };
 
-#endif  // CIRCLE_HPP_
+#endif  // BEATWAVE_CIRCLE_HPP_

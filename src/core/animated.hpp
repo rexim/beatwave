@@ -1,5 +1,5 @@
-#ifndef ANIMATED_HPP_
-#define ANIMATED_HPP_
+#ifndef CORE_ANIMATED_HPP_
+#define CORE_ANIMATED_HPP_
 
 #include <memory>
 #include <core/animation.hpp>
@@ -49,4 +49,4 @@ private:
     AnimationPtr<T> m_animation;
 };
 
-#endif  // ANIMATED_HPP_
+#endif  // CORE_ANIMATED_HPP_

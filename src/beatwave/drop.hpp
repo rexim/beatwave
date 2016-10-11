@@ -1,5 +1,5 @@
-#ifndef DROP_HPP_
-#define DROP_HPP_
+#ifndef BEATWAVE_DROP_HPP_
+#define BEATWAVE_DROP_HPP_
 
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
@@ -25,4 +25,4 @@ private:
     sf::Color m_color;
 };
 
-#endif  // DROP_HPP_
+#endif  // BEATWAVE_DROP_HPP_

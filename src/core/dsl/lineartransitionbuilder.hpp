@@ -1,7 +1,7 @@
-#ifndef LINEARTRANSITIONBUILDER_HPP_
-#define LINEARTRANSITIONBUILDER_HPP_
+#ifndef CORE_DSL_LINEARTRANSITIONBUILDER_HPP_
+#define CORE_DSL_LINEARTRANSITIONBUILDER_HPP_
 
-#include <core/openlineartransition.hpp>
+#include <core/animations/openlineartransition.hpp>
 
 namespace LinearTransitionBuilder {
 
@@ -67,4 +67,4 @@ private:
 
 }  // namespace LinearTransitionBuilder
 
-#endif  // LINEARTRANSITIONBUILDER_HPP_
+#endif  // CORE_DSL_LINEARTRANSITIONBUILDER_HPP_

@@ -1,5 +1,5 @@
-#ifndef LINEARTRANSITION_HPP_
-#define LINEARTRANSITION_HPP_
+#ifndef CORE_ANIMATIONS_LINEARTRANSITION_HPP_
+#define CORE_ANIMATIONS_LINEARTRANSITION_HPP_
 
 #include <core/animation.hpp>
 
@@ -55,4 +55,4 @@ private:
     const State m_finalState;
 };
 
-#endif  // LINEARTRANSITION_HPP_
+#endif  // CORE_ANIMATIONS_LINEARTRANSITION_HPP_

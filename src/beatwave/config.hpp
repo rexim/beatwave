@@ -1,5 +1,5 @@
-#ifndef CONFIG_HPP_
-#define CONFIG_HPP_
+#ifndef BEATWAVE_CONFIG_HPP_
+#define BEATWAVE_CONFIG_HPP_
 
 namespace config {
     const sf::Vector2f PLAYER_INIT_POSITION(200.0f, 200.0f);
@@ -14,4 +14,4 @@ namespace config {
     const sf::Color WALL_COLOR = sf::Color(0, 130, 140);
 }
 
-#endif  // CONFIG_HPP_
+#endif  // BEATWAVE_CONFIG_HPP_
