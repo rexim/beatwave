@@ -12,6 +12,7 @@ set(CORE_SOURCES
   src/core/tunnelvector.cpp
   src/core/captures.cpp
   src/core/util.cpp
+  src/core/floatcolor.cpp
 )
 
 add_library(core STATIC ${CORE_SOURCES})
