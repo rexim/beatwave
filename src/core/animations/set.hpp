@@ -3,22 +3,22 @@
 
 #include <iostream>
 
-template <typename State>
-class Set: public Animation<State>
+template <typename Value>
+class Set: public Animation<Value>
 {
 public:
-    Set(const State &state):
-        m_state(state)
+    Set(const Value &value):
+        m_value(value)
     {}
 
-    virtual State nextState(const int32_t) override
+    virtual Value nextValue(const int32_t) override
     {
-        return m_state;
+        return m_value;
     }
 
-    virtual State getCurrentState() const override
+    virtual Value getCurrentValue() const override
     {
-        return m_state;
+        return m_value;
     }
 
     virtual bool isFinished() const override
@@ -26,11 +26,11 @@ public:
         return false;
     }
 
-    virtual void reset(const State&) override
+    virtual void reset(const Value&) override
     {}
 
 private:
-    const State m_state;
+    const Value m_value;
 };
 
 #endif  // CORE_ANIMATIONS_SET_HPP_

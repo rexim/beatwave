@@ -3,36 +3,36 @@
 
 #include <core/animation.hpp>
 
-template <typename State>
-class LinearTransition: public Animation<State>
+template <typename Value>
+class LinearTransition: public Animation<Value>
 {
 public:
-    LinearTransition(const State &initialState,
+    LinearTransition(const Value &initialValue,
                      int32_t transitionTime,
-                     const State &finalState):
-        m_initialState(initialState),
+                     const Value &finalValue):
+        m_initialValue(initialValue),
         m_transitionTime(transitionTime),
-        m_currentState(initialState),
+        m_currentValue(initialValue),
         m_timeLeft(transitionTime),
-        m_finalState(finalState)
+        m_finalValue(finalValue)
     {}
 
-    virtual State nextState(const int32_t deltaTime) override
+    virtual Value nextValue(const int32_t deltaTime) override
     {
         if (deltaTime < m_timeLeft) {
-            State deltaState = (m_finalState - m_currentState) * ((deltaTime + .0f) / m_timeLeft);
-            m_currentState += deltaState;
+            Value deltaValue = (m_finalValue - m_currentValue) * ((deltaTime + .0f) / m_timeLeft);
+            m_currentValue += deltaValue;
         } else {
-            m_currentState = m_finalState;
+            m_currentValue = m_finalValue;
         }
 
         m_timeLeft -= deltaTime;
-        return getCurrentState();
+        return getCurrentValue();
     }
 
-    virtual State getCurrentState() const override
+    virtual Value getCurrentValue() const override
     {
-        return m_currentState;
+        return m_currentValue;
     }
 
     virtual bool isFinished() const override
@@ -40,19 +40,19 @@ public:
         return m_timeLeft <= 0.0f;
     }
 
-    virtual void reset(const State&) override
+    virtual void reset(const Value&) override
     {
-        m_currentState = m_initialState;
+        m_currentValue = m_initialValue;
         m_timeLeft = m_transitionTime;
     }
 
 private:
-    const State m_initialState;
+    const Value m_initialValue;
     const int32_t m_transitionTime;
 
-    State m_currentState;
+    Value m_currentValue;
     int32_t m_timeLeft;
-    const State m_finalState;
+    const Value m_finalValue;
 };
 
 #endif  // CORE_ANIMATIONS_LINEARTRANSITION_HPP_

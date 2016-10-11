@@ -33,14 +33,14 @@ public:
         if (animation != nullptr) {
             m_animation = std::move(animation);
             m_animation->reset(m_value);
-            m_value = m_animation->getCurrentState();
+            m_value = m_animation->getCurrentValue();
         }
     }
 
     void tick(int32_t deltaTime)
     {
         if (m_animation != nullptr && !m_animation->isFinished()) {
-            m_value = m_animation->nextState(deltaTime);
+            m_value = m_animation->nextValue(deltaTime);
         }
     }
 

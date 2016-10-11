@@ -25,18 +25,18 @@
 /// not defined.
 ///
 /// \sa Animated
-template <typename State>
+template <typename Value>
 class Animation
 {
 public:
     virtual ~Animation() = default;
-    virtual State nextState(const int32_t deltaTime) = 0;
-    virtual State getCurrentState() const = 0;
+    virtual Value nextValue(const int32_t deltaTime) = 0;
+    virtual Value getCurrentValue() const = 0;
     virtual bool isFinished() const = 0;
-    virtual void reset(const State&) = 0;
+    virtual void reset(const Value&) = 0;
 };
 
-template <typename State>
-using AnimationPtr = std::unique_ptr<Animation<State>>;
+template <typename Value>
+using AnimationPtr = std::unique_ptr<Animation<Value>>;
 
 #endif  // CORE_ANIMATION_HPP_

@@ -4,26 +4,26 @@
 #include <memory>
 #include <core/animation.hpp>
 
-template <typename State>
-class Forever: public Animation<State>
+template <typename Value>
+class Forever: public Animation<Value>
 {
 public:
-    Forever(AnimationPtr<State> &&animation):
+    Forever(AnimationPtr<Value> &&animation):
         m_animation(std::move(animation))
     {}
 
-    virtual State nextState(const int32_t deltaTime) override
+    virtual Value nextValue(const int32_t deltaTime) override
     {
         if (m_animation->isFinished()) {
-            m_animation->reset(m_animation->getCurrentState());
+            m_animation->reset(m_animation->getCurrentValue());
         }
 
-        return m_animation->nextState(deltaTime);
+        return m_animation->nextValue(deltaTime);
     }
 
-    virtual State getCurrentState() const override
+    virtual Value getCurrentValue() const override
     {
-        return m_animation->getCurrentState();
+        return m_animation->getCurrentValue();
     }
 
     virtual bool isFinished() const override
@@ -31,13 +31,13 @@ public:
         return false;
     }
 
-    virtual void reset(const State &state) override
+    virtual void reset(const Value &value) override
     {
-        m_animation->reset(state);
+        m_animation->reset(value);
     }
 
 private:
-    AnimationPtr<State> m_animation;
+    AnimationPtr<Value> m_animation;
 };
 
 

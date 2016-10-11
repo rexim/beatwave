@@ -10,49 +10,46 @@
 
 namespace dsl {
 
-template <typename State>
-SeqCombinatorBuilder<State> begin(AnimationPtr<State> &&animation)
+template <typename Value>
+SeqCombinatorBuilder<Value> begin(AnimationPtr<Value> &&animation)
 {
-    return SeqCombinatorBuilder<State>(std::move(animation));
+    return SeqCombinatorBuilder<Value>(std::move(animation));
 }
 
-template <typename State>
-AnimationPtr<State> forever(AnimationPtr<State> &&animation)
+template <typename Value>
+AnimationPtr<Value> forever(AnimationPtr<Value> &&animation)
 {
-    return AnimationPtr<State>(new Forever<State>(std::move(animation)));
+    return AnimationPtr<Value>(new Forever<Value>(std::move(animation)));
 }
 
 template <typename T>
-LinearTransitionBuilder::Toby<T> from(const T &initialState)
+LinearTransitionBuilder::Toby<T> from(const T &initialValue)
 {
-    return LinearTransitionBuilder::Toby<T>(initialState);
+    return LinearTransitionBuilder::Toby<T>(initialValue);
 }
 
-template <typename State>
-LinearTransitionBuilder::OpenDuring<State, false> to(const State &finalState)
+template <typename Value>
+LinearTransitionBuilder::OpenDuring<Value, false> to(const Value &finalValue)
 {
-    return LinearTransitionBuilder::OpenDuring<State, false>(finalState);
+    return LinearTransitionBuilder::OpenDuring<Value, false>(finalValue);
 }
 
-template <typename State>
-LinearTransitionBuilder::OpenDuring<State, true> by(const State &deltaState)
+template <typename Value>
+LinearTransitionBuilder::OpenDuring<Value, true> by(const Value &deltaValue)
 {
-    return LinearTransitionBuilder::OpenDuring<State, true>(deltaState);
+    return LinearTransitionBuilder::OpenDuring<Value, true>(deltaValue);
 }
 
-
-// TODO(#87): implement by()
-
-template <typename State>
-AnimationPtr<State> repeat(int counter, AnimationPtr<State> &&animation)
+template <typename Value>
+AnimationPtr<Value> repeat(int counter, AnimationPtr<Value> &&animation)
 {
-    return AnimationPtr<State>(new Repeat<State>(counter, std::move(animation)));
+    return AnimationPtr<Value>(new Repeat<Value>(counter, std::move(animation)));
 }
 
-template <typename State>
-AnimationPtr<State> set(const State &state)
+template <typename Value>
+AnimationPtr<Value> set(const Value &value)
 {
-    return AnimationPtr<State>(new Set<State>(state));
+    return AnimationPtr<Value>(new Set<Value>(value));
 }
 
 }

@@ -6,17 +6,17 @@
 
 #include <core/animation.hpp>
 
-template <typename State>
-class SeqCombinator: public Animation<State>
+template <typename Value>
+class SeqCombinator: public Animation<Value>
 {
 public:
     // TODO(#100): check for nullptr animations in the sequence
-    SeqCombinator(std::vector<AnimationPtr<State>> &&animations):
+    SeqCombinator(std::vector<AnimationPtr<Value>> &&animations):
         m_animations(std::move(animations)),
         m_currentAnimation(0)
     {}
 
-    virtual State nextState(const int32_t deltaTime) override
+    virtual Value nextValue(const int32_t deltaTime) override
     {
         if (m_animations.empty()) {
             return m_emptyPlaceholder;
@@ -24,28 +24,28 @@ public:
 
         if (!isFinished()) {
             if (!m_animations[m_currentAnimation]->isFinished()) {
-                return m_animations[m_currentAnimation]->nextState(deltaTime);
+                return m_animations[m_currentAnimation]->nextValue(deltaTime);
             } else {
-                const State previousState = m_animations[m_currentAnimation]->getCurrentState();
+                const Value previousValue = m_animations[m_currentAnimation]->getCurrentValue();
                 m_currentAnimation++;
                 if (!isFinished()) {
-                    m_animations[m_currentAnimation]->reset(previousState);
-                    return m_animations[m_currentAnimation]->getCurrentState();
+                    m_animations[m_currentAnimation]->reset(previousValue);
+                    return m_animations[m_currentAnimation]->getCurrentValue();
                 }
             }
         }
 
-        return m_animations.back()->getCurrentState();
+        return m_animations.back()->getCurrentValue();
     }
 
-    virtual State getCurrentState() const override
+    virtual Value getCurrentValue() const override
     {
         if (m_animations.empty()) {
             return m_emptyPlaceholder;
         } else if (isFinished()) {
-            return m_animations.back()->getCurrentState();
+            return m_animations.back()->getCurrentValue();
         } else {
-            return m_animations[m_currentAnimation]->getCurrentState();
+            return m_animations[m_currentAnimation]->getCurrentValue();
         }
     }
 
@@ -54,20 +54,20 @@ public:
         return m_currentAnimation >= m_animations.size();
     }
 
-    virtual void reset(const State &state) override
+    virtual void reset(const Value &value) override
     {
         if (m_animations.empty()) {
-            m_emptyPlaceholder = state;
+            m_emptyPlaceholder = value;
         } else {
             m_currentAnimation = 0;
-            m_animations[m_currentAnimation]->reset(state);
+            m_animations[m_currentAnimation]->reset(value);
         }
     }
 
 private:
-    std::vector<AnimationPtr<State>> m_animations;
+    std::vector<AnimationPtr<Value>> m_animations;
     size_t m_currentAnimation;
-    State m_emptyPlaceholder;
+    Value m_emptyPlaceholder;
 };
 
 #endif  // CORE_ANIMATIONS_SEQCOMBINATOR_HPP_
