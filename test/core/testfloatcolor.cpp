@@ -45,7 +45,7 @@ TEST_CASE("FloatColor add operation", "[floatcolor]") {
     REQUIRE ( std::fabs(actualColor.b - expectedColor.b) < PRECISION );
 }
 
-TEST_CASE("", "[float]") {
+TEST_CASE("Color should be preserved with suffcient precision after uncompressing and compressing again", "[floatcolor]") {
     const auto expectedColor = sf::Color(101, 201, 56);
     const auto uncompressedColor = uncompressColor(expectedColor);
     const auto actualColor = compressColor(uncompressedColor);
