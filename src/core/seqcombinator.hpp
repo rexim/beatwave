@@ -1,5 +1,5 @@
-#ifndef SEQCOMBINATOR_HPP_
-#define SEQCOMBINATOR_HPP_
+#ifndef CORE_SEQCOMBINATOR_HPP_
+#define CORE_SEQCOMBINATOR_HPP_
 
 #include <vector>
 #include <initializer_list>
@@ -70,4 +70,4 @@ private:
     State m_emptyPlaceholder;
 };
 
-#endif  // SEQCOMBINATOR_HPP_
+#endif  // CORE_SEQCOMBINATOR_HPP_

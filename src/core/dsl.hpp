@@ -1,5 +1,5 @@
-#ifndef DSL_HPP_
-#define DSL_HPP_
+#ifndef CORE_DSL_HPP_
+#define CORE_DSL_HPP_
 
 #include <core/lineartransitionbuilder.hpp>
 #include <core/seqcombinatorbuilder.hpp>
@@ -56,4 +56,4 @@ AnimationPtr<State> set(const State &state)
 
 }
 
-#endif  // DSL_HPP_
+#endif  // CORE_DSL_HPP_

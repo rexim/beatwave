@@ -1,5 +1,5 @@
-#ifndef ANIMATION_HPP_
-#define ANIMATION_HPP_
+#ifndef CORE_ANIMATION_HPP_
+#define CORE_ANIMATION_HPP_
 
 #include <memory>
 
@@ -39,4 +39,4 @@ public:
 template <typename State>
 using AnimationPtr = std::unique_ptr<Animation<State>>;
 
-#endif  // ANIMATION_HPP_
+#endif  // CORE_ANIMATION_HPP_

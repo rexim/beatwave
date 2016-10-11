@@ -1,5 +1,5 @@
-#ifndef ANIMATEDGROUP_HPP_
-#define ANIMATEDGROUP_HPP_
+#ifndef CORE_ANIMATEDGROUP_HPP_
+#define CORE_ANIMATEDGROUP_HPP_
 
 #include <core/animated.hpp>
 #include <core/animatedtuple.hpp>
@@ -41,4 +41,4 @@ private:
     AnimatedTuple<Tp...> m_properties;
 };
 
-#endif  // ANIMATEDGROUP_HPP_
+#endif  // CORE_ANIMATEDGROUP_HPP_

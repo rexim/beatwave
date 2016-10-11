@@ -1,5 +1,5 @@
-#ifndef LINEARTRANSITIONBUILDER_HPP_
-#define LINEARTRANSITIONBUILDER_HPP_
+#ifndef CORE_LINEARTRANSITIONBUILDER_HPP_
+#define CORE_LINEARTRANSITIONBUILDER_HPP_
 
 #include <core/openlineartransition.hpp>
 
@@ -67,4 +67,4 @@ private:
 
 }  // namespace LinearTransitionBuilder
 
-#endif  // LINEARTRANSITIONBUILDER_HPP_
+#endif  // CORE_LINEARTRANSITIONBUILDER_HPP_

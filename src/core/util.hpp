@@ -1,5 +1,5 @@
-#ifndef UTIL_HPP_
-#define UTIL_HPP_
+#ifndef CORE_UTIL_HPP_
+#define CORE_UTIL_HPP_
 
 #if !(defined (SFML_VERSION_MAJOR) && defined (SFML_VERSION_MINOR))
 #error "Unsupported version of SFML is used. Please use SFML 2.0+."
@@ -18,4 +18,4 @@ namespace sf {
 }  // namespace sf
 
 
-#endif  // UTIL_HPP_
+#endif  // CORE_UTIL_HPP_

@@ -1,5 +1,5 @@
-#ifndef OPENLINEARTRANSITION_HPP_
-#define OPENLINEARTRANSITION_HPP_
+#ifndef CORE_OPENLINEARTRANSITION_HPP_
+#define CORE_OPENLINEARTRANSITION_HPP_
 
 #include <core/lineartransition.hpp>
 #include <core/animation.hpp>
@@ -51,4 +51,4 @@ private:
     AnimationPtr<State> m_linearTransition;
 };
 
-#endif  // OPENLINEARTRANSITION_HPP_
+#endif  // CORE_OPENLINEARTRANSITION_HPP_
