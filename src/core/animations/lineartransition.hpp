@@ -27,7 +27,7 @@ public:
         }
 
         m_timeLeft -= deltaTime;
-        return m_currentState;
+        return getCurrentState();
     }
 
     virtual State getCurrentState() const override

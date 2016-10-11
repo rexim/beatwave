@@ -5,7 +5,11 @@
 #error "Unsupported version of SFML is used. Please use SFML 2.0+."
 #endif
 
+#include <cmath>
+
 #include <SFML/Config.hpp>
+
+#include <core/floatcolor.hpp>
 
 namespace sf {
     class Color;
@@ -17,5 +21,7 @@ namespace sf {
 
 }  // namespace sf
 
+FloatColor uncompressColor(const sf::Color &color);
+sf::Color compressColor(const FloatColor &color);
 
 #endif  // CORE_UTIL_HPP_

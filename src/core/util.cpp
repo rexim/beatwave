@@ -21,3 +21,17 @@ Color operator-(const Color& left, const Color& right)
 #endif
 
 }  // namespacs sf
+
+FloatColor uncompressColor(const sf::Color &color)
+{
+    return FloatColor(255.0 * std::pow(color.r / 255.0, 2.2),
+                      255.0 * std::pow(color.g / 255.0, 2.2),
+                      255.0 * std::pow(color.b / 255.0, 2.2));
+}
+
+sf::Color compressColor(const FloatColor &color)
+{
+    return sf::Color(255.0 * std::pow(color.r / 255.0, 1 / 2.2),
+                     255.0 * std::pow(color.g / 255.0, 1 / 2.2),
+                     255.0 * std::pow(color.b / 255.0, 1 / 2.2));
+}

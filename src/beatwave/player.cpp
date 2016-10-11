@@ -32,7 +32,7 @@ void Player::step(const sf::Color &flashColor,
 
     if (!m_dead) {
         m_circle.animate<Circle::Color>(from(flashColor)
-                                        .to(sf::Color::White)
+                                        .to(config::PLAYER_INIT_COLOR)
                                         .during(config::COLOR_TIME));
 
         m_circle.animate<Circle::Position>(from(m_circle.value<Circle::Position>())
