@@ -16,7 +16,6 @@
 #include <core/animations/lineartransition.hpp>
 #include <core/animations/seqcombinator.hpp>
 
-#include <core/lineartransitionbuilder.hpp>
 #include <core/util.hpp>
 
 #include <beatwave/game.hpp>

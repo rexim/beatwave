@@ -1,5 +1,5 @@
-#ifndef CORE_SEQCOMBINATORBUILDER_HPP_
-#define CORE_SEQCOMBINATORBUILDER_HPP_
+#ifndef CORE_DSL_SEQCOMBINATORBUILDER_HPP_
+#define CORE_DSL_SEQCOMBINATORBUILDER_HPP_
 
 #include <core/animations/seqcombinator.hpp>
 
@@ -27,4 +27,4 @@ private:
     std::vector<AnimationPtr<State>> m_animations;
 };
 
-#endif  // CORE_SEQCOMBINATORBUILDER_HPP_
+#endif  // CORE_DSL_SEQCOMBINATORBUILDER_HPP_

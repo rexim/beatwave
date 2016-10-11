@@ -1,8 +1,8 @@
 #ifndef CORE_DSL_HPP_
 #define CORE_DSL_HPP_
 
-#include <core/lineartransitionbuilder.hpp>
-#include <core/seqcombinatorbuilder.hpp>
+#include <core/dsl/lineartransitionbuilder.hpp>
+#include <core/dsl/seqcombinatorbuilder.hpp>
 
 #include <core/animations/forever.hpp>
 #include <core/animations/repeat.hpp>

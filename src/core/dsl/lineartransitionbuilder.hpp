@@ -1,5 +1,5 @@
-#ifndef CORE_LINEARTRANSITIONBUILDER_HPP_
-#define CORE_LINEARTRANSITIONBUILDER_HPP_
+#ifndef CORE_DSL_LINEARTRANSITIONBUILDER_HPP_
+#define CORE_DSL_LINEARTRANSITIONBUILDER_HPP_
 
 #include <core/animations/openlineartransition.hpp>
 
@@ -67,4 +67,4 @@ private:
 
 }  // namespace LinearTransitionBuilder
 
-#endif  // CORE_LINEARTRANSITIONBUILDER_HPP_
+#endif  // CORE_DSL_LINEARTRANSITIONBUILDER_HPP_
