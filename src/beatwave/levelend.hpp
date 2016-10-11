@@ -1,5 +1,5 @@
-#ifndef LEVELEND_HPP_
-#define LEVELEND_HPP_
+#ifndef BEATWAVE_LEVELEND_HPP_
+#define BEATWAVE_LEVELEND_HPP_
 
 #include <SFML/System/Vector2.hpp>
 #include <core/animated.hpp>
@@ -22,4 +22,4 @@ private:
     Animated<float> m_angle;
 };
 
-#endif  // LEVELEND_HPP_
+#endif  // BEATWAVE_LEVELEND_HPP_

@@ -1,5 +1,5 @@
-#ifndef SPLAT_HPP_
-#define SPLAT_HPP_
+#ifndef BEATWAVE_SPLAT_HPP_
+#define BEATWAVE_SPLAT_HPP_
 
 #include <vector>
 #include <random>
@@ -24,4 +24,4 @@ private:
     std::random_device m_rd;
 };
 
-#endif  // SPLAT_HPP_
+#endif  // BEATWAVE_SPLAT_HPP_

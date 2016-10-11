@@ -1,5 +1,5 @@
-#ifndef GAME_HPP_
-#define GAME_HPP_
+#ifndef BEATWAVE_GAME_HPP_
+#define BEATWAVE_GAME_HPP_
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Audio/Sound.hpp>
@@ -45,4 +45,4 @@ private:
     sf::Sound kickSound, snareSound, hihatSound, shamanSound;
 };
 
-#endif  // GAME_HPP_
+#endif  // BEATWAVE_GAME_HPP_
