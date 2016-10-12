@@ -40,9 +40,7 @@
 ///
 /// When %Animation is constructed it can be in any of the above
 /// states. When reset() is invoked %Animation goes either to `In
-/// Progress` or `Finished` state. When %Animation is finished
-/// isFinished() returns true. When %Animation is in `Invalid` state,
-/// the behaviour of isFinished() is not defined.
+/// Progress` or `Finished` state.
 ///
 /// This is just assumed workflow with the object, that is good to
 /// keep in mind while developing your own animation. It's not
@@ -70,7 +68,13 @@ public:
     ///
     /// \param deltaTime
     virtual Value nextValue(const int32_t deltaTime) = 0;
+
+    /// \brief Get current value of the animation without changing its state
+    ///
+    /// When %Animation is in `Invalid` state the behaviour of
+    /// getCurrentValue() is not defined
     virtual Value getCurrentValue() const = 0;
+
     virtual bool isFinished() const = 0;
     virtual void reset(const Value&) = 0;
 };
