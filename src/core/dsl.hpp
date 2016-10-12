@@ -22,10 +22,10 @@ AnimationPtr<Value> forever(AnimationPtr<Value> &&animation)
     return AnimationPtr<Value>(new Forever<Value>(std::move(animation)));
 }
 
-template <typename T>
-LinearTransitionBuilder::Toby<T> from(const T &initialValue)
+template <typename Value>
+LinearTransitionBuilder::Toby<Value> from(const Value &initialValue)
 {
-    return LinearTransitionBuilder::Toby<T>(initialValue);
+    return LinearTransitionBuilder::Toby<Value>(initialValue);
 }
 
 template <typename Value>

@@ -9,7 +9,7 @@ class AnimatedGroup
 {
 public:
     template <size_t I>
-    using AnimatedElement = typename std::tuple_element<I, AnimatedTuple<Tp...>>::type::type;
+    using AnimatedElement = typename std::tuple_element<I, AnimatedTuple<Tp...>>::type::ValueType;
 
     AnimatedGroup(Tp... properties):
         m_properties(Animated<Tp>(properties)...)
