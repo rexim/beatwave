@@ -3,7 +3,7 @@
 
 #include <memory>
 
-/// \brief The core animation interface of the framework.
+/// \brief Core interface for animations
 ///
 /// %Animation is an object that describes how value changes through
 /// the time. %Animation assumes the following workflow:
@@ -58,6 +58,17 @@ class Animation
 {
 public:
     virtual ~Animation() = default;
+
+    /// \brief Calculates next value of the animation after some delta time
+    ///
+    /// When %Animation is in `Invalid` state the behaviour of
+    /// nextValue() is not defined
+    ///
+    /// When %Animation is `Finished` nextValue() should return the
+    /// final value of the animation without changing the state of
+    /// %Animation.
+    ///
+    /// \param deltaTime
     virtual Value nextValue(const int32_t deltaTime) = 0;
     virtual Value getCurrentValue() const = 0;
     virtual bool isFinished() const = 0;
