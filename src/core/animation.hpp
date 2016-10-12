@@ -66,7 +66,8 @@ public:
     /// final value of the animation without changing the state of
     /// %Animation.
     ///
-    /// \param deltaTime
+    /// \param deltaTime amount of milliseconds to calculate the next
+    /// value of animation after.
     virtual Value nextValue(const int32_t deltaTime) = 0;
 
     /// \brief Get current value of the animation without changing its state
@@ -75,8 +76,22 @@ public:
     /// getCurrentValue() is not defined
     virtual Value getCurrentValue() const = 0;
 
+    /// \brief Checks weather the animation is `Finished` or not
+    ///
+    /// When %Animation is in `Invalid` state the behaviour of
+    /// isFinished() is not defined.
     virtual bool isFinished() const = 0;
-    virtual void reset(const Value&) = 0;
+
+    /// \brief Resets the state of the animation
+    ///
+    /// Should be always invoked right after the construction of
+    /// %Animation.
+    ///
+    /// When %Animation is in `Invalid` state reset() switches
+    /// %Animation to either `In Progress` or `Finished` state.
+    ///
+    /// \param value to reset the %Animation with.
+    virtual void reset(const Value &value) = 0;
 };
 
 template <typename Value>
