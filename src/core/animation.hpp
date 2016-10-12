@@ -5,24 +5,52 @@
 
 /// \brief The core animation interface of the framework.
 ///
-/// All animations should implement this interface to be able to work
-/// with the framework.
+/// %Animation is an object that describes how value changes through
+/// the time. %Animation assumes the following workflow:
 ///
-/// Any animations in the framework can be viewed as a small program,
-/// that can be composed with other similar program inside of the
-/// framework. An animation can be in the following states:
+/// \code{.cpp}
+/// const int initialValue = 0;
+/// const int32_t deltaTime = 10;
+///
+///
+/// // We created Animation object somehow. After construction Animation
+/// // can be in Invalid state and shouldn't be used util reset.
+/// Animation<int> animation = ...;
+///
+///
+/// // We reset animation with preferable initial value. It's up to Animation
+/// // to interpret that initialState. It can be even ignored.
+/// animation.reset(initialValue);
+/// std::cout << animation.getCurrentValue() << std::endl;
+///
+///
+/// // Until the Animation is finished...
+/// while (!animation.isFinished()) {
+///     // ... we calculate it's next value after deltaTime milliseconds
+///     // and print it
+///     std::cout << animation.nextValue(deltaTime) << std::endl;
+/// }
+/// \endcode
+///
+/// %Animation can be in the following states:
 ///
 /// - `Invalid`
 /// - `In Progress`
 /// - `Finished`
 ///
-/// When an animation is constructed it can be in any of the above
-/// states. When reset() is invoked the animation goes either to `In
-/// Progress` or `Finished` state.
+/// When %Animation is constructed it can be in any of the above
+/// states. When reset() is invoked %Animation goes either to `In
+/// Progress` or `Finished` state. When %Animation is finished
+/// isFinished() returns true. When %Animation is in `Invalid` state,
+/// the behaviour of isFinished() is not defined.
 ///
-/// When animation is finished isFinished() returns true. When the
-/// animation is in `Invalid` state, the behaviour of isFinished() is
-/// not defined.
+/// This is just assumed workflow with the object, that is good to
+/// keep in mind while developing your own animation. It's not
+/// supposed to be used like that by the user of the framework.
+///
+/// **Animations should be always assigned to Animated object, which
+/// takes care of the %Animation workflow and lifetime in a manner
+/// described above.**
 ///
 /// \sa Animated
 template <typename Value>
