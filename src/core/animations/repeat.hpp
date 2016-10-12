@@ -6,29 +6,29 @@
 
 #include <core/animation.hpp>
 
-template <typename State>
-class Repeat: public Animation<State>
+template <typename Value>
+class Repeat: public Animation<Value>
 {
 public:
-    Repeat(int counter, AnimationPtr<State> &&animation):
+    Repeat(int counter, AnimationPtr<Value> &&animation):
         m_initialCounter(std::max(0, counter)),
         m_animation(std::move(animation)),
         m_currentCounter(m_initialCounter)
     {}
 
-    virtual State nextState(const int32_t deltaTime) override
+    virtual Value nextValue(const int32_t deltaTime) override
     {
         if (m_animation->isFinished() && m_currentCounter > 0) {
             --m_currentCounter;
-            m_animation->reset(m_animation->getCurrentState());
+            m_animation->reset(m_animation->getCurrentValue());
         }
 
-        return m_animation->nextState(deltaTime);
+        return m_animation->nextValue(deltaTime);
     }
 
-    virtual State getCurrentState() const override
+    virtual Value getCurrentValue() const override
     {
-        return m_animation->getCurrentState();
+        return m_animation->getCurrentValue();
     }
 
     virtual bool isFinished() const override
@@ -36,15 +36,15 @@ public:
         return m_currentCounter <= 0;
     }
 
-    virtual void reset(const State &state) override
+    virtual void reset(const Value &value) override
     {
         m_currentCounter = m_initialCounter;
-        m_animation->reset(state);
+        m_animation->reset(value);
     }
 
 private:
     const int m_initialCounter;
-    AnimationPtr<State> m_animation;
+    AnimationPtr<Value> m_animation;
     int m_currentCounter;
 };
 

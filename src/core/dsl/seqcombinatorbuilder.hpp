@@ -3,28 +3,28 @@
 
 #include <core/animations/seqcombinator.hpp>
 
-template <typename State>
+template <typename Value>
 class SeqCombinatorBuilder
 {
 public:
-    SeqCombinatorBuilder(AnimationPtr<State> &&animation)
+    SeqCombinatorBuilder(AnimationPtr<Value> &&animation)
     {
         m_animations.push_back(std::move(animation));
     }
 
-    SeqCombinatorBuilder<State> &then(AnimationPtr<State> &&animation)
+    SeqCombinatorBuilder<Value> &then(AnimationPtr<Value> &&animation)
     {
         m_animations.push_back(std::move(animation));
         return *this;
     }
 
-    AnimationPtr<State> end()
+    AnimationPtr<Value> end()
     {
-        return AnimationPtr<State>(new SeqCombinator<State>(std::move(m_animations)));
+        return AnimationPtr<Value>(new SeqCombinator<Value>(std::move(m_animations)));
     }
 
 private:
-    std::vector<AnimationPtr<State>> m_animations;
+    std::vector<AnimationPtr<Value>> m_animations;
 };
 
 #endif  // CORE_DSL_SEQCOMBINATORBUILDER_HPP_

@@ -4,32 +4,32 @@
 #include <core/animations/lineartransition.hpp>
 #include <core/animation.hpp>
 
-template <typename State, bool Relative>
-class OpenLinearTransition: public Animation<State>
+template <typename Value, bool Relative>
+class OpenLinearTransition: public Animation<Value>
 {
 public:
     OpenLinearTransition(int32_t transitionTime,
-                         const State &state):
+                         const Value &value):
         m_transitionTime(transitionTime),
-        m_state(state),
+        m_value(value),
         m_linearTransition(nullptr)
     {}
 
-    virtual State nextState(const int32_t deltaTime) override
+    virtual Value nextValue(const int32_t deltaTime) override
     {
         if (m_linearTransition) {
-            return m_linearTransition->nextState(deltaTime);
+            return m_linearTransition->nextValue(deltaTime);
         } else {
-            return m_state;
+            return m_value;
         }
     }
 
-    virtual State getCurrentState() const override
+    virtual Value getCurrentValue() const override
     {
         if (m_linearTransition) {
-            return m_linearTransition->getCurrentState();
+            return m_linearTransition->getCurrentValue();
         } else {
-            return m_state;
+            return m_value;
         }
     }
 
@@ -38,17 +38,17 @@ public:
         return !m_linearTransition || m_linearTransition->isFinished();
     }
 
-    virtual void reset(const State &initialState) override
+    virtual void reset(const Value &initialValue) override
     {
-        m_linearTransition.reset(new LinearTransition<State>(initialState,
+        m_linearTransition.reset(new LinearTransition<Value>(initialValue,
                                                              m_transitionTime,
-                                                             Relative ? initialState + m_state : m_state));
+                                                             Relative ? initialValue + m_value : m_value));
     }
 
 private:
     const int32_t m_transitionTime;
-    const State m_state;
-    AnimationPtr<State> m_linearTransition;
+    const Value m_value;
+    AnimationPtr<Value> m_linearTransition;
 };
 
 #endif  // CORE_ANIMATIONS_OPENLINEARTRANSITION_HPP_

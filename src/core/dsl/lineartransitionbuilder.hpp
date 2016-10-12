@@ -9,60 +9,60 @@ template <typename T>
 class During
 {
 public:
-    During(const T &initialState, const T &finalState):
-        m_initialState(initialState), m_finalState(finalState)
+    During(const T &initialValue, const T &finalValue):
+        m_initialValue(initialValue), m_finalValue(finalValue)
     {}
 
     AnimationPtr<T> during(int32_t transitionTime)
     {
-        return AnimationPtr<T>(new LinearTransition<T>(m_initialState,
+        return AnimationPtr<T>(new LinearTransition<T>(m_initialValue,
                                                        transitionTime,
-                                                       m_finalState));
+                                                       m_finalValue));
     }
 
 private:
-    const T m_initialState;
-    const T m_finalState;
+    const T m_initialValue;
+    const T m_finalValue;
 };
 
-template <typename State, bool Relative>
+template <typename Value, bool Relative>
 class OpenDuring
 {
 public:
-    OpenDuring(const State &finalState):
-        m_finalState(finalState)
+    OpenDuring(const Value &finalValue):
+        m_finalValue(finalValue)
     {}
 
-    AnimationPtr<State> during(int32_t transitionTime)
+    AnimationPtr<Value> during(int32_t transitionTime)
     {
-        return AnimationPtr<State>(new OpenLinearTransition<State, Relative>(transitionTime,
-                                                                             m_finalState));
+        return AnimationPtr<Value>(new OpenLinearTransition<Value, Relative>(transitionTime,
+                                                                             m_finalValue));
     }
 
 private:
-    const State m_finalState;
+    const Value m_finalValue;
 };
 
 template <typename T>
 class Toby
 {
 public:
-    Toby(const T &initialState):
-        m_initialState(initialState)
+    Toby(const T &initialValue):
+        m_initialValue(initialValue)
     {}
 
-    During<T> to(const T &finalState)
+    During<T> to(const T &finalValue)
     {
-        return During<T>(m_initialState, finalState);
+        return During<T>(m_initialValue, finalValue);
     }
 
-    During<T> by(const T &deltaState)
+    During<T> by(const T &deltaValue)
     {
-        return During<T>(m_initialState, m_initialState + deltaState);
+        return During<T>(m_initialValue, m_initialValue + deltaValue);
     }
 
 private:
-    const T m_initialState;
+    const T m_initialValue;
 };
 
 }  // namespace LinearTransitionBuilder

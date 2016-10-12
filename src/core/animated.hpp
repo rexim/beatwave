@@ -4,21 +4,21 @@
 #include <memory>
 #include <core/animation.hpp>
 
-template <typename T>
+template <typename Value>
 class Animated
 {
 public:
-    using type = T;
+    using ValueType = Value;
 
     Animated(const Animated&) = delete;
     Animated(Animated&&) = default;
 
-    explicit Animated(const T &value = T()):
+    explicit Animated(const Value &value = Value()):
         m_value(value),
         m_animation(nullptr)
     {}
 
-    T value() const
+    Value value() const
     {
         return m_value;
     }
@@ -28,25 +28,25 @@ public:
         m_animation.reset();
     }
 
-    void animate(AnimationPtr<T> &&animation)
+    void animate(AnimationPtr<Value> &&animation)
     {
         if (animation != nullptr) {
             m_animation = std::move(animation);
             m_animation->reset(m_value);
-            m_value = m_animation->getCurrentState();
+            m_value = m_animation->getCurrentValue();
         }
     }
 
     void tick(int32_t deltaTime)
     {
         if (m_animation != nullptr && !m_animation->isFinished()) {
-            m_value = m_animation->nextState(deltaTime);
+            m_value = m_animation->nextValue(deltaTime);
         }
     }
 
 private:
-    T m_value;
-    AnimationPtr<T> m_animation;
+    Value m_value;
+    AnimationPtr<Value> m_animation;
 };
 
 #endif  // CORE_ANIMATED_HPP_
