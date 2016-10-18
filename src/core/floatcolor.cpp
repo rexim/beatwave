@@ -4,6 +4,10 @@ FloatColor::FloatColor(float r, float g, float b):
     r(r), g(g), b(b)
 {}
 
+FloatColor::FloatColor():
+    r(0.0f), g(0.0f), b(0.0f)
+{}
+
 FloatColor operator+(const FloatColor &a, const FloatColor &b)
 {
     return FloatColor(a.r + b.r, a.g + b.g, a.b + b.b);

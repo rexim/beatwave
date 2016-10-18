@@ -5,6 +5,7 @@ class FloatColor
 {
 public:
     FloatColor(float r, float g, float b);
+    FloatColor();
 
     float r, g, b;
 };
