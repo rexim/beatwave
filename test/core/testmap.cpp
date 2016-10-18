@@ -69,3 +69,9 @@ TEST_CASE("Map::isFinished() should be equal to isFinished() of the wrapped anim
     REQUIRE ( 0 == map->nextValue(10) );
     REQUIRE ( map->isFinished() );
 }
+
+TEST_CASE("Map::reset() should use ReversedMapper to reset the wrapped animation", "[map]") {
+    auto map = makeCountMap(0, 10);
+    map->reset(4);
+    REQUIRE ( 4 == map->getCurrentValue() );
+}
