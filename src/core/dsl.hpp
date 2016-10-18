@@ -7,6 +7,7 @@
 #include <core/animations/forever.hpp>
 #include <core/animations/repeat.hpp>
 #include <core/animations/set.hpp>
+#include <core/animations/map.hpp>
 
 namespace dsl {
 
@@ -50,6 +51,15 @@ template <typename Value>
 AnimationPtr<Value> set(const Value &value)
 {
     return AnimationPtr<Value>(new Set<Value>(value));
+}
+
+template <typename InValue, typename OutValue>
+AnimationPtr<OutValue> map(AnimationPtr<InValue> &&animation,
+                           typename Map<InValue, OutValue>::Mapper mapper,
+                           typename Map<InValue, OutValue>::ReversedMapper reversedMapper)
+{
+    return AnimationPtr<OutValue>(
+        new Map<InValue, OutValue>(std::move(animation), mapper, reversedMapper));
 }
 
 }
