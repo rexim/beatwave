@@ -31,9 +31,11 @@ void Player::step(const sf::Color &flashColor,
     using namespace dsl;
 
     if (!m_dead) {
-        m_circle.animate<Circle::Color>(from(flashColor)
-                                        .to(config::PLAYER_INIT_COLOR)
-                                        .during(config::COLOR_TIME));
+        m_circle.animate<Circle::Color>(
+            map<FloatColor, sf::Color>(from(uncompressColor(flashColor))
+                                       .to(uncompressColor(config::PLAYER_INIT_COLOR))
+                                       .during(config::COLOR_TIME),
+                                       compressColor, uncompressColor));
 
         m_circle.animate<Circle::Position>(from(m_circle.value<Circle::Position>())
                                            .by(direction)
