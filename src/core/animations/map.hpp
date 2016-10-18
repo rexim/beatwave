@@ -3,7 +3,6 @@
 
 #include <functional>
 #include <core/animation.hpp>
-#include <core/animations/nil.hpp>
 
 template <typename InputValue, typename OutputValue>
 class Map: public Animation<OutputValue>
@@ -13,29 +12,43 @@ public:
     using ReversedMapper = std::function<InputValue(const OutputValue&)>;
 
     Map(AnimationPtr<InputValue> &&animation, Mapper mapper, ReversedMapper reversedMapper):
-        m_animation(animation ? std::move(animation) : AnimationPtr<InputValue>(new Nil<InputValue>())),
+        m_animation(std::move(animation)),
         m_mapper(mapper),
         m_reversedMapper(reversedMapper)
     {}
 
     virtual OutputValue nextValue(const int32_t deltaTime) override
     {
-        return m_mapper(m_animation->nextValue(deltaTime));
+        if (m_animation != nullptr) {
+            return m_mapper(m_animation->nextValue(deltaTime));
+        } else {
+            return OutputValue();
+        }
     }
 
     virtual OutputValue getCurrentValue() const override
     {
-        return m_mapper(m_animation->getCurrentValue());
+        if (m_animation != nullptr) {
+            return m_mapper(m_animation->getCurrentValue());
+        } else {
+            return OutputValue();
+        }
     }
 
     virtual bool isFinished() const override
     {
-        return m_animation->isFinished();
+        if (m_animation != nullptr) {
+            return m_animation->isFinished();
+        } else {
+            return true;
+        }
     }
 
     virtual void reset(const OutputValue &value) override
     {
-        m_animation->reset(m_reversedMapper(value));
+        if (m_animation != nullptr) {
+            m_animation->reset(m_reversedMapper(value));
+        }
     }
 
 private:
