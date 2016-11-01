@@ -13,8 +13,7 @@
 #include <core/dsl.hpp>
 
 Game::Game():
-    player(config::PLAYER_INIT_POSITION),
-    levelEnd(config::PLAYER_INIT_POSITION)
+    player(config::PLAYER_INIT_POSITION)
 {}
 
 bool Game::initSounds()
@@ -62,7 +61,6 @@ void Game::tick(int32_t deltaTime)
 {
     player.tick(deltaTime);
     tunnel.hit(&player);
-    levelEnd.tick(deltaTime);
 }
 
 void Game::render(sf::RenderTarget *renderTarget)
@@ -72,7 +70,6 @@ void Game::render(sf::RenderTarget *renderTarget)
 
     tunnel.render(renderTarget);
     player.render(renderTarget);
-    levelEnd.render(renderTarget);
 }
 
 void Game::kick()

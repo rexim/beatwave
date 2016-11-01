@@ -9,7 +9,6 @@
 #include <beatwave/player.hpp>
 #include <beatwave/circle.hpp>
 #include <beatwave/tunnel.hpp>
-#include <beatwave/levelend.hpp>
 
 namespace sf
 {
@@ -40,7 +39,6 @@ private:
 private:
     Player player;
     Tunnel tunnel;
-    LevelEnd levelEnd;
     sf::SoundBuffer kickBuffer, snareBuffer, hihatBuffer, shamanBuffer;
     sf::Sound kickSound, snareSound, hihatSound, shamanSound;
 };
