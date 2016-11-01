@@ -41,8 +41,6 @@ private:
     Player player;
     Tunnel tunnel;
     LevelEnd levelEnd;
-    Circle circleRed;
-    Circle circleGreen;
     sf::SoundBuffer kickBuffer, snareBuffer, hihatBuffer, shamanBuffer;
     sf::Sound kickSound, snareSound, hihatSound, shamanSound;
 };
