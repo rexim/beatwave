@@ -5,6 +5,7 @@
 #include <memory>
 
 #include <core/animation.hpp>
+#include <core/animations/nil.hpp>
 
 template <typename Value>
 class Repeat: public Animation<Value>
@@ -12,7 +13,7 @@ class Repeat: public Animation<Value>
 public:
     Repeat(int counter, AnimationPtr<Value> &&animation):
         m_initialCounter(std::max(0, counter)),
-        m_animation(std::move(animation)),
+        m_animation(animation ? std::move(animation) : AnimationPtr<Value>(new Nil<Value>())),
         m_currentCounter(m_initialCounter)
     {}
 
