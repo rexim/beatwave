@@ -14,8 +14,23 @@
 
 Game::Game():
     player(config::PLAYER_INIT_POSITION),
-    levelEnd(config::PLAYER_INIT_POSITION)
-{}
+    levelEnd(config::PLAYER_INIT_POSITION),
+    circleRed(10.0f, config::PLAYER_INIT_POSITION, sf::Color::Red),
+    circleGreen(10.0f, config::PLAYER_INIT_POSITION + sf::Vector2f(100.0f, 100.0f), sf::Color::Green)
+{
+    using namespace dsl;
+
+    circleRed.animate<Circle::Position>(forever(begin(by(sf::Vector2f(100.0f, 0.0f)).during(200))
+                                                .then(by(sf::Vector2f(0.0f, 100.0f)).during(200))
+                                                .then(by(sf::Vector2f(-100.0f, 0.0f)).during(200))
+                                                .then(by(sf::Vector2f(0.0f, -100.0f)).during(200))
+                                                .end()));
+    circleGreen.animate<Circle::Position>(forever(begin(by(sf::Vector2f(100.0f, 0.0f)).during(200))
+                                                  .then(by(sf::Vector2f(0.0f, -100.0f)).during(200))
+                                                  .then(by(sf::Vector2f(-100.0f, 0.0f)).during(200))
+                                                  .then(by(sf::Vector2f(0.0f, 100.0f)).during(200))
+                                                  .end()));
+}
 
 bool Game::initSounds()
 {
@@ -63,6 +78,8 @@ void Game::tick(int32_t deltaTime)
     player.tick(deltaTime);
     tunnel.hit(&player);
     levelEnd.tick(deltaTime);
+    circleRed.tick(deltaTime);
+    circleGreen.tick(deltaTime);
 }
 
 void Game::render(sf::RenderTarget *renderTarget)
@@ -71,8 +88,10 @@ void Game::render(sf::RenderTarget *renderTarget)
     player.centerView(renderTarget);
 
     tunnel.render(renderTarget);
-    player.render(renderTarget);
-    levelEnd.render(renderTarget);
+    // player.render(renderTarget);
+    circleRed.render(renderTarget);
+    circleGreen.render(renderTarget);
+    // levelEnd.render(renderTarget);
 }
 
 void Game::kick()
