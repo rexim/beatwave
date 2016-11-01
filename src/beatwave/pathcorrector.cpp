@@ -4,18 +4,35 @@
 
 #include <beatwave/pathcorrector.hpp>
 
+namespace {
+    const sf::Color PATH_CORRECTOR_COLOR(100, 255, 100);
+    const float PATH_CORRECTOR_RADIUS = 5.0f;
+}
+
+
 PathCorrector::PathCorrector(const sf::Vector2f &position):
-    body(10.0f, position, sf::Color(255, 100, 100)),
-    wave(10.0f, position, sf::Color(255, 100, 100))
+    body(PATH_CORRECTOR_RADIUS, position, PATH_CORRECTOR_COLOR),
+    wave(PATH_CORRECTOR_RADIUS, position, PATH_CORRECTOR_COLOR)
 {
+    const int32_t WAVE_PROPAGATION = 4000;
+    const int32_t WAVE_PAUSE = 2000;
+
+
     using namespace dsl;
-    wave.animate<EmptyCircle::Radius>(forever(from(10.0f).to(30.0f).during(2000)));
+
+
+    wave.animate<EmptyCircle::Radius>(
+        forever(begin(from(PATH_CORRECTOR_RADIUS).to(50.0f).during(WAVE_PROPAGATION))
+                .then(sleep<float>(WAVE_PAUSE))
+                .end()));
+
     wave.animate<EmptyCircle::Color>(
-        forever(map<FloatColor, sf::Color>(
-                    from(uncompressColor(sf::Color(255, 100, 100)))
-                    .to(uncompressColor(sf::Color::Black))
-                    .during(2000),
-                    compressColor, uncompressColor)));
+        forever(begin(map<FloatColor, sf::Color>(from(uncompressColor(PATH_CORRECTOR_COLOR))
+                                                 .to(uncompressColor(sf::Color::Black))
+                                                 .during(WAVE_PROPAGATION - 2000),
+                                                 compressColor, uncompressColor))
+                .then(sleep<sf::Color>(WAVE_PAUSE + 2000))
+                .end()));
 }
 
 void PathCorrector::tick(int32_t deltaTime)
