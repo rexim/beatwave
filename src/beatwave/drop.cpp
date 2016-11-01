@@ -2,7 +2,7 @@
 #include <beatwave/drop.hpp>
 
 Drop::Drop(const sf::Color &color):
-    Circle(0.0f, sf::Vector2f(0.0f, 0.0f), color)
+    FilledCircle(0.0f, sf::Vector2f(0.0f, 0.0f), color)
 {}
 
 void Drop::drop(const sf::Vector2f &begin,

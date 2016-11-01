@@ -7,8 +7,9 @@
 #include <core/animated.hpp>
 
 #include <beatwave/player.hpp>
-#include <beatwave/circle.hpp>
+#include <beatwave/filledcircle.hpp>
 #include <beatwave/tunnel.hpp>
+#include <beatwave/pathcorrector.hpp>
 
 namespace sf
 {
@@ -39,6 +40,7 @@ private:
 private:
     Player player;
     Tunnel tunnel;
+    PathCorrector pathCorrector;
     sf::SoundBuffer kickBuffer, snareBuffer, hihatBuffer, shamanBuffer;
     sf::Sound kickSound, snareSound, hihatSound, shamanSound;
 };

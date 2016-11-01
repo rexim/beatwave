@@ -4,13 +4,13 @@
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 #include <core/animated.hpp>
-#include <beatwave/circle.hpp>
+#include <beatwave/filledcircle.hpp>
 
 namespace sf {
     class RenderTarget;
 }
 
-class Drop: public Circle
+class Drop: public FilledCircle
 {
 public:
     Drop(const sf::Color &color);

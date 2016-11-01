@@ -7,7 +7,7 @@
 #include <core/animated.hpp>
 
 #include <beatwave/splat.hpp>
-#include <beatwave/circle.hpp>
+#include <beatwave/filledcircle.hpp>
 
 namespace sf
 {
@@ -33,7 +33,7 @@ public:
     bool isDead() const;
 
 private:
-    Circle m_circle;
+    FilledCircle m_circle;
     Splat m_splat;
     bool m_dead;
 };
