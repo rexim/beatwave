@@ -22,6 +22,6 @@ TEST_CASE("Forever combinator should not fail with nullptr underlying animation"
     AnimationPtr<int> forever(new Forever<int>(nullptr));
     REQUIRE ( forever->nextValue(0) == int() );
     REQUIRE ( forever->getCurrentValue() == int() );
-    REQUIRE ( forever->isFinished() );
+    REQUIRE ( !forever->isFinished() );
     forever->reset(0);
 }
