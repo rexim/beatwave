@@ -16,9 +16,10 @@ public:
     {
         if (m_animation->isFinished()) {
             m_animation->reset(m_animation->getCurrentValue());
+            return m_animation->getCurrentValue();
+        } else {
+            return m_animation->nextValue(deltaTime);
         }
-
-        return m_animation->nextValue(deltaTime);
     }
 
     virtual Value getCurrentValue() const override
