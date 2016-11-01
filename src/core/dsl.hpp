@@ -8,6 +8,7 @@
 #include <core/animations/repeat.hpp>
 #include <core/animations/set.hpp>
 #include <core/animations/map.hpp>
+#include <core/animations/sleep.hpp>
 
 namespace dsl {
 
@@ -60,6 +61,12 @@ AnimationPtr<OutValue> map(AnimationPtr<InValue> &&animation,
 {
     return AnimationPtr<OutValue>(
         new Map<InValue, OutValue>(std::move(animation), mapper, reversedMapper));
+}
+
+template <typename Value>
+AnimationPtr<Value> sleep(int32_t timeout)
+{
+    return AnimationPtr<Value>(new Sleep<Value>(timeout));
 }
 
 }
