@@ -13,7 +13,8 @@
 #include <core/dsl.hpp>
 
 Game::Game():
-    player(config::PLAYER_INIT_POSITION)
+    player(config::PLAYER_INIT_POSITION),
+    pathCorrector(config::PLAYER_INIT_POSITION + sf::Vector2f(100.0f, 0.0f))
 {}
 
 bool Game::initSounds()
@@ -61,6 +62,7 @@ void Game::tick(int32_t deltaTime)
 {
     player.tick(deltaTime);
     tunnel.hit(&player);
+    pathCorrector.tick(deltaTime);
 }
 
 void Game::render(sf::RenderTarget *renderTarget)
@@ -70,6 +72,7 @@ void Game::render(sf::RenderTarget *renderTarget)
 
     tunnel.render(renderTarget);
     player.render(renderTarget);
+    pathCorrector.render(renderTarget);
 }
 
 void Game::kick()
