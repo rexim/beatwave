@@ -24,3 +24,12 @@ TEST_CASE("Repeat combinator should repeat underlying animation n times", "[repe
     REQUIRE ( repeat.getCurrentValue() == 1 );
     REQUIRE ( !repeat.isFinished() );
 }
+
+TEST_CASE("Repeat combinator should not fail with null animation", "[repeat]") {
+    Repeat<int> repeat(2, nullptr);
+
+    REQUIRE ( repeat.nextValue(0) == int() );
+    REQUIRE ( repeat.getCurrentValue() == int() );
+    REQUIRE ( !repeat.isFinished() );
+    repeat.reset(10);
+}
