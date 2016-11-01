@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <beatwave/filledcircle.hpp>
+#include <beatwave/emptycircle.hpp>
 
 class PathCorrector
 {
@@ -14,6 +15,7 @@ public:
 
 private:
     FilledCircle body;
+    EmptyCircle wave;
 };
 
 #endif  // BEATWAVE_PATHCORRECTOR_HPP_
