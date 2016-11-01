@@ -39,3 +39,13 @@ TEST_CASE("Map::reset() should use ReversedMapper to reset the wrapped animation
     map->reset(4);
     REQUIRE ( 4 == map->getCurrentValue() );
 }
+
+TEST_CASE("Map combinator should not fail with null animation", "[map]") {
+    auto id = [](int x) { return x; };
+    Map<int, int> map(nullptr, id, id);
+
+    REQUIRE ( map.nextValue(0) == int() );
+    REQUIRE ( map.getCurrentValue() == int() );
+    REQUIRE ( map.isFinished() );
+    map.reset(0);
+}
