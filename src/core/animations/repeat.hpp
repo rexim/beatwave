@@ -5,6 +5,7 @@
 #include <memory>
 
 #include <core/animation.hpp>
+#include <core/animations/nil.hpp>
 
 template <typename Value>
 class Repeat: public Animation<Value>
@@ -12,18 +13,28 @@ class Repeat: public Animation<Value>
 public:
     Repeat(int counter, AnimationPtr<Value> &&animation):
         m_initialCounter(std::max(0, counter)),
-        m_animation(std::move(animation)),
+        m_animation(animation ? std::move(animation) : AnimationPtr<Value>(new Nil<Value>())),
         m_currentCounter(m_initialCounter)
     {}
 
     virtual Value nextValue(const int32_t deltaTime) override
     {
-        if (m_animation->isFinished() && m_currentCounter > 0) {
-            --m_currentCounter;
-            m_animation->reset(m_animation->getCurrentValue());
+        if (isFinished()) {
+            return m_animation->getCurrentValue();
         }
 
-        return m_animation->nextValue(deltaTime);
+        if (m_animation->isFinished()) {
+            --m_currentCounter;
+
+            if (isFinished()) {
+                return m_animation->getCurrentValue();
+            } else {
+                m_animation->reset(m_animation->getCurrentValue());
+                return m_animation->getCurrentValue();
+            }
+        } else {
+            return m_animation->nextValue(deltaTime);
+        }
     }
 
     virtual Value getCurrentValue() const override

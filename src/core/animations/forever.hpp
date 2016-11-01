@@ -3,22 +3,24 @@
 
 #include <memory>
 #include <core/animation.hpp>
+#include <core/animations/nil.hpp>
 
 template <typename Value>
 class Forever: public Animation<Value>
 {
 public:
     Forever(AnimationPtr<Value> &&animation):
-        m_animation(std::move(animation))
+        m_animation(animation ? std::move(animation) : AnimationPtr<Value>(new Nil<Value>()))
     {}
 
     virtual Value nextValue(const int32_t deltaTime) override
     {
         if (m_animation->isFinished()) {
             m_animation->reset(m_animation->getCurrentValue());
+            return m_animation->getCurrentValue();
+        } else {
+            return m_animation->nextValue(deltaTime);
         }
-
-        return m_animation->nextValue(deltaTime);
     }
 
     virtual Value getCurrentValue() const override
