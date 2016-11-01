@@ -18,12 +18,22 @@ public:
 
     virtual Value nextValue(const int32_t deltaTime) override
     {
-        if (m_animation->isFinished() && m_currentCounter > 0) {
-            --m_currentCounter;
-            m_animation->reset(m_animation->getCurrentValue());
+        if (isFinished()) {
+            return m_animation->getCurrentValue();
         }
 
-        return m_animation->nextValue(deltaTime);
+        if (m_animation->isFinished()) {
+            --m_currentCounter;
+
+            if (isFinished()) {
+                return m_animation->getCurrentValue();
+            } else {
+                m_animation->reset(m_animation->getCurrentValue());
+                return m_animation->getCurrentValue();
+            }
+        } else {
+            return m_animation->nextValue(deltaTime);
+        }
     }
 
     virtual Value getCurrentValue() const override
