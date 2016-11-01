@@ -7,7 +7,7 @@
 #include <core/animated.hpp>
 
 #include <beatwave/player.hpp>
-#include <beatwave/circle.hpp>
+#include <beatwave/filledcircle.hpp>
 #include <beatwave/tunnel.hpp>
 #include <beatwave/pathcorrector.hpp>
 

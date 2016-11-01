@@ -2,7 +2,7 @@
 #define BEATWAVE_PATHCORRECTOR_HPP_
 
 #include <SFML/Graphics.hpp>
-#include <beatwave/circle.hpp>
+#include <beatwave/filledcircle.hpp>
 
 class PathCorrector
 {
@@ -13,7 +13,7 @@ public:
     void render(sf::RenderTarget *renderTarget);
 
 private:
-    Circle body;
+    FilledCircle body;
 };
 
 #endif  // BEATWAVE_PATHCORRECTOR_HPP_

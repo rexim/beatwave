@@ -1,9 +1,9 @@
-#ifndef BEATWAVE_CIRCLE_HPP_
-#define BEATWAVE_CIRCLE_HPP_
+#ifndef BEATWAVE_FILLEDCIRCLE_HPP_
+#define BEATWAVE_FILLEDCIRCLE_HPP_
 
 #include <core/animatedgroup.hpp>
 
-class Circle: public AnimatedGroup<float, sf::Vector2f, sf::Color>
+class FilledCircle: public AnimatedGroup<float, sf::Vector2f, sf::Color>
 {
 public:
     enum Property
@@ -26,4 +26,4 @@ public:
     }
 };
 
-#endif  // BEATWAVE_CIRCLE_HPP_
+#endif  // BEATWAVE_FILLEDCIRCLE_HPP_
