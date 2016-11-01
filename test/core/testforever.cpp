@@ -17,3 +17,11 @@ TEST_CASE("Forever combinator should repeat underlying animation forever", "[for
     REQUIRE ( forever->getCurrentValue() == 2 );
     REQUIRE ( !forever->isFinished() );
 }
+
+TEST_CASE("Forever combinator should not fail with nullptr underlying animation", "[forever]") {
+    AnimationPtr<int> forever(new Forever<int>(nullptr));
+    REQUIRE ( forever->nextValue(0) == int() );
+    REQUIRE ( forever->getCurrentValue() == int() );
+    REQUIRE ( forever->isFinished() );
+    forever->reset(0);
+}
