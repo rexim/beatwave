@@ -4,10 +4,10 @@
 class FloatColor
 {
 public:
-    FloatColor(float r, float g, float b);
+    FloatColor(float r, float g, float b, float a);
     FloatColor();
 
-    float r, g, b;
+    float r, g, b, a;
 };
 
 FloatColor operator+(const FloatColor &a, const FloatColor &b);
