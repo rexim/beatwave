@@ -5,7 +5,7 @@
 #include <beatwave/pathcorrector.hpp>
 
 namespace {
-    const sf::Color PATH_CORRECTOR_COLOR(100, 255, 100);
+    const sf::Color PATH_CORRECTOR_COLOR(100, 255, 100, 255);
     const float PATH_CORRECTOR_RADIUS = 5.0f;
 }
 
@@ -17,9 +17,7 @@ PathCorrector::PathCorrector(const sf::Vector2f &position):
     const int32_t WAVE_PROPAGATION = 4000;
     const int32_t WAVE_PAUSE = 2000;
 
-
     using namespace dsl;
-
 
     wave.animate<EmptyCircle::Radius>(
         forever(begin(from(PATH_CORRECTOR_RADIUS).to(50.0f).during(WAVE_PROPAGATION))
@@ -28,10 +26,10 @@ PathCorrector::PathCorrector(const sf::Vector2f &position):
 
     wave.animate<EmptyCircle::Color>(
         forever(begin(map<FloatColor, sf::Color>(from(uncompressColor(PATH_CORRECTOR_COLOR))
-                                                 .to(uncompressColor(sf::Color::Black))
-                                                 .during(WAVE_PROPAGATION - 2000),
+                                                 .to(uncompressColor(sf::Color(100, 255, 100, 0)))
+                                                 .during(WAVE_PROPAGATION),
                                                  compressColor, uncompressColor))
-                .then(sleep<sf::Color>(WAVE_PAUSE + 2000))
+                .then(sleep<sf::Color>(WAVE_PAUSE))
                 .end()));
 }
 
