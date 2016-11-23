@@ -18,8 +18,12 @@ public:
     bool isDestroyed() const;
 
 private:
+    void destroy();
+
+private:
     FilledCircle body;
     EmptyCircle wave;
+    EmptyCircle destroyWave;
     bool destroyed;
 };
 
