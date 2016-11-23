@@ -15,10 +15,12 @@ public:
     void tick(int32_t deltaTime);
     void render(sf::RenderTarget *renderTarget);
     void hit(Player *player);
+    bool isDestroyed() const;
 
 private:
     FilledCircle body;
     EmptyCircle wave;
+    bool destroyed;
 };
 
 #endif  // BEATWAVE_PATHCORRECTOR_HPP_

@@ -12,7 +12,8 @@ namespace {
 
 PathCorrector::PathCorrector(const sf::Vector2f &position):
     body(PATH_CORRECTOR_RADIUS, position, PATH_CORRECTOR_COLOR),
-    wave(PATH_CORRECTOR_RADIUS, position, PATH_CORRECTOR_COLOR)
+    wave(PATH_CORRECTOR_RADIUS, position, PATH_CORRECTOR_COLOR),
+    destroyed(false)
 {
     const int32_t WAVE_PROPAGATION = 4000;
     const int32_t WAVE_PAUSE = 2000;
@@ -31,26 +32,39 @@ PathCorrector::PathCorrector(const sf::Vector2f &position):
                                                  compressColor, uncompressColor))
                 .then(sleep<sf::Color>(WAVE_PAUSE))
                 .end()));
+
 }
 
 void PathCorrector::tick(int32_t deltaTime)
 {
-    body.tick(deltaTime);
-    wave.tick(deltaTime);
+    if (!destroyed) {
+        body.tick(deltaTime);
+        wave.tick(deltaTime);
+    }
 }
 
 void PathCorrector::render(sf::RenderTarget *renderTarget)
 {
-    body.render(renderTarget);
-    wave.render(renderTarget);
+    if (!destroyed) {
+        body.render(renderTarget);
+        wave.render(renderTarget);
+    }
 }
 
 void PathCorrector::hit(Player *player)
 {
-    const auto bodyPosition = body.value<FilledCircle::Position>();
-    const auto bodyRadius = body.value<FilledCircle::Radius>();
+    if (!destroyed) {
+        const auto bodyPosition = body.value<FilledCircle::Position>();
+        const auto bodyRadius = body.value<FilledCircle::Radius>();
 
-    if (player->intersectsCircle(bodyPosition, bodyRadius)) {
-        player->correctPosition(bodyPosition);
+        if (player->intersectsCircle(bodyPosition, bodyRadius)) {
+            player->correctPosition(bodyPosition);
+            destroyed = true;
+        }
     }
+}
+
+bool PathCorrector::isDestroyed() const
+{
+    return destroyed;
 }
