@@ -8,6 +8,7 @@
 #include <cmath>
 
 #include <SFML/Config.hpp>
+#include <SFML/System.hpp>
 
 #include <core/floatcolor.hpp>
 
@@ -23,5 +24,7 @@ namespace sf {
 
 FloatColor uncompressColor(const sf::Color &color);
 sf::Color compressColor(const FloatColor &color);
+
+float vectorLegnth(const sf::Vector2f &v);
 
 #endif  // CORE_UTIL_HPP_

@@ -26,10 +26,13 @@ public:
               sf::Sound *sound);
     void centerView(sf::RenderTarget *renderTarget) const;
     void reset();
+    void correctPosition(const sf::Vector2f &position);
 
     void kill();
 
     bool fits(const sf::FloatRect &rect) const;
+    bool intersectsCircle(const sf::Vector2f &center,
+                          float radius);
     bool isDead() const;
 
 private:

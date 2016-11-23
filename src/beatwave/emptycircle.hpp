@@ -3,14 +3,15 @@
 
 #include <core/animatedgroup.hpp>
 
-class EmptyCircle: public AnimatedGroup<float, sf::Vector2f, sf::Color>
+class EmptyCircle: public AnimatedGroup<float, sf::Vector2f, sf::Color, float>
 {
 public:
     enum Property
     {
         Radius = 0,
         Position,
-        Color
+        Color,
+        Thickness
     };
 
     using AnimatedGroup::AnimatedGroup;
@@ -21,7 +22,7 @@ public:
 
         sf::CircleShape circle(radius);
         circle.setOutlineColor(value<Color>());
-        circle.setOutlineThickness(1.0f);
+        circle.setOutlineThickness(value<Thickness>());
         circle.setFillColor(sf::Color::Transparent);
         circle.setPosition(value<Position>() - sf::Vector2f(radius, radius));
         renderTarget->draw(circle);

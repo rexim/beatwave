@@ -13,9 +13,12 @@
 #include <core/dsl.hpp>
 
 Game::Game():
-    player(config::PLAYER_INIT_POSITION),
-    pathCorrector(config::PLAYER_INIT_POSITION + sf::Vector2f(100.0f, 0.0f))
-{}
+    player(config::PLAYER_INIT_POSITION)
+{
+    auto firstPathCorrector =
+        std::unique_ptr<PathCorrector>(new PathCorrector(config::PLAYER_INIT_POSITION + sf::Vector2f(100.0f, 0.0f)));
+    pathCorrectors.insert(std::move(firstPathCorrector));
+}
 
 bool Game::initSounds()
 {
@@ -61,8 +64,16 @@ bool Game::init()
 void Game::tick(int32_t deltaTime)
 {
     player.tick(deltaTime);
+
+    for (auto &pathCorrector: pathCorrectors) {
+        pathCorrector->tick(deltaTime);
+    }
+
     tunnel.hit(&player);
-    pathCorrector.tick(deltaTime);
+
+    for (auto &pathCorrector: pathCorrectors) {
+        pathCorrector->hit(&player);
+    }
 }
 
 void Game::render(sf::RenderTarget *renderTarget)
@@ -72,7 +83,10 @@ void Game::render(sf::RenderTarget *renderTarget)
 
     tunnel.render(renderTarget);
     player.render(renderTarget);
-    pathCorrector.render(renderTarget);
+
+    for (auto &pathCorrector: pathCorrectors) {
+        pathCorrector->render(renderTarget);
+    }
 }
 
 void Game::kick()
