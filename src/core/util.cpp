@@ -1,3 +1,4 @@
+#include <cmath>
 #include <SFML/Config.hpp>
 #include <SFML/Graphics/Color.hpp>
 #include <core/util.hpp>
@@ -36,4 +37,9 @@ sf::Color compressColor(const FloatColor &color)
                      255.0 * std::pow(color.g / 255.0, 1 / 2.2),
                      255.0 * std::pow(color.b / 255.0, 1 / 2.2),
                      255.0 * std::pow(color.a / 255.0, 1 / 2.2));
+}
+
+float vectorLegnth(const sf::Vector2f &v)
+{
+    return std::sqrt(v.x * v.x + v.y * v.y);
 }

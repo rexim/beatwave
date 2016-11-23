@@ -2,13 +2,13 @@
 #include <core/dsl.hpp>
 #include <core/util.hpp>
 
+#include <beatwave/player.hpp>
 #include <beatwave/pathcorrector.hpp>
 
 namespace {
     const sf::Color PATH_CORRECTOR_COLOR(100, 255, 100, 255);
     const float PATH_CORRECTOR_RADIUS = 5.0f;
 }
-
 
 PathCorrector::PathCorrector(const sf::Vector2f &position):
     body(PATH_CORRECTOR_RADIUS, position, PATH_CORRECTOR_COLOR),
@@ -43,4 +43,14 @@ void PathCorrector::render(sf::RenderTarget *renderTarget)
 {
     body.render(renderTarget);
     wave.render(renderTarget);
+}
+
+void PathCorrector::hit(Player *player)
+{
+    const auto bodyPosition = body.value<FilledCircle::Position>();
+    const auto bodyRadius = body.value<FilledCircle::Radius>();
+
+    if (player->intersectsCircle(bodyPosition, bodyRadius)) {
+        player->correctPosition(bodyPosition);
+    }
 }

@@ -61,8 +61,10 @@ bool Game::init()
 void Game::tick(int32_t deltaTime)
 {
     player.tick(deltaTime);
-    tunnel.hit(&player);
     pathCorrector.tick(deltaTime);
+
+    tunnel.hit(&player);
+    pathCorrector.hit(&player);
 }
 
 void Game::render(sf::RenderTarget *renderTarget)

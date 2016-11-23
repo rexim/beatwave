@@ -5,6 +5,8 @@
 #include <beatwave/filledcircle.hpp>
 #include <beatwave/emptycircle.hpp>
 
+class Player;
+
 class PathCorrector
 {
 public:
@@ -12,6 +14,7 @@ public:
 
     void tick(int32_t deltaTime);
     void render(sf::RenderTarget *renderTarget);
+    void hit(Player *player);
 
 private:
     FilledCircle body;

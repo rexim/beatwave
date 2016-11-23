@@ -92,7 +92,23 @@ bool Player::fits(const sf::FloatRect &rect) const
     });
 }
 
+bool Player::intersectsCircle(const sf::Vector2f &center,
+                              float radius)
+{
+    const auto playerCenter = m_circle.value<FilledCircle::Position>();
+    const auto playerRadius = m_circle.value<FilledCircle::Radius>();
+
+    return vectorLegnth(playerCenter - center) <= playerRadius + radius;
+}
+
+
 bool Player::isDead() const
 {
     return m_dead;
+}
+
+void Player::correctPosition(const sf::Vector2f &position)
+{
+    using namespace dsl;
+    m_circle.animate<FilledCircle::Position>(set(position));
 }
