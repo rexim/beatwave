@@ -34,14 +34,13 @@ TEST_CASE("Sequence combinator should not crash the app on empty sequence", "[se
     x.animate(AnimationPtr<int>(new SeqCombinator<int>(std::vector<AnimationPtr<int>>())));
 }
 
-// TODO: use nil combinator in sequence combinator
-// TEST_CASE("Sequence combinator should not crash the app on null animations in the sequence", "[seqcombinator]") {
-//     std::vector<AnimationPtr<int>> animations;
-//     animations.push_back(nullptr);
-//     SeqCombinator<int> seq(std::move(animations));
+TEST_CASE("Sequence combinator should not crash the app on null animations in the sequence", "[seqcombinator]") {
+    std::vector<AnimationPtr<int>> animations;
+    animations.push_back(nullptr);
+    SeqCombinator<int> seq(std::move(animations));
 
-//     REQUIRE ( seq.nextValue(0) == int() );
-//     REQUIRE ( seq.getCurrentValue() == int() );
-//     REQUIRE ( seq.isFinished() );
-//     seq.reset(0);
-// }
+    REQUIRE ( seq.nextValue(0) == int() );
+    REQUIRE ( seq.getCurrentValue() == int() );
+    REQUIRE ( seq.isFinished() );
+    seq.reset(0);
+}
