@@ -5,6 +5,7 @@
 #include <initializer_list>
 
 #include <core/animation.hpp>
+#include <core/animations/nil.hpp>
 
 template <typename Value>
 class SeqCombinator: public Animation<Value>
@@ -13,7 +14,13 @@ public:
     SeqCombinator(std::vector<AnimationPtr<Value>> &&animations):
         m_animations(std::move(animations)),
         m_currentAnimation(0)
-    {}
+    {
+        for (auto &animationPtr: m_animations) {
+            if (!animationPtr) {
+                animationPtr.reset(new Nil<Value>());
+            }
+        }
+    }
 
     virtual Value nextValue(const int32_t deltaTime) override
     {
