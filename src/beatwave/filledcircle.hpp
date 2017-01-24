@@ -1,6 +1,7 @@
 #ifndef BEATWAVE_FILLEDCIRCLE_HPP_
 #define BEATWAVE_FILLEDCIRCLE_HPP_
 
+#include <SFML/Graphics.hpp>
 #include <core/animatedgroup.hpp>
 
 class FilledCircle: public AnimatedGroup<float, sf::Vector2f, sf::Color>

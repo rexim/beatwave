@@ -2,6 +2,7 @@
 #define CORE_ANIMATEDTUPLE_HPP_
 
 #include <tuple>
+#include <core/animated.hpp>
 
 template <typename ...Tp>
 using AnimatedTuple = std::tuple<Animated<Tp>...>;
