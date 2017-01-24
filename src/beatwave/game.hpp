@@ -12,7 +12,6 @@
 #include <beatwave/player.hpp>
 #include <beatwave/filledcircle.hpp>
 #include <beatwave/tunnel.hpp>
-#include <beatwave/pathcorrector.hpp>
 #include <beatwave/pathcorrector2.hpp>
 
 namespace sf
