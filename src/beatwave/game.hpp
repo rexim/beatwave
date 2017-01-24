@@ -12,7 +12,7 @@
 #include <beatwave/player.hpp>
 #include <beatwave/filledcircle.hpp>
 #include <beatwave/tunnel.hpp>
-#include <beatwave/pathcorrector2.hpp>
+#include <beatwave/pathcorrector.hpp>
 
 namespace sf
 {
@@ -43,7 +43,7 @@ private:
 private:
     Player player;
     Tunnel tunnel;
-    std::set<std::unique_ptr<PathCorrector2>> pathCorrectors;
+    std::set<std::unique_ptr<PathCorrector>> pathCorrectors;
     sf::SoundBuffer kickBuffer, snareBuffer, hihatBuffer, shamanBuffer;
     sf::Sound kickSound, snareSound, hihatSound, shamanSound;
 };

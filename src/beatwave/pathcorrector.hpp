@@ -1,5 +1,5 @@
-#ifndef PATHCORRECTOR2_HPP_
-#define PATHCORRECTOR2_HPP_
+#ifndef BEATWAVE_PATHCORRECTOR_HPP_
+#define BEATWAVE_PATHCORRECTOR_HPP_
 
 #include <core/util.hpp>
 #include <core/floatcolor.hpp>
@@ -13,11 +13,11 @@ namespace {
     const float PATH_CORRECTOR_RADIUS = 5.0f;
 }
 
-class PathCorrector2: public NestedGroup<FilledCircle, // core
+class PathCorrector: public NestedGroup<FilledCircle, // core
                                          EmptyCircle>  // wave
 {
 public:
-    PathCorrector2(const sf::Vector2f &position):
+    PathCorrector(const sf::Vector2f &position):
         NestedGroup(FilledCircle(PATH_CORRECTOR_RADIUS, position, PATH_CORRECTOR_COLOR),
                     EmptyCircle(PATH_CORRECTOR_RADIUS, position, PATH_CORRECTOR_COLOR, 2.0f)),
         m_core(std::get<0>(m_members)),
@@ -91,4 +91,4 @@ private:
     bool m_destroyed;
 };
 
-#endif  // PATHCORRECTOR2_HPP_
+#endif  // BEATWAVE_PATHCORRECTOR_HPP_

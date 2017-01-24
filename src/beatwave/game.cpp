@@ -16,7 +16,7 @@ Game::Game():
     player(config::PLAYER_INIT_POSITION)
 {
     auto firstPathCorrector =
-        std::unique_ptr<PathCorrector2>(new PathCorrector2(config::PLAYER_INIT_POSITION + sf::Vector2f(100.0f, 0.0f)));
+        std::unique_ptr<PathCorrector>(new PathCorrector(config::PLAYER_INIT_POSITION + sf::Vector2f(100.0f, 0.0f)));
     pathCorrectors.insert(std::move(firstPathCorrector));
 }
 
