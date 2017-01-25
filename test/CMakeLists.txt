@@ -14,7 +14,6 @@ add_executable(testplayer
   ../src/beatwave/player.cpp
   ../src/beatwave/splat.cpp
   ../src/beatwave/drop.cpp
-  ../src/beatwave/filledcircle.cpp
   ../src/beatwave/circle.cpp
 )
 

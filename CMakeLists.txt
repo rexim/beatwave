@@ -25,8 +25,6 @@ set(BEATWAVE_SOURCES
   src/beatwave/splat.cpp
   src/beatwave/tunnel.cpp
   src/beatwave/pathcorrector.cpp
-  src/beatwave/emptycircle.cpp
-  src/beatwave/filledcircle.cpp
   src/beatwave/circle.cpp
 )
 
