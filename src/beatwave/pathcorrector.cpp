@@ -15,13 +15,14 @@ namespace {
 }
 
 PathCorrector::PathCorrector(const sf::Vector2f &position):
-    NestedGroup(FilledCircle(PATH_CORRECTOR_RADIUS,
-                             position,
-                             PATH_CORRECTOR_COLOR),
-                EmptyCircle(PATH_CORRECTOR_RADIUS,
-                            position,
-                            PATH_CORRECTOR_COLOR,
-                            2.0f)),
+    NestedGroup(Circle(PATH_CORRECTOR_RADIUS,
+                       position,
+                       PATH_CORRECTOR_COLOR),
+                Circle(PATH_CORRECTOR_RADIUS,
+                       position,
+                       sf::Color::Transparent,
+                       PATH_CORRECTOR_COLOR,
+                       2.0f)),
     m_core(std::get<0>(m_members)),
     m_wave(std::get<1>(m_members)),
     m_destroyed(false)
@@ -29,21 +30,21 @@ PathCorrector::PathCorrector(const sf::Vector2f &position):
 {
     using namespace dsl;
 
-    m_wave.animate<EmptyCircle::Radius>(
+    m_wave.animate<Circle::Radius>(
         forever(begin(from(PATH_CORRECTOR_RADIUS)
                       .to(50.0f)
                       .during(WAVE_PROPAGATION))
                 .then(sleep<float>(WAVE_PAUSE))
                 .end()));
 
-    m_wave.animate<EmptyCircle::Thickness>(
+    m_wave.animate<Circle::OutlineThickness>(
         forever(begin(from(3.0f)
                       .to(0.0f)
                       .during(WAVE_PROPAGATION))
                 .then(sleep<float>(WAVE_PAUSE))
                 .end()));
 
-    m_wave.animate<EmptyCircle::Color>(
+    m_wave.animate<Circle::OutlineColor>(
         forever(
             begin(
                 map<FloatColor, sf::Color>(
@@ -59,8 +60,8 @@ PathCorrector::PathCorrector(const sf::Vector2f &position):
 void PathCorrector::hit(Player *player)
 {
     if (!m_destroyed) {
-        const auto corePosition = m_core.value<FilledCircle::Position>();
-        const auto coreRadius = m_core.value<FilledCircle::Radius>();
+        const auto corePosition = m_core.value<Circle::Position>();
+        const auto coreRadius = m_core.value<Circle::Radius>();
 
 
         if (player->intersectsCircle(corePosition, coreRadius)) {
@@ -81,14 +82,14 @@ void PathCorrector::destroy()
 
     m_destroyed = true;
 
-    m_core.animate<FilledCircle::Radius>(set(0.0f));
-    m_wave.animate<EmptyCircle::Color>(
+    m_core.animate<Circle::Radius>(set(0.0f));
+    m_wave.animate<Circle::OutlineColor>(
         map<FloatColor, sf::Color>(
             from(uncompressColor(sf::Color(100, 255, 100, 255)))
             .to(uncompressColor(sf::Color(100, 255, 100, 0)))
             .during(300),
             compressColor, uncompressColor));
 
-    m_wave.animate<EmptyCircle::Thickness>(from(10.0f).to(0.0f).during(300));
-    m_wave.animate<EmptyCircle::Radius>(from(0.0f).to(500.0f).during(300));
+    m_wave.animate<Circle::OutlineThickness>(from(10.0f).to(0.0f).during(300));
+    m_wave.animate<Circle::Radius>(from(0.0f).to(500.0f).during(300));
 }

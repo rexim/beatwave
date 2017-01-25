@@ -31,13 +31,13 @@ void Player::step(const sf::Color &flashColor,
     using namespace dsl;
 
     if (!m_dead) {
-        m_circle.animate<FilledCircle::Color>(
+        m_circle.animate<Circle::FillColor>(
             map<FloatColor, sf::Color>(from(uncompressColor(flashColor))
                                        .to(uncompressColor(config::PLAYER_INIT_COLOR))
                                        .during(config::COLOR_TIME),
                                        compressColor, uncompressColor));
 
-        m_circle.animate<FilledCircle::Position>(from(m_circle.value<FilledCircle::Position>())
+        m_circle.animate<Circle::Position>(from(m_circle.value<Circle::Position>())
                                            .by(direction)
                                            .during(config::MOVE_TIME));
 
@@ -49,16 +49,16 @@ void Player::step(const sf::Color &flashColor,
 
 void Player::centerView(sf::RenderTarget *renderTarget) const
 {
-    renderTarget->setView(sf::View(m_circle.value<FilledCircle::Position>(), renderTarget->getView().getSize()));
+    renderTarget->setView(sf::View(m_circle.value<Circle::Position>(), renderTarget->getView().getSize()));
 }
 
 void Player::reset()
 {
     using namespace dsl;
 
-    m_circle.animate<FilledCircle::Position>(set(config::PLAYER_INIT_POSITION));
-    m_circle.animate<FilledCircle::Color>(set(config::PLAYER_INIT_COLOR));
-    m_circle.animate<FilledCircle::Radius>(set(config::PLAYER_INIT_RADIUS));
+    m_circle.animate<Circle::Position>(set(config::PLAYER_INIT_POSITION));
+    m_circle.animate<Circle::FillColor>(set(config::PLAYER_INIT_COLOR));
+    m_circle.animate<Circle::Radius>(set(config::PLAYER_INIT_RADIUS));
     m_dead = false;
 }
 
@@ -71,14 +71,14 @@ void Player::kill()
         using namespace dsl;
 
         const int COLLAPSE_TIME = 100;
-        m_circle.animate<FilledCircle::Radius>(from(config::PLAYER_INIT_RADIUS).to(0.0f).during(COLLAPSE_TIME));
-        m_splat.splat(m_circle.value<FilledCircle::Position>(), 500.0);
+        m_circle.animate<Circle::Radius>(from(config::PLAYER_INIT_RADIUS).to(0.0f).during(COLLAPSE_TIME));
+        m_splat.splat(m_circle.value<Circle::Position>(), 500.0);
     }
 }
 
 bool Player::fits(const sf::FloatRect &rect) const
 {
-    const auto center = m_circle.value<FilledCircle::Position>();
+    const auto center = m_circle.value<Circle::Position>();
 
     const std::array<float, 4> ds = {
         std::abs(rect.top - center.y),
@@ -88,15 +88,15 @@ bool Player::fits(const sf::FloatRect &rect) const
     };
 
     return rect.contains(center) && std::all_of(ds.begin(), ds.end(), [this](float d) {
-            return m_circle.value<FilledCircle::Radius>() < d;
-    });
+            return m_circle.value<Circle::Radius>() < d;
+        });
 }
 
 bool Player::intersectsCircle(const sf::Vector2f &center,
                               float radius)
 {
-    const auto playerCenter = m_circle.value<FilledCircle::Position>();
-    const auto playerRadius = m_circle.value<FilledCircle::Radius>();
+    const auto playerCenter = m_circle.value<Circle::Position>();
+    const auto playerRadius = m_circle.value<Circle::Radius>();
 
     return vectorLegnth(playerCenter - center) <= playerRadius + radius;
 }
@@ -110,5 +110,5 @@ bool Player::isDead() const
 void Player::correctPosition(const sf::Vector2f &position)
 {
     using namespace dsl;
-    m_circle.animate<FilledCircle::Position>(set(position));
+    m_circle.animate<Circle::Position>(set(position));
 }
