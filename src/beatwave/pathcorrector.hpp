@@ -1,14 +1,13 @@
 #ifndef BEATWAVE_PATHCORRECTOR_HPP_
 #define BEATWAVE_PATHCORRECTOR_HPP_
 
-#include <beatwave/filledcircle.hpp>
-#include <beatwave/emptycircle.hpp>
+#include <beatwave/circle.hpp>
 #include <core/nestedgroup.hpp>
 
 class Player;
 
-class PathCorrector: public NestedGroup<FilledCircle, // core
-                                        EmptyCircle>  // wave
+class PathCorrector: public NestedGroup<Circle, // core
+                                        Circle> // wave
 {
 public:
     PathCorrector(const sf::Vector2f &position);
@@ -20,8 +19,8 @@ private:
     void destroy();
 
 private:
-    FilledCircle &m_core;
-    EmptyCircle &m_wave;
+    Circle &m_core;
+    Circle &m_wave;
     bool m_destroyed;
 };
 
