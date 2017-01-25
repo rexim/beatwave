@@ -1,8 +1,11 @@
 #ifndef BEATWAVE_FILLEDCIRCLE_HPP_
 #define BEATWAVE_FILLEDCIRCLE_HPP_
 
-#include <SFML/Graphics.hpp>
 #include <core/animatedgroup.hpp>
+
+namespace {
+    class RenderTarget;
+}
 
 class FilledCircle: public AnimatedGroup<float, sf::Vector2f, sf::Color>
 {
@@ -16,15 +19,7 @@ public:
 
     using AnimatedGroup::AnimatedGroup;
 
-    void render(sf::RenderTarget *renderTarget) const
-    {
-        auto radius = value<Radius>();
-
-        sf::CircleShape circle(radius);
-        circle.setFillColor(value<Color>());
-        circle.setPosition(value<Position>() - sf::Vector2f(radius, radius));
-        renderTarget->draw(circle);
-    }
+    void render(sf::RenderTarget *renderTarget) const;
 };
 
 #endif  // BEATWAVE_FILLEDCIRCLE_HPP_

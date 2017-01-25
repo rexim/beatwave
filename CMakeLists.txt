@@ -26,6 +26,7 @@ set(BEATWAVE_SOURCES
   src/beatwave/tunnel.cpp
   src/beatwave/pathcorrector.cpp
   src/beatwave/emptycircle.cpp
+  src/beatwave/filledcircle.cpp
 )
 
 add_executable(beatwave ${BEATWAVE_SOURCES})

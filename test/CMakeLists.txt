@@ -14,6 +14,7 @@ add_executable(testplayer
   ../src/beatwave/player.cpp
   ../src/beatwave/splat.cpp
   ../src/beatwave/drop.cpp
+  ../src/beatwave/filledcircle.cpp
 )
 
 add_test(NAME testset COMMAND testset)
