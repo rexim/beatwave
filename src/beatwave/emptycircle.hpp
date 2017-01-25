@@ -7,7 +7,10 @@ namespace sf {
     class RenderTarget;
 }
 
-class EmptyCircle: public AnimatedGroup<float, sf::Vector2f, sf::Color, float>
+class EmptyCircle: public AnimatedGroup<float,
+                                        sf::Vector2f,
+                                        sf::Color,
+                                        float>
 {
 public:
     enum Property

@@ -7,7 +7,9 @@ namespace {
     class RenderTarget;
 }
 
-class FilledCircle: public AnimatedGroup<float, sf::Vector2f, sf::Color>
+class FilledCircle: public AnimatedGroup<float,
+                                         sf::Vector2f,
+                                         sf::Color>
 {
 public:
     enum Property
