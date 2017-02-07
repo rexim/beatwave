@@ -5,7 +5,7 @@
 #include <core/dsl.hpp>
 
 Player::Player(const sf::Vector2f &position):
-    m_circle(config::PLAYER_INIT_RADIUS / 2.0,
+    m_circle(config::PLAYER_INIT_RADIUS / 2.0f,
              position,
              config::PLAYER_INIT_COLOR),
     m_splat(20),
@@ -42,7 +42,7 @@ void Player::step(const sf::Color &flashColor,
                                            .during(config::MOVE_TIME));
 
         m_circle.animate<Circle::Radius>(from(config::PLAYER_INIT_RADIUS)
-                                         .to(config::PLAYER_INIT_RADIUS / 2)
+                                         .to(config::PLAYER_INIT_RADIUS / 2.0f)
                                          .during(config::COLOR_TIME));
 
         sound->play();
@@ -62,7 +62,7 @@ void Player::reset()
 
     m_circle.animate<Circle::Position>(set(config::PLAYER_INIT_POSITION));
     m_circle.animate<Circle::FillColor>(set(config::PLAYER_INIT_COLOR));
-    m_circle.animate<Circle::Radius>(set(config::PLAYER_INIT_RADIUS / 2));
+    m_circle.animate<Circle::Radius>(set(config::PLAYER_INIT_RADIUS / 2.0f));
     m_dead = false;
 }
 
