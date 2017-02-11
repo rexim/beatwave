@@ -1,3 +1,57 @@
-<!-- TODO: define level file schema. The scope of this bit also
-     include converting tunnel.txt into level.xml with the
-     corresponding format. -->
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="level">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="player" type="player" />
+        <xs:element name="tunnel" type="tunnel" />
+        <xs:element name="pathCorrectors">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="pathCorrector" type="pathCorrector" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="player">
+    <xs:all>
+      <xs:element name="position" type="vector" />
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="tunnel">
+    <xs:sequence>
+      <xs:element name="chunk" type="rect" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="rect">
+    <xs:all>
+      <xs:element name="position" type="vector" />
+      <xs:element name="size" type="size" />
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="vector">
+    <xs:all>
+      <xs:element name="x" type="xs:float" />
+      <xs:element name="y" type="xs:float" />
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="size">
+    <xs:all>
+      <xs:element name="width" type="xs:float"/>
+      <xs:element name="height" type="xs:float"/>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="pathCorrector">
+    <xs:all>
+      <xs:element name="position" type="vector" />
+    </xs:all>
+  </xs:complexType>
+</xs:schema>
