@@ -12,9 +12,10 @@ addons:
 env:
   - CTEST_OUTPUT_ON_FAILURE=1
 script:
+  - xmllint --schema level.xsd level.xml
   - mkdir build
   - cd build
   - cmake ..
   - make
   - ctest
-  - xmllint --schema level.xsd level.xml
+
