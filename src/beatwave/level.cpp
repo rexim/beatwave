@@ -8,6 +8,9 @@
 // correctors. Level::update() and Level::render() should propagate on
 // Player, Tunnels and Path correctors. See how to utilize
 // NestedGroups here.
+//
+// If the Game class is refactored correctly there should be no
+// difference between Game and Level classes.
 
 Level::Level(const char *levelFilePath)
 {
