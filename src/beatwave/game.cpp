@@ -89,6 +89,16 @@ void Game::render(sf::RenderTarget *renderTarget)
     }
 }
 
+// TODO: Move Game::(kick|snare|hihat|shaman) into Player::(kick|snare|hihat|shaman)
+//
+// The exact color, distance and the sound should not be decided
+// outside of the Player class. It may require to introduce a new
+// entity that keeps all of the sounds and play them. It may be called
+// something like DrumSet.
+//
+// This will virtually eliminate the difference between classes Game
+// and Level. Which may allow to get rid of the former.
+
 void Game::kick()
 {
     player.step(sf::Color::Red,
