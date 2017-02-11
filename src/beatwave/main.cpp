@@ -43,6 +43,11 @@ int main(int argc, char* argv[])
 
     int32_t currentTime = 0;
 
+    // TODO: extract the event loop into a separate entity that
+    // encapsulates the Level class.
+    //
+    // If the Game class is refactored correctly it may become that
+    // entity.
     while (App.isOpen())
     {
         sf::Event Event;

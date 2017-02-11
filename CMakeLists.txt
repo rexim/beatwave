@@ -45,4 +45,11 @@ if(SFML_FOUND)
   target_link_libraries(tunnelgenerator core)
 endif()
 
+find_package(PugiXML REQUIRED)
+
+if(PUGIXML_FOUND)
+  include_directories(${PUGIXML_INCLUDE_DIR})
+  target_link_libraries(beatwave ${PUGIXML_LIBRARIES})
+endif()
+
 add_subdirectory(test/)
