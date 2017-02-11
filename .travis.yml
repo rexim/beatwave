@@ -8,6 +8,7 @@ addons:
   apt:
     packages:
       - libsfml-dev
+      - libxml2-utils
 env:
   - CTEST_OUTPUT_ON_FAILURE=1
 script:
@@ -16,3 +17,4 @@ script:
   - cmake ..
   - make
   - ctest
+  - xmllint --schema level.xsd level.xml
