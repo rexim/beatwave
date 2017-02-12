@@ -15,8 +15,8 @@ Musical Puzzle Game
 See general build instructions for Linux in the file `.travis.yml`
 inside of the Beatwave source directory.
 
-You will need C++11-compatible compiler (GCC or Clang), [CMake] and
-[SFML].
+You will need C++11-compatible compiler (GCC or Clang), [CMake],
+[SFML] and [pugixml].
 
     $ mkdir build
     $ cd build
@@ -65,3 +65,4 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 [CMake]: https://cmake.org/
 [SFML]: http://www.sfml-dev.org/
 [NixOS]: https://nixos.org/
+[pugixml]: http://pugixml.org/
