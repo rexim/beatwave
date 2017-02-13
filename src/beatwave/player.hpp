@@ -8,6 +8,8 @@
 
 #include <beatwave/splat.hpp>
 #include <beatwave/circle.hpp>
+#include <beatwave/drumset.hpp>
+#include <beatwave/defaultdrumset.hpp>
 
 namespace sf
 {
@@ -17,13 +19,17 @@ namespace sf
 class Player
 {
 public:
-    Player(const sf::Vector2f &position = sf::Vector2f(0.0f, 0.0f));
+    Player(const sf::Vector2f &position = sf::Vector2f(0.0f, 0.0f),
+           std::unique_ptr<DrumSet> &&drumSet = std::unique_ptr<DrumSet>(new DefaultDrumSet()));
 
     void tick(int32_t deltaTime);
     void render(sf::RenderTarget *renderTarget) const;
-    void step(const sf::Color &flashColor,
-              const sf::Vector2f direction,
-              sf::Sound *sound);
+
+    void kickStep();
+    void snareStep();
+    void hihatStep();
+    void shamanStep();
+
     void centerView(sf::RenderTarget *renderTarget) const;
     void reset();
     void correctPosition(const sf::Vector2f &position);
@@ -36,9 +42,14 @@ public:
     bool isDead() const;
 
 private:
+    void step(const sf::Color &flashColor,
+              const sf::Vector2f direction);
+
+private:
     Circle m_circle;
     Splat m_splat;
     bool m_dead;
+    std::unique_ptr<DrumSet> m_drumSet;
 };
 
 #endif  // BEATWAVE_PLAYER_HPP_

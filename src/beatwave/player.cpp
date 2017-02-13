@@ -4,12 +4,14 @@
 #include <core/util.hpp>
 #include <core/dsl.hpp>
 
-Player::Player(const sf::Vector2f &position):
+Player::Player(const sf::Vector2f &position,
+               std::unique_ptr<DrumSet> &&drumSet):
     m_circle(config::PLAYER_INIT_RADIUS / 2.0f,
              position,
              config::PLAYER_INIT_COLOR),
     m_splat(20),
-    m_dead(false)
+    m_dead(false),
+    m_drumSet(std::move(drumSet))
 {}
 
 void Player::tick(int32_t deltaTime)
@@ -25,8 +27,7 @@ void Player::render(sf::RenderTarget *renderTarget) const
 }
 
 void Player::step(const sf::Color &flashColor,
-                  const sf::Vector2f direction,
-                  sf::Sound *sound)
+                  const sf::Vector2f direction)
 {
     using namespace dsl;
 
@@ -44,11 +45,38 @@ void Player::step(const sf::Color &flashColor,
         m_circle.animate<Circle::Radius>(from(config::PLAYER_INIT_RADIUS)
                                          .to(config::PLAYER_INIT_RADIUS / 2.0f)
                                          .during(config::COLOR_TIME));
-
-        sound->play();
     } else {
         reset();
     }
+}
+
+void Player::kickStep()
+{
+    step(sf::Color::Red,
+         sf::Vector2f(config::PLAYER_MOVE_DISTANCE, 0.0f));
+    m_drumSet->kick();
+}
+
+void Player::snareStep()
+{
+    step(sf::Color::Green,
+         sf::Vector2f(0.0f, config::PLAYER_MOVE_DISTANCE));
+    m_drumSet->snare();
+}
+
+
+void Player::hihatStep()
+{
+    step(sf::Color::Blue,
+         sf::Vector2f(0.0f, -config::PLAYER_MOVE_DISTANCE));
+    m_drumSet->hihat();
+}
+
+void Player::shamanStep()
+{
+    step(sf::Color::Yellow,
+         sf::Vector2f(-config::PLAYER_MOVE_DISTANCE, 0.0f));
+    m_drumSet->shaman();
 }
 
 void Player::centerView(sf::RenderTarget *renderTarget) const
