@@ -15,6 +15,8 @@ add_executable(testplayer
   ../src/beatwave/splat.cpp
   ../src/beatwave/drop.cpp
   ../src/beatwave/circle.cpp
+  ../src/beatwave/defaultdrumset.cpp
+  ../src/beatwave/drumsetexception.cpp
 )
 
 add_test(NAME testset COMMAND testset)

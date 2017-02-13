@@ -5,7 +5,6 @@
 #include <set>
 
 #include <SFML/Graphics/RenderWindow.hpp>
-#include <SFML/Audio/Sound.hpp>
 
 #include <core/animated.hpp>
 
@@ -43,8 +42,6 @@ private:
     Player player;
     Tunnel tunnel;
     std::set<std::unique_ptr<PathCorrector>> pathCorrectors;
-    sf::SoundBuffer kickBuffer, snareBuffer, hihatBuffer, shamanBuffer;
-    sf::Sound kickSound, snareSound, hihatSound, shamanSound;
 };
 
 #endif  // BEATWAVE_GAME_HPP_

@@ -26,6 +26,8 @@ set(BEATWAVE_SOURCES
   src/beatwave/tunnel.cpp
   src/beatwave/pathcorrector.cpp
   src/beatwave/circle.cpp
+  src/beatwave/defaultdrumset.cpp
+  src/beatwave/drumsetexception.cpp
 )
 
 add_executable(beatwave ${BEATWAVE_SOURCES})
