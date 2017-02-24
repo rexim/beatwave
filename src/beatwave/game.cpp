@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <functional>
 #include <array>
+#include <vector>
 
 #include <SFML/Audio/SoundBuffer.hpp>
 
@@ -14,26 +15,18 @@
 
 Game::Game():
     player(config::PLAYER_INIT_POSITION),
-    tunnel("tunnel.txt")
-{
-    auto firstPathCorrector =
-        std::unique_ptr<PathCorrector>(new PathCorrector(config::PLAYER_INIT_POSITION + sf::Vector2f(100.0f, 0.0f)));
-    pathCorrectors.insert(std::move(firstPathCorrector));
-}
+    tunnel("tunnel.txt"),
+    pathCorrectors({ config::PLAYER_INIT_POSITION + sf::Vector2f(100.0f, 0.0f),
+                     config::PLAYER_INIT_POSITION + sf::Vector2f(100.0f, 100.0f) })
+{}
 
 void Game::tick(int32_t deltaTime)
 {
     player.tick(deltaTime);
-
-    for (auto &pathCorrector: pathCorrectors) {
-        pathCorrector->tick(deltaTime);
-    }
+    pathCorrectors.tick(deltaTime);
 
     tunnel.hit(&player);
-
-    for (auto &pathCorrector: pathCorrectors) {
-        pathCorrector->hit(&player);
-    }
+    pathCorrectors.hit(&player);
 }
 
 void Game::render(sf::RenderTarget *renderTarget)
@@ -43,10 +36,7 @@ void Game::render(sf::RenderTarget *renderTarget)
 
     tunnel.render(renderTarget);
     player.render(renderTarget);
-
-    for (auto &pathCorrector: pathCorrectors) {
-        pathCorrector->render(renderTarget);
-    }
+    pathCorrectors.render(renderTarget);
 }
 
 void Game::kick()

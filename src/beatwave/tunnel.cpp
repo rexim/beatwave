@@ -5,6 +5,14 @@
 #include <beatwave/tunnel.hpp>
 #include <beatwave/player.hpp>
 
+Tunnel::Tunnel(const pugi::xml_node&)
+{
+    // TODO: Implement XML constructor for Tunnel
+    //
+    // It should construct the tunnel from the XML node according to
+    // the XML schema `level.xsd`
+}
+
 Tunnel::Tunnel(const std::string &fileName)
 {
     loadTunnelVector(fileName, m_tunnelVector);

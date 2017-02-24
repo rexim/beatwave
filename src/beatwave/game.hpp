@@ -10,7 +10,7 @@
 
 #include <beatwave/player.hpp>
 #include <beatwave/tunnel.hpp>
-#include <beatwave/pathcorrector.hpp>
+#include <beatwave/pathcorrectorswarm.hpp>
 
 namespace sf
 {
@@ -39,7 +39,7 @@ private:
 private:
     Player player;
     Tunnel tunnel;
-    std::set<std::unique_ptr<PathCorrector>> pathCorrectors;
+    PathCorrectorSwarm pathCorrectors;
 };
 
 #endif  // BEATWAVE_GAME_HPP_

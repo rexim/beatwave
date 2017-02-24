@@ -4,6 +4,16 @@
 #include <core/util.hpp>
 #include <core/dsl.hpp>
 
+Player::Player(const pugi::xml_node&,
+               std::unique_ptr<DrumSet> &&drumSet):
+    Player(sf::Vector2f(0.0f, 0.0f), std::move(drumSet))
+{
+    // TODO: Implement XML constructor for Player
+    //
+    // It should construct the player from the XML node according to
+    // the XML schema `level.xsd`
+}
+
 Player::Player(const sf::Vector2f &position,
                std::unique_ptr<DrumSet> &&drumSet):
     m_circle(config::PLAYER_INIT_RADIUS / 2.0f,

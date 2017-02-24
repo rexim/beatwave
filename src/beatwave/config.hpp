@@ -1,6 +1,9 @@
 #ifndef BEATWAVE_CONFIG_HPP_
 #define BEATWAVE_CONFIG_HPP_
 
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/System/Vector2.hpp>
+
 namespace config {
     const sf::Vector2f PLAYER_INIT_POSITION(200.0f, 200.0f);
     const float PLAYER_INIT_RADIUS = 50.0f;

@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
+#include <pugixml.hpp>
 
 #include <core/animated.hpp>
 
@@ -19,6 +20,9 @@ namespace sf
 class Player
 {
 public:
+    Player(const pugi::xml_node &node,
+           std::unique_ptr<DrumSet> &&drumSet = std::unique_ptr<DrumSet>(new DefaultDrumSet()));
+
     Player(const sf::Vector2f &position = sf::Vector2f(0.0f, 0.0f),
            std::unique_ptr<DrumSet> &&drumSet = std::unique_ptr<DrumSet>(new DefaultDrumSet()));
 
