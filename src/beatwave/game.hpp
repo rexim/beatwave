@@ -22,8 +22,6 @@ class Game
 public:
     Game();
 
-    bool init();
-
     void render(sf::RenderTarget *renderTarget);
     void tick(int32_t deltaTime);
 

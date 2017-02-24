@@ -21,11 +21,6 @@ Game::Game():
     pathCorrectors.insert(std::move(firstPathCorrector));
 }
 
-bool Game::init()
-{
-    return true;
-}
-
 void Game::tick(int32_t deltaTime)
 {
     player.tick(deltaTime);

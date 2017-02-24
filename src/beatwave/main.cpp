@@ -34,10 +34,6 @@ int main(int argc, char* argv[])
 
     Game game;
 
-    if (!game.init()) {
-        return 1;
-    }
-
     sf::Clock clock;
     sf::Clock playClock;
 
