@@ -5,8 +5,10 @@
 #include <beatwave/tunnel.hpp>
 #include <beatwave/player.hpp>
 
-Tunnel::Tunnel()
-{}
+Tunnel::Tunnel(const std::string &fileName)
+{
+    loadTunnelVector(fileName, m_tunnelVector);
+}
 
 void Tunnel::render(sf::RenderTarget *renderTarget) const
 {
@@ -32,9 +34,4 @@ void Tunnel::hit(Player *player) const
     }
 
     player->kill();
-}
-
-void Tunnel::load(const std::string &fileName)
-{
-    loadTunnelVector(fileName, m_tunnelVector);
 }

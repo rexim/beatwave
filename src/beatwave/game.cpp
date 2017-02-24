@@ -13,7 +13,8 @@
 #include <core/dsl.hpp>
 
 Game::Game():
-    player(config::PLAYER_INIT_POSITION)
+    player(config::PLAYER_INIT_POSITION),
+    tunnel("tunnel.txt")
 {
     auto firstPathCorrector =
         std::unique_ptr<PathCorrector>(new PathCorrector(config::PLAYER_INIT_POSITION + sf::Vector2f(100.0f, 0.0f)));
@@ -22,8 +23,6 @@ Game::Game():
 
 bool Game::init()
 {
-    tunnel.load("tunnel.txt");
-
     return true;
 }
 
@@ -82,8 +81,5 @@ void Game::killPlayer()
 
 void Game::reset()
 {
-    using namespace dsl;
-
-    tunnel.load("tunnel.txt");
     player.reset();
 }
