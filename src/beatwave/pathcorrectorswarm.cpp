@@ -6,7 +6,8 @@ PathCorrectorSwarm::PathCorrectorSwarm(const pugi::xml_node&)
     // TODO: Implement XML constructor for path corrector swarm
     //
     // It should construct the swarm from the XML node according to
-    // the XML schema `level.xsd`
+    // the XML schema `level.xsd`. It should also check if the
+    // corresponding node exists.
 }
 
 PathCorrectorSwarm::PathCorrectorSwarm(std::initializer_list<sf::Vector2f> positions)

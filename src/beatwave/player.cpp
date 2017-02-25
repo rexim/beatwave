@@ -11,7 +11,8 @@ Player::Player(const pugi::xml_node&,
     // TODO: Implement XML constructor for Player
     //
     // It should construct the player from the XML node according to
-    // the XML schema `level.xsd`
+    // the XML schema `level.xsd`. It should also check if the
+    // corresponding node exists.
 }
 
 Player::Player(const sf::Vector2f &position,

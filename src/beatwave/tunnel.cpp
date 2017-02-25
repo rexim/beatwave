@@ -10,7 +10,8 @@ Tunnel::Tunnel(const pugi::xml_node&)
     // TODO: Implement XML constructor for Tunnel
     //
     // It should construct the tunnel from the XML node according to
-    // the XML schema `level.xsd`
+    // the XML schema `level.xsd`. It should also check if the
+    // corresponding node exists.
 }
 
 Tunnel::Tunnel(const std::string &fileName)
