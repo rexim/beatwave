@@ -9,6 +9,7 @@ addons:
     packages:
       - libsfml-dev
       - libxml2-utils
+      - libpugixml-dev
 env:
   - CTEST_OUTPUT_ON_FAILURE=1
 script:
