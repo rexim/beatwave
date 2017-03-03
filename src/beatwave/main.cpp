@@ -88,6 +88,8 @@ int main(int argc, char* argv[])
         game.tick(deltaTime);
         game.render(&App);
         App.display();
+
+        sf::sleep(sf::milliseconds(10));
     }
 
     return 0;
